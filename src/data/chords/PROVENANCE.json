@@ -1,0 +1,77 @@
+{
+  "source": "https://github.com/tombatossals/chords-db",
+  "revision": "df06fa7b425cf5fd29485ff6591236b3557e3fac",
+  "sourceFile": "lib/guitar.json",
+  "sha256": "cfe439962b2f444d2c341b1f0261403b4c3a3416e321147286fc608922699974",
+  "license": "MIT",
+  "conversion": "Low E to high e; frets converted from relative to absolute; barre spans derived from upstream endpoints. Required chord tones retained; seventh chords may omit the perfect fifth. No invented positions.",
+  "chords": 108,
+  "positions": 426,
+  "rejected": [
+    {
+      "chord": "C#sus2",
+      "position": 2,
+      "reason": "fingers"
+    },
+    {
+      "chord": "C#sus2",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C#sus4",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Ebsus2",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Esus2",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Em7",
+      "position": 1,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Fmajor",
+      "position": 2,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Fsus2",
+      "position": 1,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Gdim",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Absus2",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Adim",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Asus4",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Bbm7",
+      "position": 1,
+      "reason": "chord tones"
+    }
+  ]
+}

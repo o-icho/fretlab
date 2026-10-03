@@ -1,0 +1,59 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "FretLab — La boîte à outils du guitariste"
+    },
+    {
+      "path": "/outils/accords",
+      "title": "Dictionnaire d’accords guitare | FretLab"
+    },
+    {
+      "path": "/outils/metronome",
+      "title": "Métronome en ligne gratuit pour guitare | FretLab"
+    },
+    {
+      "path": "/outils/accordeur",
+      "title": "Accordeur guitare en ligne gratuit | FretLab"
+    },
+    {
+      "path": "/outils/transposeur",
+      "title": "Transposeur d’accords guitare gratuit | FretLab"
+    },
+    {
+      "path": "/articles",
+      "title": "Articles et conseils guitare | FretLab"
+    },
+    {
+      "path": "/a-propos",
+      "title": "À propos | FretLab"
+    },
+    {
+      "path": "/articles/accords-guitare-debutant",
+      "title": "Les accords essentiels pour débuter à la guitare | FretLab"
+    },
+    {
+      "path": "/articles/comment-accorder-une-guitare",
+      "title": "Comment accorder une guitare | FretLab"
+    },
+    {
+      "path": "/articles/comment-lire-un-diagramme-accord-guitare",
+      "title": "Comment lire un diagramme d'accord de guitare | FretLab"
+    },
+    {
+      "path": "/articles/comment-transposer-des-accords",
+      "title": "Comment transposer une grille d'accords | FretLab"
+    },
+    {
+      "path": "/articles/comment-travailler-au-metronome",
+      "title": "Comment travailler efficacement au métronome | FretLab"
+    }
+  ],
+  "internalLinks": 12,
+  "sitemapEntries": 12,
+  "robots": "allow all",
+  "articleInitialScripts": 8,
+  "articleInitialJavaScriptGzipBytes": 183745,
+  "localCLS": 0,
+  "reactErrors": []
+}

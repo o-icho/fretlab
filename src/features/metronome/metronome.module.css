@@ -1,0 +1,269 @@
+.panel {
+  max-width: 850px;
+  margin: 0 auto 70px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+}
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.topline > span:last-child {
+  letter-spacing: 0;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.topline .playing {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+.tempo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 28px;
+}
+.tempo strong {
+  font-size: clamp(80px, 15vw, 120px);
+  line-height: 1.15;
+  letter-spacing: -6px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 750;
+}
+.tempo > span {
+  color: var(--amber);
+  letter-spacing: 5px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.unit {
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 16px 0 24px;
+}
+.beats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.beat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.beat > span {
+  width: 27px;
+  height: 27px;
+  background: #111318;
+  border: 2px solid #464a55;
+  border-radius: 50%;
+}
+.accent > span {
+  border-color: var(--amber);
+}
+.active > span {
+  background: var(--teal);
+  border-color: var(--teal);
+  box-shadow: 0 0 18px #37b7a52b;
+}
+.active.accent > span {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 18px #e6a6372b;
+}
+.transport {
+  text-align: center;
+  margin-top: 26px;
+}
+.start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-width: 220px;
+  min-height: 60px;
+  background: var(--amber);
+  color: var(--bg);
+  border: 0;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.start:hover {
+  background: #f2b747;
+}
+.start > span {
+  font-size: 15px;
+}
+.transport p {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 12px;
+}
+.status {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  min-height: 36px;
+  margin-top: 14px;
+  line-height: 1.7;
+}
+.controls {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 32px;
+  border-top: 1px solid var(--border);
+  padding-top: 26px;
+}
+.controls label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.tempoControls > label,
+.volume {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.controls label > span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+.controls input[type="range"] {
+  display: block;
+  width: 100%;
+  height: 36px;
+  margin: 10px 0;
+  accent-color: var(--amber);
+  cursor: pointer;
+}
+.steps {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.steps button {
+  background: #111318;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.steps button:hover:not(:disabled) {
+  border-color: var(--amber);
+}
+.steps button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.numeric {
+  flex: 1;
+  min-width: 60px;
+}
+.numeric input {
+  width: 100%;
+  background: #111318;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  min-height: 44px;
+  text-align: center;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 600;
+}
+.signature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.signature select {
+  background: #111318;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  min-height: 44px;
+  padding: 8px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--amber);
+}
+.note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 22px;
+  line-height: 1.8;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .panel {
+    padding: 24px;
+  }
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+}
+@media (max-width: 400px) {
+  .panel {
+    padding: 20px 16px;
+  }
+  .topline {
+    font-size: 7px;
+    gap: 8px;
+  }
+  .beats {
+    gap: 15px;
+  }
+  .beat > span {
+    width: 25px;
+    height: 25px;
+  }
+  .steps {
+    gap: 5px;
+  }
+  .steps button {
+    min-width: 40px;
+  }
+  .tempo strong {
+    letter-spacing: -4px;
+  }
+}

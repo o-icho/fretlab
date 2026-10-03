@@ -1,0 +1,284 @@
+.panel {
+  max-width: 850px;
+  margin: 0 auto 70px;
+  padding: 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.mode {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mode legend {
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.mode label {
+  position: relative;
+  cursor: pointer;
+}
+.mode input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.mode span {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 12px 18px;
+  min-height: 44px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.mode input:checked + span {
+  color: var(--amber);
+  border-color: var(--amber);
+  background: #e6a63712;
+}
+.mode input:focus-visible + span {
+  outline: 2px solid var(--amber);
+  outline-offset: 4px;
+}
+.reading {
+  text-align: center;
+  margin-top: 34px;
+}
+.detected {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+.note {
+  font-size: clamp(80px, 16vw, 120px);
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -5px;
+  margin-top: 8px;
+}
+.note > span {
+  color: var(--muted);
+  font-size: 34px;
+  letter-spacing: -1px;
+  margin-left: 5px;
+}
+.frequency {
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 24px;
+  margin: 9px 0 30px;
+  font-variant-numeric: tabular-nums;
+}
+.gauge {
+  max-width: 580px;
+  margin-inline: auto;
+}
+.scale,
+.directions {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--muted);
+}
+.track {
+  position: relative;
+  height: 8px;
+  background: #454955;
+  border-radius: 8px;
+  margin: 16px 6px;
+}
+.track::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 2px;
+  height: 22px;
+  background: var(--text);
+}
+.center {
+  position: absolute;
+  left: 45%;
+  width: 10%;
+  height: 8px;
+  background: var(--teal);
+}
+.needle {
+  position: absolute;
+  top: -11px;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 31px;
+  border-radius: 4px;
+  background: var(--amber);
+  z-index: 1;
+}
+.inTune .needle {
+  background: var(--teal);
+}
+.cents {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 24px 0 8px;
+}
+.tuningState {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 24px;
+}
+.just {
+  color: var(--teal);
+}
+.target {
+  font-size: 12px;
+  text-align: center;
+  color: var(--muted);
+  margin-top: 18px;
+}
+.target strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.strings {
+  margin-top: 26px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.strings > p {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.strings > div {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  max-width: 530px;
+  margin: 15px auto;
+}
+.strings button {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 44px;
+}
+.strings button:hover {
+  border-color: var(--amber);
+}
+.strings > div button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 4px;
+  gap: 7px;
+}
+.strings button > span {
+  color: var(--muted);
+  font-size: 9px;
+}
+.strings strong {
+  font-size: 22px;
+}
+.strings small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.strings .targetString {
+  border-color: var(--amber);
+  background: #e6a63710;
+  color: var(--amber);
+}
+.strings .auto {
+  color: var(--muted);
+  font-size: 11px;
+  padding: 10px 15px;
+}
+.auto[aria-pressed="true"] {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+.transport {
+  text-align: center;
+  margin-top: 30px;
+}
+.start {
+  min-height: 56px;
+  min-width: 250px;
+  border: 0;
+  border-radius: 8px;
+  padding: 14px 22px;
+  background: var(--amber);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.start:hover {
+  background: #f2b747;
+}
+.transport p {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.9;
+  min-height: 23px;
+  margin: 14px 0;
+}
+.privacy {
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.9;
+  color: var(--teal);
+  border-top: 1px solid var(--border);
+  padding-top: 22px;
+  margin-top: 24px;
+}
+.help {
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-top: 14px;
+}
+@media (max-width: 520px) {
+  .panel {
+    padding: 24px 18px;
+  }
+  .mode {
+    gap: 8px;
+  }
+  .mode span {
+    padding-inline: 12px;
+    font-size: 11px;
+  }
+  .strings > div {
+    gap: 6px;
+  }
+  .strings strong {
+    font-size: 19px;
+  }
+  .start {
+    min-width: 0;
+    width: 100%;
+  }
+  .tuningState {
+    font-size: 12px;
+  }
+}
