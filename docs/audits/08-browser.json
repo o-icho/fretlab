@@ -1,0 +1,455 @@
+{
+  "results": [
+    {
+      "width": 320,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 320,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 360,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 375,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 390,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 412,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 768,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1024,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/outils/accords/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/outils/metronome/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/outils/accordeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/outils/transposeur/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/articles/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/articles/comment-accorder-une-guitare/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    },
+    {
+      "width": 1440,
+      "route": "/a-propos/",
+      "overflow": false,
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif",
+      "smallControls": []
+    }
+  ],
+  "errors": [],
+  "mobileMenu": true,
+  "menuClosed": true
+}

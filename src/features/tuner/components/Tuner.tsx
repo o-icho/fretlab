@@ -183,7 +183,7 @@ export function Tuner() {
         </p>
       </div>
       <p className={styles.privacy}>
-        Le son de votre microphone est traité uniquement dans votre navigateur.
+        Le son de votre microphone est traité uniquement sur votre appareil.
       </p>
       <p className={styles.help}>
         Référence La4 = 440 Hz · Juste à ±5 cents

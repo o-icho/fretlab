@@ -1,15 +1,24 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Container } from "./Container";
 import { Icon } from "./Icon";
 import { tools } from "@/lib/content";
 export function Header() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
+    >
       <Container className="header-inner">
         <Link href="/" className="brand" aria-label="FretLab, accueil">
           <span className="brand-mark">
@@ -18,6 +27,7 @@ export function Header() {
           FretLab<span className="brand-dot">.</span>
         </Link>
         <button
+          ref={menuButton}
           className="mobile-toggle"
           aria-expanded={open}
           aria-controls="main-nav"

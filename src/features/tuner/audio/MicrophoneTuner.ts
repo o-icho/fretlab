@@ -6,7 +6,7 @@ import { frequencyToNote } from "../music/notes";
 export function microphoneError(error: unknown): string {
   const name = error instanceof DOMException ? error.name : "";
   if (name === "NotAllowedError" || name === "SecurityError")
-    return "Permission refusée. Autorisez le microphone dans votre navigateur pour utiliser l’accordeur.";
+    return "Permission refusée. Autorisez le microphone dans les paramètres du navigateur ou de l’application pour utiliser l’accordeur.";
   if (name === "NotFoundError")
     return "Aucun microphone détecté. Branchez un microphone et réessayez.";
   if (name === "NotReadableError")
