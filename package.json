@@ -13,11 +13,14 @@
     "start": "node scripts/serve-static.mjs",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "test": "node --test src/features/transposer/music.test.mjs src/features/metronome/rhythm.test.mjs src/features/chords/lib/chords.test.mjs src/features/tuner/music/notes.test.mjs src/features/tuner/audio/pitch.test.mjs src/features/tuner/audio/tracking.test.mjs src/features/tuner/audio/lifecycle.test.mjs src/features/articles/lib/content.test.mjs src/lib/seo.test.mjs",
+    "test": "node --test src/features/transposer/music.test.mjs src/features/metronome/rhythm.test.mjs src/features/chords/lib/chords.test.mjs src/features/tuner/music/notes.test.mjs src/features/tuner/audio/pitch.test.mjs src/features/tuner/audio/tracking.test.mjs src/features/tuner/audio/lifecycle.test.mjs src/features/articles/lib/content.test.mjs src/lib/seo.test.mjs scripts/generate-csp.test.mjs",
     "android:sync": "cap sync android",
     "android:check": "node scripts/check-android.mjs",
     "android:open": "cap open android",
-    "android:run": "cap run android"
+    "android:run": "cap run android",
+    "security:csp": "node scripts/generate-csp.mjs",
+    "build:secure": "pnpm run build && pnpm run security:csp",
+    "preview:csp": "node scripts/serve-static.mjs --csp"
   },
   "dependencies": {
     "@capacitor/android": "8.5.2",
@@ -41,6 +44,7 @@
     "eslint": "^9",
     "eslint-config-next": "latest",
     "npm": "^11.21.0",
+    "parse5": "8.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

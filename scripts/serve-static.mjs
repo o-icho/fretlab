@@ -3,6 +3,15 @@ import { readFile, stat } from "node:fs/promises";
 import { resolve, sep, extname } from "node:path";
 const root = resolve("out");
 const port = Number(process.env.PORT ?? 3000);
+const reportOnlyHeaders = {};
+if (process.argv.includes("--csp")) {
+  const config = JSON.parse(await readFile("vercel.json", "utf8"));
+  const header = config.headers
+    .find((route) => route.source === "/(.*)")?.headers
+    .find((item) => item.key.toLowerCase() === "content-security-policy-report-only");
+  if (!header) throw new Error("Header CSP Report-Only global introuvable dans vercel.json.");
+  reportOnlyHeaders[header.key] = header.value;
+}
 const types = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -41,6 +50,7 @@ createServer(async (request, response) => {
     }
     const body = await readFile(file);
     response.writeHead(status, {
+      ...reportOnlyHeaders,
       "Content-Type": types[extname(file)] ?? "application/octet-stream",
       "Content-Length": body.length,
     });
