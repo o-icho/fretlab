@@ -1,0 +1,163 @@
+{
+  "origin": "https://example.com (fixture de test, aucun domaine FretLab configuré)",
+  "routes": [
+    {
+      "path": "/",
+      "title": "FretLab — La boîte à outils du guitariste",
+      "description": "Accords, accordeur, métronome et transposition : découvrez FretLab, la boîte à outils gratuite du guitariste, sans compte.",
+      "canonical": "https://example.com/",
+      "og": "https://example.com/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/outils/accords",
+      "title": "Dictionnaire d’accords guitare | FretLab",
+      "description": "Consultez les positions et doigtés des principaux accords de guitare.",
+      "canonical": "https://example.com/outils/accords/",
+      "og": "https://example.com/outils/accords/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/outils/metronome",
+      "title": "Métronome en ligne gratuit pour guitare | FretLab",
+      "description": "Un métronome gratuit, précis et simple pour travailler la guitare et votre rythme.",
+      "canonical": "https://example.com/outils/metronome/",
+      "og": "https://example.com/outils/metronome/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/outils/accordeur",
+      "title": "Accordeur guitare en ligne gratuit | FretLab",
+      "description": "Accordez gratuitement votre guitare grâce au microphone de votre ordinateur ou smartphone.",
+      "canonical": "https://example.com/outils/accordeur/",
+      "og": "https://example.com/outils/accordeur/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/outils/transposeur",
+      "title": "Transposeur d’accords guitare gratuit | FretLab",
+      "description": "Transposez instantanément une grille d’accords de guitare dans n’importe quelle tonalité.",
+      "canonical": "https://example.com/outils/transposeur/",
+      "og": "https://example.com/outils/transposeur/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/articles",
+      "title": "Articles et conseils guitare | FretLab",
+      "description": "Des guides pratiques pour apprendre les accords, travailler votre rythme, accorder votre guitare et transposer vos morceaux.",
+      "canonical": "https://example.com/articles/",
+      "og": "https://example.com/articles/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/a-propos",
+      "title": "À propos | FretLab",
+      "description": "FretLab, un projet de boîte à outils gratuite pour guitaristes : simple, accessible et sans inscription.",
+      "canonical": "https://example.com/a-propos/",
+      "og": "https://example.com/a-propos/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/articles/accords-guitare-debutant",
+      "title": "Les accords essentiels pour débuter à la guitare | FretLab",
+      "description": "Apprenez quelques positions ouvertes et une méthode progressive pour faire sonner les accords puis les enchaîner.",
+      "canonical": "https://example.com/articles/accords-guitare-debutant/",
+      "og": "https://example.com/articles/accords-guitare-debutant/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [
+        null
+      ],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/articles/comment-accorder-une-guitare",
+      "title": "Comment accorder une guitare | FretLab",
+      "description": "Retrouvez l'accordage standard et une méthode simple pour ajuster chaque corde avec un accordeur chromatique.",
+      "canonical": "https://example.com/articles/comment-accorder-une-guitare/",
+      "og": "https://example.com/articles/comment-accorder-une-guitare/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [
+        null
+      ],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/articles/comment-lire-un-diagramme-accord-guitare",
+      "title": "Comment lire un diagramme d'accord de guitare | FretLab",
+      "description": "Comprenez les cordes, les cases, les doigts et les barrés pour jouer vos premiers accords avec confiance.",
+      "canonical": "https://example.com/articles/comment-lire-un-diagramme-accord-guitare/",
+      "og": "https://example.com/articles/comment-lire-un-diagramme-accord-guitare/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [
+        null
+      ],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/articles/comment-transposer-des-accords",
+      "title": "Comment transposer une grille d'accords | FretLab",
+      "description": "Déplacez tous les accords du même nombre de demi-tons et conservez leur caractère majeur, mineur ou enrichi.",
+      "canonical": "https://example.com/articles/comment-transposer-des-accords/",
+      "og": "https://example.com/articles/comment-transposer-des-accords/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [
+        null
+      ],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    },
+    {
+      "path": "/articles/comment-travailler-au-metronome",
+      "title": "Comment travailler efficacement au métronome | FretLab",
+      "description": "Choisissez un tempo adapté et utilisez des exercices simples pour améliorer la régularité de votre jeu.",
+      "canonical": "https://example.com/articles/comment-travailler-au-metronome/",
+      "og": "https://example.com/articles/comment-travailler-au-metronome/",
+      "h1": 1,
+      "main": 1,
+      "schemas": [
+        null
+      ],
+      "background": "rgb(17, 19, 24)",
+      "font": "Manrope, \"Manrope Fallback\", Arial, sans-serif"
+    }
+  ],
+  "robots": "User-Agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml\n",
+  "notFoundStatus": 404,
+  "errors": [],
+  "articleWithoutJavascript": true
+}
