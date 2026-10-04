@@ -1,6 +1,7 @@
 import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
-import { Transposer } from "@/features/transposer/Transposer";
+import { Suspense } from "react";
+import { TransposerFromUrl } from "@/features/transposer/TransposerFromUrl";
 export const metadata = pageMetadata(
   "Transposeur d’accords guitare gratuit",
   "Transposez instantanément une grille d’accords de guitare dans n’importe quelle tonalité.",
@@ -14,7 +15,9 @@ export default function Page() {
         <h1>Transposeur d’accords</h1>
         <p>Changez instantanément la tonalité d’une grille d’accords.</p>
       </section>
-      <Transposer />
+      <Suspense fallback={<p role="status">Chargement du transposeur…</p>}>
+        <TransposerFromUrl />
+      </Suspense>
     </Container>
   );
 }

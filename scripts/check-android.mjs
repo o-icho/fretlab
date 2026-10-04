@@ -10,6 +10,8 @@ const routes = [
   "outils/metronome",
   "outils/accordeur",
   "outils/transposeur",
+  "outils/gammes",
+  "outils/progressions",
   "articles",
   "a-propos",
 ];

@@ -42,7 +42,7 @@ test("sitemap : toutes les pages publiques, sans doublon ni date inventée", () 
       entries.find(
         (entry) => entry.url === absoluteUrl(`/articles/${article.slug}`),
       ).lastModified,
-      article.date,
+      article.updatedAt ?? article.date,
     );
   const updated = { ...articles[0], updatedAt: "2026-10-04" };
   assert.equal(

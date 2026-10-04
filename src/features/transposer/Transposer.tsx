@@ -6,8 +6,8 @@ import styles from "./transposer.module.css";
 
 const EXAMPLE = "Am       F\nHello darkness\n\nC        G\nmy old friend";
 
-export function Transposer() {
-  const [text, setText] = useState("");
+export function Transposer({ initialText = "" }: { initialText?: string }) {
+  const [text, setText] = useState(initialText);
   const [semitones, setSemitones] = useState(0);
   const [preference, setPreference] = useState<AccidentalPreference>("sharps");
   const [copyStatus, setCopyStatus] = useState("");

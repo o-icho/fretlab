@@ -94,7 +94,7 @@ test("un lien éditorial cassé est détecté avant publication", () => {
   }
 });
 test("SEO reprend les données réelles et protège le script JSON-LD", () => {
-  const article = articles[0];
+  const article = parseArticle(fixture(), "exemple.md");
   const [schema, breadcrumb] = articleStructuredData(article);
   assert.equal(schema.headline, article.title);
   assert.equal(schema.datePublished, article.date);

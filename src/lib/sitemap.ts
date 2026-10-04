@@ -6,6 +6,8 @@ export const PUBLIC_PATHS = [
   "/outils/metronome",
   "/outils/accordeur",
   "/outils/transposeur",
+  "/outils/gammes",
+  "/outils/progressions",
   "/articles",
   "/a-propos",
 ] as const;

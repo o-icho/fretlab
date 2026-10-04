@@ -38,5 +38,24 @@ export const tools = [
     color: "purple",
     number: "04",
   },
+  {
+    slug: "gammes",
+    name: "Visualiseur de gammes",
+    short: "Explorez votre manche.",
+    description:
+      "Repérez les notes et les intervalles de vos gammes, dans plusieurs accordages.",
+    icon: "scales",
+    color: "teal",
+    number: "05",
+  },
+  {
+    slug: "progressions",
+    name: "Générateur de progressions",
+    short: "Composez votre prochaine grille.",
+    description: "Explorez des progressions cohérentes et adaptez chaque mesure à vos idées.",
+    icon: "progression",
+    color: "amber",
+    number: "06",
+  },
 ] as const;
 export type Tool = (typeof tools)[number];

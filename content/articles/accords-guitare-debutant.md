@@ -3,6 +3,7 @@ title: "Les accords essentiels pour débuter à la guitare"
 description: "Apprenez quelques positions ouvertes et une méthode progressive pour faire sonner les accords puis les enchaîner."
 slug: "accords-guitare-debutant"
 date: "2026-10-03"
+updatedAt: "2026-10-04"
 author: "FretLab"
 category: "Accords"
 tags: ["débutant", "pratique", "doigtés"]
@@ -57,3 +58,7 @@ Pour chaque nouvelle position, utilisez cette courte routine :
 Commencez par Em–Am, puis essayez C–Am ou G–D. L'objectif est de garder un mouvement régulier, même à faible vitesse. Vous pouvez d'abord changer sans rythme imposé, puis utiliser le [métronome](/outils/metronome) pour placer un accord au début de chaque mesure.
 
 Le guide [pour travailler au métronome](/articles/comment-travailler-au-metronome) détaille cette progression. Lorsque ces positions deviennent familières, explorez F dans le dictionnaire : certaines positions demandent un barré, d'autres utilisent moins de cordes. Prenez le temps de lire la position choisie plutôt que de chercher à tout apprendre en une séance.
+
+## Explorer les notes sur le manche
+
+Pour compléter les accords par quelques mélodies, ouvrez le [visualiseur de gammes](/outils/gammes?root=A&scale=minor-pentatonic). La pentatonique mineure de La contient A, C, D, E et G. Commencez par une petite zone du manche et repérez les A marqués comme fondamentales. Cet exercice aide à retrouver les notes ; le choix de la gamme qui convient à un morceau dépend aussi de ses accords.

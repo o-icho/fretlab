@@ -9,49 +9,8 @@ import {
   type GuitarChord,
 } from "./model.ts";
 
-const SUFFIXES: Record<string, ChordQuality> = {
-  "": "major",
-  M: "major",
-  major: "major",
-  majeur: "major",
-  maj: "major",
-  m: "minor",
-  min: "minor",
-  minor: "minor",
-  mineur: "minor",
-  "7": "7",
-  maj7: "maj7",
-  M7: "maj7",
-  Δ7: "maj7",
-  m7: "m7",
-  min7: "m7",
-  sus2: "sus2",
-  sus4: "sus4",
-  dim: "dim",
-  "°": "dim",
-  "5": "5",
-};
-export type ChordQuery = {
-  root: ChordRoot;
-  quality: ChordQuality;
-  name: string;
-};
-export function normalizeChordName(input: string): string {
-  return input
-    .trim()
-    .replace(/[♯＃]/g, "#")
-    .replace(/♭/g, "b")
-    .replace(/\s+/g, "");
-}
-export function parseChordName(input: string): ChordQuery | null {
-  const match = /^([a-gA-G])([#b]?)(.*)$/.exec(normalizeChordName(input));
-  if (!match) return null;
-  const root = (match[1].toUpperCase() + match[2]) as ChordRoot;
-  if (!(root in ROOT_PITCH)) return null;
-  const quality = SUFFIXES[match[3]] ?? SUFFIXES[match[3].toLowerCase()];
-  if (!quality) return null;
-  return { root, quality, name: root + QUALITY_SUFFIXES[quality] };
-}
+import { parseChordName } from "../../../domain/music/query.ts";
+export { normalizeChordName, parseChordName, type ChordQuery } from "../../../domain/music/query.ts";
 export function findChord(
   root: ChordRoot,
   quality: ChordQuality,

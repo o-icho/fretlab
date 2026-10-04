@@ -1,0 +1,272 @@
+.workspace {
+  min-width: 0;
+  margin-bottom: 56px;
+}
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  padding: 26px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 12px;
+}
+.field, .position {
+  min-width: 0;
+}
+.field label, .position label, .toggle legend {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.field select, .position select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid #3b3f49;
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+.field p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.toolbar {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 28px 0;
+}
+.toggle {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.toggle > div {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+}
+.workspace button {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 16px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+.workspace button:hover {
+  border-color: var(--amber);
+}
+.toggle button {
+  border-color: transparent;
+  background: transparent;
+}
+.toggle button[aria-pressed="true"] {
+  background: #e6a6371c;
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.panel {
+  min-width: 0;
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.kicker {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  font-weight: 750;
+  color: var(--teal);
+  margin-bottom: 12px;
+}
+.summary h2 {
+  font-size: clamp(23px, 3vw, 34px);
+  line-height: 1.3;
+  letter-spacing: -0.8px;
+}
+.summaryHelp {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.notes li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg);
+}
+.notes strong {
+  font-size: 16px;
+}
+.notes span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.notes .rootNote {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  margin: 28px 0 24px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.rootDot, .noteDot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.rootDot {
+  background: var(--amber);
+  outline: 1px solid var(--amber);
+  outline-offset: 3px;
+}
+.noteDot {
+  border: 1.5px solid var(--teal);
+}
+.positions {
+  padding-top: 20px;
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.positions summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 12px;
+  color: var(--text);
+}
+.positions ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+.positions li + li {
+  margin-top: 18px;
+}
+.positions strong {
+  font-size: 13px;
+}
+.positions p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 24px;
+}
+.share button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.share > span {
+  display: block;
+  max-width: 320px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-top: 10px;
+}
+.learn {
+  margin-bottom: 70px;
+  max-width: 740px;
+}
+.learn h2 {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.learn p {
+  color: var(--muted);
+  line-height: 1.9;
+}
+.learn p + p {
+  margin-top: 14px;
+}
+.learn a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.loading {
+  min-height: 620px;
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--muted);
+  margin-bottom: 50px;
+}
+@media (max-width: 900px) {
+  .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 540px) {
+  .controls {
+    gap: 20px;
+    padding: 20px;
+    grid-template-columns: 1fr;
+  }
+  .field select, .position select {
+    font-size: 16px;
+  }
+  .panel {
+    padding: 20px 16px;
+  }
+  .toolbar {
+    gap: 20px;
+  }
+  .position {
+    width: 100%;
+  }
+  .notes {
+    gap: 8px;
+  }
+  .notes li {
+    padding: 8px 12px;
+  }
+}

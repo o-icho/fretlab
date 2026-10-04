@@ -9,6 +9,9 @@ export function Icon({
   style?: CSSProperties;
 }) {
   const paths: Record<string, React.ReactNode> = {
+    lock: <><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" /></>,
+    unlock: <><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 7.5-2M12 14v3" /></>,
+    progression: <><rect x="3" y="5" width="5" height="14" rx="1" /><rect x="10" y="8" width="5" height="11" rx="1" /><rect x="17" y="3" width="4" height="16" rx="1" /></>,
     chords: (
       <>
         <path d="M5 4v16M10 4v16M15 4v16M20 4v16M5 7h15M5 12h15M5 17h15" />
@@ -30,6 +33,14 @@ export function Icon({
     transpose: (
       <>
         <path d="M4 7h16m-4-4 4 4-4 4M20 17H4m4-4-4 4 4 4" />
+      </>
+    ),
+    scales: (
+      <>
+        <path d="M3 6h18M3 12h18M3 18h18M7 4v16M13 4v16M19 4v16" />
+        <circle cx="10" cy="6" r="2" fill="currentColor" />
+        <circle cx="16" cy="12" r="2" fill="currentColor" />
+        <circle cx="4" cy="18" r="2" fill="currentColor" />
       </>
     ),
     arrow: <path d="M4 12h16m-6-6 6 6-6 6" />,
