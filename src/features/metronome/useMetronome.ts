@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAudioPause } from "@/features/audio/useAudioPause";
 import { MetronomeAudio } from "./audio";
 import { DEFAULT_SETTINGS, clampBpm, type MetronomeSettings } from "./rhythm";
 
@@ -34,13 +35,14 @@ export function useMetronome() {
     setSettings(next);
   }
 
-  function stop() {
+  const stop = useCallback(() => {
     request.current++;
     engine.current?.stop();
     statusRef.current = "stopped";
     setStatus("stopped");
     setBeat(-1);
-  }
+  }, []);
+  useAudioPause(stop);
 
   async function toggle() {
     if (statusRef.current !== "stopped") {

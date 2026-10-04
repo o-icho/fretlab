@@ -1,0 +1,12 @@
+{
+  "syntheticMicrophone": true,
+  "noAutomaticRequest": true,
+  "buttonPressWithoutReleaseDoesNotStart": true,
+  "clickStartsOnce": true,
+  "releaseDoesNotStop": true,
+  "temporaryBlurWhileRequestingDoesNotCancel": true,
+  "userStopOnce": true,
+  "latePermissionStopped": true,
+  "reactUnmountStopsTrack": true,
+  "errors": []
+}

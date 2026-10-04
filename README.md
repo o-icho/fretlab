@@ -15,9 +15,9 @@ Ouvrir http://127.0.0.1:3000.
 
 Le serveur de développement utilise `.next-dev` et le build de production utilise
 `.next`, pour éviter qu’un build écrase les styles d’une session de développement.
-En production locale, arrêter `pnpm start` avant de relancer `pnpm build`, puis
-redémarrer `pnpm start` : le processus doit charger les nouveaux noms de fichiers
-CSS/JavaScript. Ne pas garder un ancien serveur de production actif après un build.
+`pnpm build` exporte aussi le site autonome dans `out/`. `pnpm start` sert ce dossier
+sans serveur Next.js ; `next start` n’est plus utilisé. Le même export est embarqué
+dans Android avec Capacitor. Voir [le guide Android](docs/android.md).
 
 Tailwind CSS et `@tailwindcss/postcss` sont en version 4.3.3 (voir le lockfile).
 La configuration v4 repose sur `@import "tailwindcss"`, les tokens `@theme inline`

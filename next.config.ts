@@ -9,6 +9,9 @@ export default function config(phase: string): NextConfig {
     if (target === "web") getPublicSiteUrl(process.env.SITE_URL);
   }
   return {
+    output: "export",
+    trailingSlash: true,
+    images: { unoptimized: true },
     poweredByHeader: false,
     // A production build must not overwrite the running dev server's assets.
     distDir: phase === PHASE_DEVELOPMENT_SERVER ? ".next-dev" : ".next",

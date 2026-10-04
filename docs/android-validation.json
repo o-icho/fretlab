@@ -1,0 +1,9 @@
+{
+  "routes": 12,
+  "offline": true,
+  "externalRequests": 0,
+  "tools": "accords, transposeur, copie, métronome et accordeur OK",
+  "audioPauseAndCleanup": "OK (microphone synthétique navigateur)",
+  "clientNavigationAndBack": "OK",
+  "reactErrors": []
+}

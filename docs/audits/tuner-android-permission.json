@@ -1,0 +1,79 @@
+{
+  "physicalDevice": true,
+  "firstPermissionAccepted": true,
+  "remainedActiveMs": 15000,
+  "stoppedWithButton": true,
+  "logs": [
+    [
+      "[TUNER] start requested",
+      {
+        "time": 270,
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] requesting getUserMedia",
+      {
+        "time": 278,
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] getUserMedia resolved",
+      {
+        "time": 4423,
+        "session": 1,
+        "active": true
+      }
+    ],
+    [
+      "[TUNER] stream created",
+      {
+        "time": 4424,
+        "session": 1,
+        "active": true
+      }
+    ],
+    [
+      "[TUNER] track state",
+      {
+        "time": 4425,
+        "session": 1,
+        "readyState": "live",
+        "enabled": true,
+        "muted": false
+      }
+    ],
+    [
+      "[TUNER] running",
+      {
+        "time": 4426,
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] stop requested by UI/lifecycle",
+      {
+        "time": 19978,
+        "reason": "user-button"
+      }
+    ],
+    [
+      "[TUNER] STOP requested",
+      {
+        "time": 19979,
+        "reason": "user-button",
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] track.stop called by application",
+      {
+        "time": 19979,
+        "reason": "user-button",
+        "session": 1,
+        "readyState": "live"
+      }
+    ]
+  ]
+}

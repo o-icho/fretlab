@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 import { SITE_URL } from "@/lib/site";
+import { NativeLifecycle } from "@/components/NativeLifecycle";
 import {
   DEFAULT_TITLE,
   DEFAULT_DESCRIPTION,
@@ -14,6 +15,12 @@ const manrope = Manrope({
   variable: "--font-manrope",
   display: "swap",
 });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#111318",
+};
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -43,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={manrope.variable} data-scroll-behavior="smooth">
       <body className="bg-background text-foreground font-sans antialiased">
+        <NativeLifecycle />
         <a href="#contenu" className="skip-link">
           Aller au contenu
         </a>

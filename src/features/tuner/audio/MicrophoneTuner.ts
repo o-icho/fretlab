@@ -1,7 +1,8 @@
-import { analysePitch } from "./pitch";
-import { PitchStabilizer, TRACKING } from "./tracking";
-import { musicalAudioConstraints } from "./constraints";
-import { frequencyToNote } from "../music/notes";
+import { analysePitch } from "./pitch.ts";
+import { PitchStabilizer, TRACKING } from "./tracking.ts";
+import { musicalAudioConstraints } from "./constraints.ts";
+import { frequencyToNote } from "../music/notes.ts";
+import { tunerLog, stopTunerTracks, type TunerStopReason } from "./diagnostics.ts";
 
 export function microphoneError(error: unknown): string {
   const name = error instanceof DOMException ? error.name : "";
@@ -39,8 +40,9 @@ export class MicrophoneTuner {
   }
 
   async start(): Promise<boolean> {
-    this.stop();
+    this.stop("restart");
     const generation = this.generation;
+    tunerLog("start requested", { session: generation });
     if (
       !navigator.mediaDevices?.getUserMedia ||
       typeof AudioContext === "undefined"
@@ -61,14 +63,17 @@ export class MicrophoneTuner {
         new URLSearchParams(window.location.search).get("tunerDebug") === "1";
       const supported =
         navigator.mediaDevices.getSupportedConstraints?.() ?? {};
+      tunerLog("requesting getUserMedia", { session: generation });
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: musicalAudioConstraints(supported),
       });
+      tunerLog("getUserMedia resolved", { session: generation, active: stream.active });
       if (generation !== this.generation) {
-        stream.getTracks().forEach((track) => track.stop());
+        stopTunerTracks(stream, "late-permission-result", generation);
         return false;
       }
       this.stream = stream;
+      tunerLog("stream created", { session: generation, active: stream.active });
       const resumeError = await resumed;
       if (generation !== this.generation) return false;
       if (resumeError) throw resumeError;
@@ -77,6 +82,11 @@ export class MicrophoneTuner {
           "L’audio est suspendu. Réessayez d’activer le microphone.",
         );
       const tracks = stream.getAudioTracks();
+      const logTrack = (event: string, track: MediaStreamTrack) => tunerLog(event, {
+        session: generation, readyState: track.readyState,
+        enabled: track.enabled, muted: track.muted,
+      });
+      tracks.forEach((track) => logTrack("track state", track));
       if (this.debug)
         console.debug("[FretLab tuner] microphone", {
           requested: musicalAudioConstraints(supported),
@@ -89,18 +99,25 @@ export class MicrophoneTuner {
           "Le microphone a été interrompu. Réactivez-le pour reprendre.",
         );
       tracks.forEach((track) => {
-        track.onended = () =>
+        track.onended = () => {
+          logTrack("track ended by browser/device", track);
           this.interrupt(
+            "track-ended",
             "Le microphone a été déconnecté ou sa permission a été retirée.",
           );
+        };
         track.onmute = () => {
+          logTrack("track mute", track);
           this.stabilizer.reset();
           this.onReading(null);
         };
+        track.onunmute = () => logTrack("track unmute", track);
       });
       context.onstatechange = () => {
+        tunerLog("AudioContext statechange", { session: generation, state: context.state });
         if (context.state !== "running")
           this.interrupt(
+            "audio-context-state",
             "L’audio a été interrompu. Réactivez le microphone pour reprendre.",
           );
       };
@@ -113,10 +130,16 @@ export class MicrophoneTuner {
       this.source.connect(this.analyser);
       this.lastAnalysis = 0;
       this.frame = requestAnimationFrame(this.analyse);
+      tunerLog("running", { session: generation });
       return true;
     } catch (error) {
+      tunerLog("start failed", {
+        session: generation,
+        name: error instanceof Error ? error.name : "unknown",
+        message: error instanceof Error ? error.message : "unknown",
+      });
       if (generation !== this.generation) return false;
-      this.stop();
+      this.stop("error");
       throw error;
     }
   }
@@ -153,19 +176,17 @@ export class MicrophoneTuner {
     }
     this.frame = requestAnimationFrame(this.analyse);
   };
-  private interrupt(message: string) {
-    this.stop();
+  private interrupt(reason: TunerStopReason, message: string) {
+    this.stop(reason);
     this.onInterrupted(message);
   }
-  stop() {
+  stop(reason: TunerStopReason) {
+    if (this.context || this.stream || this.frame !== null)
+      tunerLog("STOP requested", { reason, session: this.generation });
     this.generation++;
     if (this.frame !== null) cancelAnimationFrame(this.frame);
     this.frame = null;
-    this.stream?.getTracks().forEach((track) => {
-      track.onended = null;
-      track.onmute = null;
-      track.stop();
-    });
+    if (this.stream) stopTunerTracks(this.stream, reason, this.generation - 1);
     this.source?.disconnect();
     this.analyser?.disconnect();
     if (this.context) {

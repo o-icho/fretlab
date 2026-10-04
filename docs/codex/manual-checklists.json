@@ -1,0 +1,20 @@
+{
+  "08-ux-mobile": [
+    "Sur un vrai smartphone : tester les zones tactiles, le clavier virtuel et les petits écrans.",
+    "Vérifier les safe areas, le retour gestuel/matériel, la rotation et la navigation Android."
+  ],
+  "09-fixes": [
+    "Sur un vrai smartphone : reproduire les anomalies mobiles identifiées et confirmer leurs corrections.",
+    "Revalider les permissions et la libération du microphone si la correction touche l’accordeur."
+  ],
+  "10-recette": [
+    "Installer le build debug sur un vrai smartphone et tester les quatre outils avec une vraie guitare.",
+    "Vérifier premier accès microphone, refus, révocation, interruption et absence de microphone actif après arrêt.",
+    "Tester le démarrage à froid en mode avion, les routes, le métronome, la transposition et la copie.",
+    "Vérifier arrière-plan, verrouillage, retour Android, clavier, rotation et accessibilité TalkBack."
+  ],
+  "11-release": [
+    "Confirmer la recette sur appareil et relire la checklist de distribution avant toute action humaine ultérieure.",
+    "Vérifier les exigences Play, la confidentialité et Data safety ; publication, push et accès aux clés restent interdits au pipeline."
+  ]
+}

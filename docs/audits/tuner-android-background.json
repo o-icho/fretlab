@@ -1,0 +1,78 @@
+{
+  "physicalDevice": true,
+  "backgroundStopsTrackOnce": true,
+  "noAutomaticRestart": true,
+  "logs": [
+    [
+      "[TUNER] start requested",
+      {
+        "time": 328,
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] requesting getUserMedia",
+      {
+        "time": 332,
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] getUserMedia resolved",
+      {
+        "time": 595,
+        "session": 1,
+        "active": true
+      }
+    ],
+    [
+      "[TUNER] stream created",
+      {
+        "time": 595,
+        "session": 1,
+        "active": true
+      }
+    ],
+    [
+      "[TUNER] track state",
+      {
+        "time": 596,
+        "session": 1,
+        "readyState": "live",
+        "enabled": true,
+        "muted": false
+      }
+    ],
+    [
+      "[TUNER] running",
+      {
+        "time": 596,
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] stop requested by UI/lifecycle",
+      {
+        "time": 2586,
+        "reason": "app-background"
+      }
+    ],
+    [
+      "[TUNER] STOP requested",
+      {
+        "time": 2588,
+        "reason": "app-background",
+        "session": 1
+      }
+    ],
+    [
+      "[TUNER] track.stop called by application",
+      {
+        "time": 2590,
+        "reason": "app-background",
+        "session": 1,
+        "readyState": "live"
+      }
+    ]
+  ]
+}

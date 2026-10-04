@@ -10,12 +10,19 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "build:android": "node scripts/build-android.mjs",
-    "start": "next start --hostname 127.0.0.1",
+    "start": "node scripts/serve-static.mjs",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "test": "node --test src/features/transposer/music.test.mjs src/features/metronome/rhythm.test.mjs src/features/chords/lib/chords.test.mjs src/features/tuner/music/notes.test.mjs src/features/tuner/audio/pitch.test.mjs src/features/tuner/audio/tracking.test.mjs src/features/articles/lib/content.test.mjs src/lib/seo.test.mjs"
+    "test": "node --test src/features/transposer/music.test.mjs src/features/metronome/rhythm.test.mjs src/features/chords/lib/chords.test.mjs src/features/tuner/music/notes.test.mjs src/features/tuner/audio/pitch.test.mjs src/features/tuner/audio/tracking.test.mjs src/features/tuner/audio/lifecycle.test.mjs src/features/articles/lib/content.test.mjs src/lib/seo.test.mjs",
+    "android:sync": "cap sync android",
+    "android:check": "node scripts/check-android.mjs",
+    "android:open": "cap open android",
+    "android:run": "cap run android"
   },
   "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.5.2",
     "gray-matter": "^4.0.3",
     "next": "latest",
     "react": "latest",
@@ -26,12 +33,14 @@
     "unified": "^11.0.5"
   },
   "devDependencies": {
+    "@capacitor/cli": "8.5.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "latest",
+    "npm": "^11.21.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

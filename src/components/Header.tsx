@@ -6,7 +6,7 @@ import { Container } from "./Container";
 import { Icon } from "./Icon";
 import { tools } from "@/lib/content";
 export function Header() {
-  const path = usePathname();
+  const path = usePathname().replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   return (

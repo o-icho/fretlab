@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAudioPause } from "@/features/audio/useAudioPause";
 import { MicrophoneTuner, microphoneError } from "./MicrophoneTuner";
+import { tunerLog, type TunerStopReason } from "./diagnostics";
 
 export function useTuner() {
   const [status, setStatus] = useState<"stopped" | "starting" | "listening">(
@@ -14,21 +16,24 @@ export function useTuner() {
   useEffect(
     () => () => {
       request.current++;
-      engine.current?.stop();
+      active.current = false;
+      engine.current?.stop("component-unmount");
       engine.current = null;
     },
     [],
   );
-  function stop() {
+  const stop = useCallback((reason: TunerStopReason) => {
+    tunerLog("stop requested by UI/lifecycle", { reason });
     request.current++;
     active.current = false;
-    engine.current?.stop();
+    engine.current?.stop(reason);
     setFrequency(null);
     setStatus("stopped");
-  }
+  }, []);
+  useAudioPause(stop);
   async function toggle() {
     if (active.current) {
-      stop();
+      stop("user-button");
       return;
     }
     const generation = ++request.current;
@@ -38,7 +43,7 @@ export function useTuner() {
     setFrequency(null);
     if (!engine.current)
       engine.current = new MicrophoneTuner(setFrequency, (message) => {
-        stop();
+        stop("error");
         setError(message);
       });
     try {
@@ -48,7 +53,7 @@ export function useTuner() {
       setStatus(started ? "listening" : "stopped");
     } catch (error) {
       if (generation === request.current) {
-        stop();
+        stop("error");
         setError(microphoneError(error));
       }
     }

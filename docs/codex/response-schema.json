@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "summary", "manualChecklist"],
+  "properties": {
+    "status": { "type": "string", "enum": ["completed", "manual_validation_required", "blocked", "failed"] },
+    "summary": { "type": "string" },
+    "manualChecklist": { "type": "array", "items": { "type": "string" } }
+  }
+}
