@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { featureRouteFallback } from "@/config/requireFeature";
+import { FeatureLink } from "@/components/FeatureLink";
 import { Container } from "@/components/Container";
 import { pageMetadata } from "@/lib/metadata";
 import { ProgressionGenerator } from "@/features/progressions/ProgressionGenerator";
@@ -10,6 +11,7 @@ export const metadata = pageMetadata(
   "/outils/progressions",
 );
 export default function Page() {
+  const fallback = featureRouteFallback("chordProgressions"); if (fallback) return fallback;
   return (
     <Container>
       <section className="page-intro">
@@ -24,9 +26,9 @@ export default function Page() {
           indiquent son degré dans la tonalité : majuscules pour les accords majeurs,
           minuscules pour les mineurs. Les emprunts et couleurs blues sont signalés.</p>
         <p>Gardez les accords qui vous plaisent, modifiez une mesure et explorez les
-          <Link href="/outils/gammes"> notes de votre gamme sur le manche</Link>.
-          Retrouvez les doigtés dans le <Link href="/outils/accords">dictionnaire d’accords</Link>,
-          puis pratiquez la grille au <Link href="/outils/metronome">métronome</Link>.</p>
+          <FeatureLink featureId="scales"> notes de votre gamme sur le manche</FeatureLink>.
+          Retrouvez les doigtés dans le <FeatureLink featureId="chordDictionary">dictionnaire d’accords</FeatureLink>,
+          puis pratiquez la grille au <FeatureLink featureId="metronome">métronome</FeatureLink>.</p>
       </section>
     </Container>
   );

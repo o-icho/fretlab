@@ -1,15 +1,9 @@
 import { absoluteUrl } from "./site.ts";
+import { getEnabledFeatures } from "../config/features.ts";
 import type { ArticleSummary } from "../features/articles/lib/content.ts";
 export const PUBLIC_PATHS = [
   "/",
-  "/outils/accords",
-  "/outils/metronome",
-  "/outils/accordeur",
-  "/outils/transposeur",
-  "/outils/gammes",
-  "/outils/progressions",
-  "/outils/boite-a-rythmes",
-  "/backing-tracks",
+  ...getEnabledFeatures().map(feature => feature.href),
   "/articles",
   "/a-propos",
 ] as const;

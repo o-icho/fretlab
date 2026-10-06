@@ -2,6 +2,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import Image from "next/image";
+import { isFeatureHrefEnabled } from "@/config/features";
 import { remarkHeadingIds } from "../lib/content";
 import styles from "./articles.module.css";
 export function MarkdownContent({ content }: { content: string }) {
@@ -12,7 +13,7 @@ export function MarkdownContent({ content }: { content: string }) {
         remarkPlugins={[remarkGfm, remarkHeadingIds]}
         components={{
           a: ({ href, children }) =>
-            href?.startsWith("/") ? (
+            href && !isFeatureHrefEnabled(href) ? <>{children}</> : href?.startsWith("/") ? (
               <Link href={href}>{children}</Link>
             ) : (
               <a href={href}>{children}</a>

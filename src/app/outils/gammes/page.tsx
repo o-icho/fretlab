@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { featureRouteFallback } from "@/config/requireFeature";
+import { FeatureLink } from "@/components/FeatureLink";
 import { Suspense } from "react";
 import { Container } from "@/components/Container";
 import { pageMetadata } from "@/lib/metadata";
@@ -12,6 +13,7 @@ export const metadata = pageMetadata(
 );
 
 export default function Page() {
+  const fallback = featureRouteFallback("scales"); if (fallback) return fallback;
   return (
     <Container>
       <section className="page-intro">
@@ -27,9 +29,9 @@ export default function Page() {
         <p>Choisissez une fondamentale et une gamme, puis repérez ses notes sur les six cordes.
           Le double cercle marque la fondamentale. Les intervalles indiquent la place des notes
           par rapport à cette note de départ : 1, b3, 4, 5, b7 pour une pentatonique mineure.</p>
-        <p>Explorez une petite zone à la fois. Vérifiez votre accordage avec l’<Link href="/outils/accordeur">accordeur</Link>,
-          puis pratiquez lentement au <Link href="/outils/metronome">métronome</Link>.
-          Pour retrouver les doigtés des accords, ouvrez le <Link href="/outils/accords">dictionnaire d’accords</Link>.</p>
+        <p>Explorez une petite zone à la fois. Vérifiez votre accordage avec l’<FeatureLink featureId="tuner">accordeur</FeatureLink>,
+          puis pratiquez lentement au <FeatureLink featureId="metronome">métronome</FeatureLink>.
+          Pour retrouver les doigtés des accords, ouvrez le <FeatureLink featureId="chordDictionary">dictionnaire d’accords</FeatureLink>.</p>
       </section>
     </Container>
   );

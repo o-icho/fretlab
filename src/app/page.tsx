@@ -117,7 +117,7 @@ export default function Home() {
           <div className="section-heading">
             <SectionTitle
               eyebrow="VOTRE PROCHAINE SESSION COMMENCE ICI"
-              title="Huit outils. Toutes les possibilités."
+              title="Vos outils. Toutes les possibilités."
               description="L’essentiel à portée de main, pour vous concentrer sur le plaisir de jouer."
             />
             <span className="section-aside">
@@ -130,7 +130,7 @@ export default function Home() {
             ))}
           </div>
           <p className="tools-note">
-            <span /> Huit outils gratuits pour accompagner votre pratique avec
+            <span /> Des outils gratuits pour accompagner votre pratique avec
             FretLab.
           </p>
         </section>

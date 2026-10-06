@@ -1,3 +1,4 @@
+import { featureRouteFallback } from "@/config/requireFeature";
 import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Metronome } from "@/features/metronome/Metronome";
@@ -7,6 +8,7 @@ export const metadata = pageMetadata(
   "/outils/metronome",
 );
 export default function Page() {
+  const fallback = featureRouteFallback("metronome"); if (fallback) return fallback;
   return (
     <Container>
       <section className="page-intro">

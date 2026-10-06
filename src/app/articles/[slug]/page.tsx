@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ArticlePage({ params }: Props) {
   const article = getArticleBySlug((await params).slug);
   if (!article) notFound();
-  const tool = tools.find((tool) => tool.slug === article.tool)!;
+  const tool = tools.find((tool) => tool.slug === article.tool);
   return (
     <Container>
       <nav aria-label="Fil d’Ariane" className={styles.breadcrumbs}>
@@ -135,15 +135,15 @@ export default async function ArticlePage({ params }: Props) {
           </nav>
         )}
         <MarkdownContent content={article.content} />
-        <section className={styles.toolCta} aria-label="Passer à la pratique">
+        {tool && <section className={styles.toolCta} aria-label="Passer à la pratique">
           <div>
             <h2>À vous de jouer.</h2>
             <p>
               Retrouvez {tool.name.toLowerCase()} dans votre boîte à outils.
             </p>
           </div>
-          <Button href={`/outils/${article.tool}`}>{tool.name}</Button>
-        </section>
+          <Button href={tool.href}>{tool.name}</Button>
+        </section>}
         <div className={styles.tags} aria-label="Sujets de cet article">
           {article.tags.map((tag) => (
             <span key={tag}>{tag}</span>

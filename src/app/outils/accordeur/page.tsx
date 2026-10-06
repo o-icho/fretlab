@@ -1,3 +1,4 @@
+import { featureRouteFallback } from "@/config/requireFeature";
 import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Tuner } from "@/features/tuner/components/Tuner";
@@ -7,6 +8,7 @@ export const metadata = pageMetadata(
   "/outils/accordeur",
 );
 export default function Page() {
+  const fallback = featureRouteFallback("tuner"); if (fallback) return fallback;
   return (
     <Container>
       <section className="page-intro">

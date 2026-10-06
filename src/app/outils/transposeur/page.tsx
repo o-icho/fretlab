@@ -1,3 +1,4 @@
+import { featureRouteFallback } from "@/config/requireFeature";
 import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Suspense } from "react";
@@ -8,6 +9,7 @@ export const metadata = pageMetadata(
   "/outils/transposeur",
 );
 export default function Page() {
+  const fallback = featureRouteFallback("transposer"); if (fallback) return fallback;
   return (
     <Container>
       <section className="page-intro">

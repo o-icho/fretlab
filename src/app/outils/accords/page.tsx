@@ -1,3 +1,4 @@
+import { featureRouteFallback } from "@/config/requireFeature";
 import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { ChordDictionary } from "@/features/chords/components/ChordDictionary";
@@ -7,6 +8,7 @@ export const metadata = pageMetadata(
   "/outils/accords",
 );
 export default function Page() {
+  const fallback = featureRouteFallback("chordDictionary"); if (fallback) return fallback;
   return (
     <Container>
       <section className="page-intro">

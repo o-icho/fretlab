@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { FeatureLink } from "@/components/FeatureLink";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { ROOTS, type ChordRoot } from "@/domain/music/catalog";
@@ -206,8 +206,8 @@ export function ProgressionGenerator() {
         <div><button type="button" onClick={() => void copy(false)}>Copier les accords</button>
           <button type="button" onClick={() => void copy(true)}>Copier avec degrés</button>
         </div>
-        <div><Link href={`/outils/transposeur/?${transposeParams}`}>Transposer <Icon name="transpose" size={17} /></Link>
-          <Link href={`/outils/gammes/?${scaleParams}`}>Voir la gamme <Icon name="scales" size={17} /></Link>
+        <div><FeatureLink featureId="transposer" query={transposeParams.toString()}>Transposer <Icon name="transpose" size={17} /></FeatureLink>
+          <FeatureLink featureId="scales" query={scaleParams.toString()}>Voir la gamme <Icon name="scales" size={17} /></FeatureLink>
         </div>
       </div>
       <p className={styles.controlHelp} role="status">{copyStatus}</p>
