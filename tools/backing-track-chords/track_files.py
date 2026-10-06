@@ -88,7 +88,9 @@ def validate_track(value, identifier):
     if analysis['audioDurationMs'] != value['durationMs']:
         raise ValueError('Audio duration mismatch')
     # midiDurationMs is already rounded by the unchanged analysis engine.
-    coverage = analysis['scale'] * analysis['midiDurationMs'] + analysis['offsetMs']
+    coverage = min(value['durationMs'], analysis['scale'] * analysis['midiDurationMs'] + analysis['offsetMs'])
+    if value['chordCoverageEndMs'] > value['durationMs']:
+        raise ValueError('Chord coverage exceeds backing duration')
     if abs(value['chordCoverageEndMs'] - coverage) > 1 + analysis['scale']:
         raise ValueError('Coverage must be the transformed MIDI end')
     timeline = value.get('chordTimeline')
@@ -168,8 +170,9 @@ def build_track(identifier, metadata, result, estimated_bpm=None):
     if 'bpm' not in track:
         track['bpm'] = estimated_bpm
     track.update(schemaVersion=1, id=identifier, durationMs=result['alignment']['audioDurationMs'],
-                 chordCoverageEndMs=result['chordCoverageEndMs'], chordTimeline=result['chords'],
-                 analysis={**result.get('analysis', {}), **result['alignment']})
+                 chordCoverageEndMs=min(result['chordCoverageEndMs'], result['alignment']['audioDurationMs']), chordTimeline=result['chords'],
+                 analysis={**result.get('analysis', {}), **result['alignment'],
+                           'transformedMidiCoverageEndMs': result['chordCoverageEndMs']})
     validate_track(track, identifier)
     return track
 

@@ -147,6 +147,17 @@ class TrackFilesTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Coverage'):
                 validate_track(bad, 'track-1')
 
+    def test_export_coverage_clipped_to_audio_without_extending_events(self):
+        result = copy.deepcopy(self.result)
+        result['alignment']['audioDurationMs'] = 1100
+        result['chords'][0]['endMs'] = 1050
+        track = build_track('track-1', self.metadata, result)
+        self.assertEqual(track['chordCoverageEndMs'], 1100)
+        self.assertEqual(track['analysis']['transformedMidiCoverageEndMs'], 1110)
+        self.assertEqual(track['chordTimeline'][0]['endMs'], 1050)
+        with self.assertRaisesRegex(ValueError, 'coverage'):
+            validate_track(dict(track, chordCoverageEndMs=1110), 'track-1')
+
     def test_bpm_time_map_fallback(self):
         import mido
         midi = mido.MidiFile(ticks_per_beat=480)

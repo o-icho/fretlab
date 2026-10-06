@@ -205,3 +205,10 @@ vérifie la production directe du JSON et des diagnostics sans modification audi
 Les dépendances Python restent dans `.venv/` ignoré par Git et ESLint ; aucun
 package n'est ajouté au bundle Next.js ou Android. Les builds d'intégration ne
 remplacent pas l'écoute humaine du résultat éditorial.
+
+### Borne de couverture du Track JSON publié
+Dans le mode partagé, chordCoverageEndMs est limité à durationMs pour respecter
+le modèle FretLab. La fin MIDI transformée brute reste dans
+analysis.transformedMidiCoverageEndMs (et les diagnostics d'alignement).
+Cette réduction ne prolonge aucun événement. Le mode d'analyse isolée conserve
+sa couverture brute à des fins de diagnostic.

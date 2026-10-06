@@ -1,0 +1,343 @@
+{
+  "title": "Slow Blues in C",
+  "style": "blues",
+  "key": "C",
+  "bpm": 167.075,
+  "schemaVersion": 1,
+  "id": "c-slow-blues",
+  "durationMs": 266211,
+  "chordCoverageEndMs": 266211,
+  "chordTimeline": [
+    {
+      "symbol": "C",
+      "startMs": 1978,
+      "endMs": 10440,
+      "source": "midi",
+      "confidence": 0.7097
+    },
+    {
+      "symbol": "Am",
+      "startMs": 10440,
+      "endMs": 19002,
+      "source": "midi",
+      "confidence": 0.8603
+    },
+    {
+      "symbol": "F",
+      "startMs": 19002,
+      "endMs": 27464,
+      "source": "midi",
+      "confidence": 0.7425
+    },
+    {
+      "symbol": "C",
+      "startMs": 27464,
+      "endMs": 35926,
+      "source": "midi",
+      "confidence": 0.7217
+    },
+    {
+      "symbol": "F",
+      "startMs": 35926,
+      "endMs": 37135,
+      "source": "midi",
+      "confidence": 0.7346
+    },
+    {
+      "symbol": "C",
+      "startMs": 37135,
+      "endMs": 44589,
+      "source": "midi",
+      "confidence": 0.9154
+    },
+    {
+      "symbol": "Am",
+      "startMs": 44589,
+      "endMs": 53051,
+      "source": "midi",
+      "confidence": 0.7952
+    },
+    {
+      "symbol": "F",
+      "startMs": 53051,
+      "endMs": 57382,
+      "source": "midi",
+      "confidence": 0.713
+    },
+    {
+      "symbol": "G",
+      "startMs": 57382,
+      "endMs": 61613,
+      "source": "midi",
+      "confidence": 0.7177
+    },
+    {
+      "symbol": "C",
+      "startMs": 61613,
+      "endMs": 69168,
+      "source": "midi",
+      "confidence": 0.8523
+    },
+    {
+      "symbol": "G",
+      "startMs": 69168,
+      "endMs": 70176,
+      "source": "midi",
+      "confidence": 0.9487
+    },
+    {
+      "symbol": "Am",
+      "startMs": 70176,
+      "endMs": 78839,
+      "source": "midi",
+      "confidence": 0.8322
+    },
+    {
+      "symbol": "Em",
+      "startMs": 78839,
+      "endMs": 87401,
+      "source": "midi",
+      "confidence": 0.9284
+    },
+    {
+      "symbol": "F",
+      "startMs": 87401,
+      "endMs": 95964,
+      "source": "midi",
+      "confidence": 0.7168
+    },
+    {
+      "symbol": "G",
+      "startMs": 95964,
+      "endMs": 104526,
+      "source": "midi",
+      "confidence": 0.7426
+    },
+    {
+      "symbol": "C",
+      "startMs": 104526,
+      "endMs": 112182,
+      "source": "midi",
+      "confidence": 0.7609
+    },
+    {
+      "symbol": "G",
+      "startMs": 112182,
+      "endMs": 113189,
+      "source": "midi",
+      "confidence": 0.838
+    },
+    {
+      "symbol": "Am",
+      "startMs": 113189,
+      "endMs": 121853,
+      "source": "midi",
+      "confidence": 0.8578
+    },
+    {
+      "symbol": "F",
+      "startMs": 121853,
+      "endMs": 126184,
+      "source": "midi",
+      "confidence": 0.7873
+    },
+    {
+      "symbol": "G",
+      "startMs": 126184,
+      "endMs": 130516,
+      "source": "midi",
+      "confidence": 0.8017
+    },
+    {
+      "symbol": "C",
+      "startMs": 130516,
+      "endMs": 139078,
+      "source": "midi",
+      "confidence": 0.8062
+    },
+    {
+      "symbol": "Am",
+      "startMs": 139078,
+      "endMs": 147741,
+      "source": "midi",
+      "confidence": 0.8692
+    },
+    {
+      "symbol": "Em",
+      "startMs": 147741,
+      "endMs": 156405,
+      "source": "midi",
+      "confidence": 0.9744
+    },
+    {
+      "symbol": "F",
+      "startMs": 156405,
+      "endMs": 165068,
+      "source": "midi",
+      "confidence": 0.8314
+    },
+    {
+      "symbol": "G",
+      "startMs": 165068,
+      "endMs": 173630,
+      "source": "midi",
+      "confidence": 0.8767
+    },
+    {
+      "symbol": "C",
+      "startMs": 173630,
+      "endMs": 181286,
+      "source": "midi",
+      "confidence": 0.7615
+    },
+    {
+      "symbol": "G",
+      "startMs": 181286,
+      "endMs": 182293,
+      "source": "midi",
+      "confidence": 0.8188
+    },
+    {
+      "symbol": "Am",
+      "startMs": 182293,
+      "endMs": 190957,
+      "source": "midi",
+      "confidence": 0.8382
+    },
+    {
+      "symbol": "F",
+      "startMs": 190957,
+      "endMs": 195288,
+      "source": "midi",
+      "confidence": 0.8792
+    },
+    {
+      "symbol": "G",
+      "startMs": 195288,
+      "endMs": 197504,
+      "source": "midi",
+      "confidence": 0.7111
+    },
+    {
+      "symbol": "D",
+      "startMs": 197504,
+      "endMs": 199620,
+      "source": "midi",
+      "confidence": 0.8377
+    },
+    {
+      "symbol": "C",
+      "startMs": 199620,
+      "endMs": 215737,
+      "source": "midi",
+      "confidence": 0.7858
+    },
+    {
+      "symbol": "G",
+      "startMs": 215737,
+      "endMs": 216845,
+      "source": "midi",
+      "confidence": 0.8011
+    },
+    {
+      "symbol": "Am",
+      "startMs": 216845,
+      "endMs": 225509,
+      "source": "midi",
+      "confidence": 0.9196
+    },
+    {
+      "symbol": "F",
+      "startMs": 225509,
+      "endMs": 229840,
+      "source": "midi",
+      "confidence": 0.7005
+    },
+    {
+      "symbol": "G",
+      "startMs": 229840,
+      "endMs": 234273,
+      "source": "midi",
+      "confidence": 0.7179
+    },
+    {
+      "symbol": "C",
+      "startMs": 234273,
+      "endMs": 238604,
+      "source": "midi",
+      "confidence": 0.7559
+    },
+    {
+      "symbol": "Am",
+      "startMs": 238604,
+      "endMs": 240820,
+      "source": "midi",
+      "confidence": 0.818
+    },
+    {
+      "symbol": "G",
+      "startMs": 240820,
+      "endMs": 242936,
+      "source": "midi",
+      "confidence": 0.744
+    },
+    {
+      "symbol": "F",
+      "startMs": 242936,
+      "endMs": 247569,
+      "source": "midi",
+      "confidence": 0.6882
+    },
+    {
+      "symbol": "G",
+      "startMs": 247569,
+      "endMs": 249987,
+      "source": "midi",
+      "confidence": 0.7228
+    },
+    {
+      "symbol": "C",
+      "startMs": 254621,
+      "endMs": 265802,
+      "source": "midi",
+      "confidence": 0.6823
+    }
+  ],
+  "analysis": {
+    "schemaVersion": 1,
+    "method": "MIDI Viterbi + audio HPSS/CQT affine",
+    "windowMs": 100.0,
+    "changePenalty": 0.65,
+    "bassWeight": 0.65,
+    "qualities": [
+      "major",
+      "minor",
+      "7",
+      "m7"
+    ],
+    "scaleBounds": [
+      0.95,
+      1.05
+    ],
+    "offsetBounds": [
+      -5,
+      5
+    ],
+    "invalidKeySignatures": 1,
+    "warnings": [
+      "Transformed MIDI end exceeds audio duration; events clipped to audio, coverage remains transformed MIDI end.",
+      "7 boundaries (7 with confidence >=0.65) have no nearby peak or >250 ms residual; inspect timing-checks.json."
+    ],
+    "inputs": {
+      "Slow Blues in C (Keyboard).mid": "cd5ab37be040733873272c09ee74bf5cb8cb0baa8a88b30b6513a5e54b0bf7ab",
+      "Backingtrack_c-slow-blues.mp3": "b992a5f6b5e455d7a4121fc244e16daff0c24f0e98b43672ecabc552fd93b716"
+    },
+    "scale": 1.0073473036033787,
+    "offsetMs": 970.8724627723897,
+    "meanSimilarity": 0.6703413162572323,
+    "midiDurationMs": 263785,
+    "audioDurationMs": 266211,
+    "audioCoverageEndMs": 266694,
+    "transformedMidiCoverageEndMs": 266694
+  }
+}
