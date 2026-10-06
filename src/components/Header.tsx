@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { Container } from "./Container";
 import { Icon } from "./Icon";
-import { tools } from "@/lib/content";
+import { tools, toolHref } from "@/lib/content";
 export function Header() {
   const path = usePathname().replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
@@ -61,9 +61,9 @@ export function Header() {
               {tools.map((tool) => (
                 <Link
                   key={tool.slug}
-                  href={`/outils/${tool.slug}`}
+                  href={toolHref(tool.slug)}
                   aria-current={
-                    path === `/outils/${tool.slug}` ? "page" : undefined
+                    path === toolHref(tool.slug).replace(/\/$/, "") ? "page" : undefined
                   }
                   onClick={(e) => {
                     setOpen(false);

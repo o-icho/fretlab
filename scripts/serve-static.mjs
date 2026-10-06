@@ -23,6 +23,10 @@ const types = {
   ".png": "image/png",
   ".ico": "image/x-icon",
   ".woff2": "font/woff2",
+  ".mp3": "audio/mpeg",
+  ".wav": "audio/wav",
+  ".ogg": "audio/ogg",
+  ".m4a": "audio/mp4",
 };
 createServer(async (request, response) => {
   if (!["GET", "HEAD"].includes(request.method ?? "")) {
@@ -49,10 +53,19 @@ createServer(async (request, response) => {
       status = 404;
     }
     const body = await readFile(file);
+    // Media elements request byte ranges for seeking without fetching the whole file.
+    const range = request.headers.range?.match(/^bytes=(\d+)-(\d*)$/);
+    if (status === 200 && range && request.method === "GET") {
+      const start = Number(range[1]), end = Math.min(range[2] ? Number(range[2]) : body.length - 1, body.length - 1);
+      if (start > end || start >= body.length) { response.writeHead(416, { "Content-Range": `bytes */${body.length}` }); response.end(); return; }
+      response.writeHead(206, { ...reportOnlyHeaders, "Content-Type": types[extname(file)] ?? "application/octet-stream", "Accept-Ranges": "bytes", "Content-Range": `bytes ${start}-${end}/${body.length}`, "Content-Length": end - start + 1 });
+      response.end(body.subarray(start, end + 1)); return;
+    }
     response.writeHead(status, {
       ...reportOnlyHeaders,
       "Content-Type": types[extname(file)] ?? "application/octet-stream",
       "Content-Length": body.length,
+      "Accept-Ranges": "bytes",
     });
     response.end(request.method === "HEAD" ? undefined : body);
   } catch {

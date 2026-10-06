@@ -69,15 +69,52 @@ préserver cette convention et représenter explicitement l’unité de pulsatio
 si de nouvelles fonctionnalités l’exigent. Les limites 40–240 sont celles
 du métronome actuel, pas une règle universelle de la musique.
 
+`domain/rhythm/tempo.ts` partage désormais ces limites entre lecteurs ;
+`features/metronome/rhythm.ts` conserve ses exports compatibles. Le modèle
+`domain/rhythm/drums.ts` représente mesures, unités écrites, pulsations,
+subdivisions, événements et vélocités. `features/audio/AudioScheduler.ts` est
+le scheduler commun au métronome et à la boîte à rythmes ; réutiliser son
+lookahead, sa synchronisation visuelle et son nettoyage. Les kits respectent
+`DrumSoundProvider`, sans imposer le kit synthétique au transport. Préserver
+les changements de pattern à une frontière de mesure et le décompte explicite.
+
 ## État, stockage, audio et interface
 
 Les composants React orchestrent et affichent ; les fonctions musicales pures
 doivent être testables sans navigateur. Ajouter une abstraction de repository
 uniquement lorsqu’une feature sauvegarde réellement des données. Ne pas appeler
-localStorage/IndexedDB directement dans les composants. Par exemple un
-PatternRepository local pourra recevoir plus tard un adaptateur distant,
-sans déplacer les règles métier dans l’UI. Prévoir validation/versionnement
+localStorage/IndexedDB directement dans les composants. Le PatternRepository
+de la boîte à rythmes possède maintenant un adaptateur LocalPatternRepository
+(localStorage, schemaVersion 1), remplaçable plus tard sans déplacer le métier
+dans l’UI. Les presets restent immuables ; les patterns utilisateur conservent
+le même DrumPattern avec identifiant stable et dates, sans faux userId local.
+Prévoir validation/versionnement
 des données persistées lorsque cette persistance est introduite.
+
+Les backing tracks utilisent `domain/music/backingTracks.ts` pour leur modèle,
+validation et recherche binaire des accords. `features/backing-tracks/TrackTransport`
+lit le temps des éléments audio (pas du scheduler de pulsations). Les fichiers
+restent des assets ou URL ; seul le JSON importé est persisté par
+`LocalTrackRepository` (localStorage, schemaVersion 1). Le catalogue publié est généré depuis les sous-dossiers de
+public/backing-tracks/ par scripts/generate-backing-tracks-catalog.mjs au dev/build.
+Chaque dossier contient Backingtrack_<id>.mp3, Example_<id>.mp3 et Track_<id>.json.
+catalog.generated.json (ignoré par Git) contient les résumés et URLs conventionnelles,
+jamais la timeline. Le détail est chargé à l'ouverture et adapté au modèle runtime
+existant ; analysis est ignoré. Les routes /backing-tracks/<id>/ sont pré-générées.
+Les référentiels de filtres restent indépendants et les imports locaux inchangés.
+Les assets fonctionnent
+offline sur Android ; les URL distantes nécessitent le réseau. Le cycle de pause
+en arrière-plan reste celui de `useAudioPause`.
+La durée du backing final fait autorité, jamais celle d’un export MIDI partiel.
+La timeline finale peut contenir des trous ou `N.C.` et conserve les annotations
+éditoriales facultatives `source` et `confidence`. Analyse externe puis validation
+humaine précèdent l’import ; aucun parsing MIDI ou rapprochement audio/MIDI runtime.
+Backing et exemple partagent cette unique timeline via `exampleOffsetMs`.
+La bibliothèque publique `/backing-tracks/` filtre puis pagine en conservant
+l’ordre du catalogue et les paramètres URL. `library.ts` sépare cette logique
+du rendu. L’import local est réservé à `/backing-tracks/ajouter/`, gardé au build
+par `NEXT_PUBLIC_BACKING_TRACK_ADMIN_ENABLED` (désactivé par défaut, sans authentification).
+L’ancienne URL `/outils/backing-tracks/` reste compatible avec la nouvelle canonical.
 
 Conserver le scheduler fondé sur l’horloge AudioContext, la libération des
 ressources audio et les arrêts en arrière-plan. `NativeLifecycle` isole les

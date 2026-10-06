@@ -2,6 +2,8 @@ node_modules/
 .next/
 .next-dev/
 out/
+public/backing-tracks/catalog.generated.json
+public/backing-tracks/catalog.generated.json.tmp
 *.tsbuildinfo
 next-env.d.ts
 .env*

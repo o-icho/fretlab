@@ -1,0 +1,515 @@
+[
+  {
+    "change": "G -> G7",
+    "confidence": 0.5841,
+    "midiRaw": 7.1,
+    "mappedAudio": 7.31714923053883,
+    "nearestAudioChange": 7.22140589569161,
+    "deltaMs": -96,
+    "novelty": 0.4508
+  },
+  {
+    "change": "G7 -> C",
+    "confidence": 0.6743,
+    "midiRaw": 9.1,
+    "mappedAudio": 9.325915545471055,
+    "nearestAudioChange": 9.450521541950113,
+    "deltaMs": 125,
+    "novelty": 0.8179
+  },
+  {
+    "change": "C -> Cm",
+    "confidence": 0.6743,
+    "midiRaw": 11.2,
+    "mappedAudio": 11.435120176149889,
+    "nearestAudioChange": 11.261678004535147,
+    "deltaMs": -173,
+    "novelty": 0.2279
+  },
+  {
+    "change": "Cm -> G",
+    "confidence": 0.6429,
+    "midiRaw": 13.3,
+    "mappedAudio": 13.544324806828726,
+    "nearestAudioChange": 13.514013605442177,
+    "deltaMs": -30,
+    "novelty": 0.9227
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.6302,
+    "midiRaw": 17.4,
+    "mappedAudio": 17.662295752439782,
+    "nearestAudioChange": 17.786485260770974,
+    "deltaMs": 124,
+    "novelty": 0.7199
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.6302,
+    "midiRaw": 19.7,
+    "mappedAudio": 19.97237701461184,
+    "nearestAudioChange": 19.89950113378685,
+    "deltaMs": -73,
+    "novelty": 0.9006
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.7187,
+    "midiRaw": 21.6,
+    "mappedAudio": 21.880705013797456,
+    "nearestAudioChange": 21.91963718820862,
+    "deltaMs": 39,
+    "novelty": 1.1189
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.76,
+    "midiRaw": 23.3,
+    "mappedAudio": 23.588156381489846,
+    "nearestAudioChange": 23.591473922902495,
+    "deltaMs": 3,
+    "novelty": 0.7438
+  },
+  {
+    "change": "C -> D",
+    "confidence": 0.76,
+    "midiRaw": 23.7,
+    "mappedAudio": 23.98990964447629,
+    "nearestAudioChange": 24.009433106575965,
+    "deltaMs": 20,
+    "novelty": 0.9258
+  },
+  {
+    "change": "D -> G",
+    "confidence": 0.6106,
+    "midiRaw": 25.9,
+    "mappedAudio": 26.199552590901735,
+    "nearestAudioChange": 26.23854875283447,
+    "deltaMs": 39,
+    "novelty": 0.5768
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.5785,
+    "midiRaw": 34.2,
+    "mappedAudio": 34.535932797870466,
+    "nearestAudioChange": 34.57451247165533,
+    "deltaMs": 39,
+    "novelty": 0.635
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.5785,
+    "midiRaw": 38.4,
+    "mappedAudio": 38.75434205922814,
+    "nearestAudioChange": 38.59156462585034,
+    "deltaMs": -163,
+    "novelty": 0.5997
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.6728,
+    "midiRaw": 42.6,
+    "mappedAudio": 42.97275132058581,
+    "nearestAudioChange": 42.956916099773245,
+    "deltaMs": -16,
+    "novelty": 0.8771
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.7546,
+    "midiRaw": 44.7,
+    "mappedAudio": 45.081955951264646,
+    "nearestAudioChange": 44.977052154195015,
+    "deltaMs": -105,
+    "novelty": 0.5708
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.6367,
+    "midiRaw": 46.7,
+    "mappedAudio": 47.09072226619687,
+    "nearestAudioChange": 46.9275283446712,
+    "deltaMs": -163,
+    "novelty": 0.5745
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.6367,
+    "midiRaw": 48.9,
+    "mappedAudio": 49.30036521262231,
+    "nearestAudioChange": 48.99410430839002,
+    "deltaMs": -306,
+    "novelty": 0.7774
+  },
+  {
+    "change": "D -> G",
+    "confidence": 0.6205,
+    "midiRaw": 51.0,
+    "mappedAudio": 51.40956984330115,
+    "nearestAudioChange": 51.38575963718821,
+    "deltaMs": -24,
+    "novelty": 0.6609
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.6205,
+    "midiRaw": 59.3,
+    "mappedAudio": 59.74595005026987,
+    "nearestAudioChange": 59.791383219954646,
+    "deltaMs": 45,
+    "novelty": 0.5826
+  },
+  {
+    "change": "C -> Cm",
+    "confidence": 0.587,
+    "midiRaw": 61.3,
+    "mappedAudio": 61.75471636520209,
+    "nearestAudioChange": 61.811519274376415,
+    "deltaMs": 57,
+    "novelty": 0.6832
+  },
+  {
+    "change": "Cm -> G",
+    "confidence": 0.587,
+    "midiRaw": 63.5,
+    "mappedAudio": 63.96435931162755,
+    "nearestAudioChange": 63.97097505668934,
+    "deltaMs": 7,
+    "novelty": 0.5848
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.7662,
+    "midiRaw": 67.7,
+    "mappedAudio": 68.18276857298522,
+    "nearestAudioChange": 68.17378684807257,
+    "deltaMs": -9,
+    "novelty": 0.8786
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.7857,
+    "midiRaw": 69.8,
+    "mappedAudio": 70.29197320366406,
+    "nearestAudioChange": 70.26358276643991,
+    "deltaMs": -28,
+    "novelty": 0.8053
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.7438,
+    "midiRaw": 71.9,
+    "mappedAudio": 72.4011778343429,
+    "nearestAudioChange": 72.35337868480725,
+    "deltaMs": -48,
+    "novelty": 0.5462
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.7026,
+    "midiRaw": 72.9,
+    "mappedAudio": 73.40556099180901,
+    "nearestAudioChange": 73.44471655328798,
+    "deltaMs": 39,
+    "novelty": 0.5927
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.7026,
+    "midiRaw": 73.9,
+    "mappedAudio": 74.40994414927512,
+    "nearestAudioChange": 74.23419501133787,
+    "deltaMs": -176,
+    "novelty": 0.6897
+  },
+  {
+    "change": "G -> Am",
+    "confidence": 0.5968,
+    "midiRaw": 74.5,
+    "mappedAudio": 75.01257404375478,
+    "nearestAudioChange": 75.00045351473923,
+    "deltaMs": -12,
+    "novelty": 0.8054
+  },
+  {
+    "change": "Am -> Bb",
+    "confidence": 0.5968,
+    "midiRaw": 75.0,
+    "mappedAudio": 75.51476562248784,
+    "nearestAudioChange": 75.53451247165533,
+    "deltaMs": 20,
+    "novelty": 0.5818
+  },
+  {
+    "change": "Bb -> G",
+    "confidence": 0.8157,
+    "midiRaw": 75.5,
+    "mappedAudio": 76.01695720122089,
+    "nearestAudioChange": 76.02213151927438,
+    "deltaMs": 5,
+    "novelty": 0.6801
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.6307,
+    "midiRaw": 76.1,
+    "mappedAudio": 76.61958709570055,
+    "nearestAudioChange": 76.579410430839,
+    "deltaMs": -40,
+    "novelty": 0.6461
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.6307,
+    "midiRaw": 80.2,
+    "mappedAudio": 80.73755804131163,
+    "nearestAudioChange": 80.5732426303855,
+    "deltaMs": -164,
+    "novelty": 0.479
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.6444,
+    "midiRaw": 84.4,
+    "mappedAudio": 84.9559673026693,
+    "nearestAudioChange": 84.96181405895692,
+    "deltaMs": 6,
+    "novelty": 0.5726
+  },
+  {
+    "change": "C -> D",
+    "confidence": 0.6444,
+    "midiRaw": 88.6,
+    "mappedAudio": 89.17437656402696,
+    "nearestAudioChange": 88.65378684807256,
+    "deltaMs": -521,
+    "novelty": 0.6785
+  },
+  {
+    "change": "D -> G",
+    "confidence": 0.7565,
+    "midiRaw": 92.8,
+    "mappedAudio": 93.39278582538464,
+    "nearestAudioChange": 93.18167800453514,
+    "deltaMs": -211,
+    "novelty": 0.6825
+  },
+  {
+    "change": "G -> G7",
+    "confidence": 0.7147,
+    "midiRaw": 99.1,
+    "mappedAudio": 99.72039971742113,
+    "nearestAudioChange": 99.49750566893424,
+    "deltaMs": -223,
+    "novelty": 0.7519
+  },
+  {
+    "change": "G7 -> C",
+    "confidence": 0.7147,
+    "midiRaw": 101.2,
+    "mappedAudio": 101.82960434809998,
+    "nearestAudioChange": 101.79628117913832,
+    "deltaMs": -33,
+    "novelty": 0.7822
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.759,
+    "midiRaw": 105.3,
+    "mappedAudio": 105.94757529371103,
+    "nearestAudioChange": 105.81333333333333,
+    "deltaMs": -134,
+    "novelty": 0.7315
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.759,
+    "midiRaw": 109.5,
+    "mappedAudio": 110.1659845550687,
+    "nearestAudioChange": 109.99292517006803,
+    "deltaMs": -173,
+    "novelty": 0.5356
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.8295,
+    "midiRaw": 111.6,
+    "mappedAudio": 112.27518918574754,
+    "nearestAudioChange": 112.26848072562358,
+    "deltaMs": -7,
+    "novelty": 0.7231
+  },
+  {
+    "change": "C -> D",
+    "confidence": 0.7412,
+    "midiRaw": 115.8,
+    "mappedAudio": 116.4935984471052,
+    "nearestAudioChange": 116.54095238095238,
+    "deltaMs": 47,
+    "novelty": 0.6615
+  },
+  {
+    "change": "D -> G",
+    "confidence": 0.5248,
+    "midiRaw": 117.9,
+    "mappedAudio": 118.60280307778405,
+    "nearestAudioChange": 118.44498866213152,
+    "deltaMs": -158,
+    "novelty": 0.6503
+  },
+  {
+    "change": "G -> Dm",
+    "confidence": 0.513,
+    "midiRaw": 125.8,
+    "mappedAudio": 126.53743002176633,
+    "nearestAudioChange": 126.5255328798186,
+    "deltaMs": -12,
+    "novelty": 0.722
+  },
+  {
+    "change": "Dm -> C",
+    "confidence": 0.513,
+    "midiRaw": 126.3,
+    "mappedAudio": 127.03962160049937,
+    "nearestAudioChange": 127.03637188208617,
+    "deltaMs": -3,
+    "novelty": 0.6539
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.5166,
+    "midiRaw": 130.5,
+    "mappedAudio": 131.25803086185704,
+    "nearestAudioChange": 131.05342403628117,
+    "deltaMs": -205,
+    "novelty": 0.4323
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.7614,
+    "midiRaw": 134.7,
+    "mappedAudio": 135.4764401232147,
+    "nearestAudioChange": 135.2562358276644,
+    "deltaMs": -220,
+    "novelty": 0.5108
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.8281,
+    "midiRaw": 136.8,
+    "mappedAudio": 137.58564475389355,
+    "nearestAudioChange": 137.55501133786848,
+    "deltaMs": -31,
+    "novelty": 0.6864
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.8281,
+    "midiRaw": 138.9,
+    "mappedAudio": 139.6948493845724,
+    "nearestAudioChange": 139.66802721088436,
+    "deltaMs": -27,
+    "novelty": 0.468
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.77,
+    "midiRaw": 139.9,
+    "mappedAudio": 140.6992325420385,
+    "nearestAudioChange": 140.73614512471656,
+    "deltaMs": 37,
+    "novelty": 0.6916
+  },
+  {
+    "change": "C -> D",
+    "confidence": 0.77,
+    "midiRaw": 141.0,
+    "mappedAudio": 141.8040540152512,
+    "nearestAudioChange": 141.78104308390022,
+    "deltaMs": -23,
+    "novelty": 0.842
+  },
+  {
+    "change": "D -> G",
+    "confidence": 0.4834,
+    "midiRaw": 143.1,
+    "mappedAudio": 143.91325864593006,
+    "nearestAudioChange": 143.8940589569161,
+    "deltaMs": -19,
+    "novelty": 0.6146
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.4834,
+    "midiRaw": 151.5,
+    "mappedAudio": 152.35007716864538,
+    "nearestAudioChange": 152.3461224489796,
+    "deltaMs": -4,
+    "novelty": 0.5615
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.7918,
+    "midiRaw": 155.7,
+    "mappedAudio": 156.56848643000305,
+    "nearestAudioChange": 156.31673469387755,
+    "deltaMs": -252,
+    "novelty": 0.4851
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.7978,
+    "midiRaw": 159.9,
+    "mappedAudio": 160.78689569136074,
+    "nearestAudioChange": 160.51954648526078,
+    "deltaMs": -267,
+    "novelty": 0.6293
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.8835,
+    "midiRaw": 162.0,
+    "mappedAudio": 162.89610032203956,
+    "nearestAudioChange": 162.79510204081632,
+    "deltaMs": -101,
+    "novelty": 0.665
+  },
+  {
+    "change": "G -> C",
+    "confidence": 0.8594,
+    "midiRaw": 176.7,
+    "mappedAudio": 177.6605327367914,
+    "nearestAudioChange": 177.5397732426304,
+    "deltaMs": -121,
+    "novelty": 1.0432
+  },
+  {
+    "change": "C -> G",
+    "confidence": 0.8159,
+    "midiRaw": 180.7,
+    "mappedAudio": 181.67806536665586,
+    "nearestAudioChange": 181.8354648526077,
+    "deltaMs": 157,
+    "novelty": 0.4854
+  },
+  {
+    "change": "G -> D",
+    "confidence": 0.6808,
+    "midiRaw": 184.9,
+    "mappedAudio": 185.89647462801352,
+    "nearestAudioChange": 185.9453968253968,
+    "deltaMs": 49,
+    "novelty": 1.1046
+  },
+  {
+    "change": "D -> C",
+    "confidence": 0.6808,
+    "midiRaw": 187.2,
+    "mappedAudio": 188.20655589018557,
+    "nearestAudioChange": 188.17451247165533,
+    "deltaMs": -32,
+    "novelty": 0.8353
+  }
+]

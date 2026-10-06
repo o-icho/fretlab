@@ -1,9 +1,9 @@
 import Link from "next/link";
-import type { Tool } from "@/lib/content";
+import { toolHref, type Tool } from "@/lib/content";
 import { Icon } from "./Icon";
 export function ToolCard({ tool }: { tool: Tool }) {
   return (
-    <Link href={`/outils/${tool.slug}`} className={`tool-card ${tool.color}`}>
+    <Link href={toolHref(tool.slug)} className={`tool-card ${tool.color}`}>
       <div className="tool-card-top">
         <span className="tool-icon">
           <Icon name={tool.icon} size={28} />

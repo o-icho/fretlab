@@ -42,7 +42,7 @@ export default function About() {
             <span>03</span>
             <h3>Au fil de la pratique</h3>
             <p>
-              Six outils et des guides pratiques pour accompagner votre
+              Huit outils et des guides pratiques pour accompagner votre
               progression.
             </p>
           </div>

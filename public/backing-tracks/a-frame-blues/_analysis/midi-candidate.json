@@ -1,0 +1,374 @@
+[
+  {
+    "symbol": "G",
+    "midiStartMs": 0,
+    "midiEndMs": 7100,
+    "confidence": 0.5841
+  },
+  {
+    "symbol": "G7",
+    "midiStartMs": 7100,
+    "midiEndMs": 9100,
+    "confidence": 0.6829
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 9100,
+    "midiEndMs": 11200,
+    "confidence": 0.6743
+  },
+  {
+    "symbol": "Cm",
+    "midiStartMs": 11200,
+    "midiEndMs": 13300,
+    "confidence": 0.8479
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 13300,
+    "midiEndMs": 17400,
+    "confidence": 0.6429
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 17400,
+    "midiEndMs": 19700,
+    "confidence": 0.6302
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 19700,
+    "midiEndMs": 21600,
+    "confidence": 0.7187
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 21600,
+    "midiEndMs": 23300,
+    "confidence": 0.7768
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 23300,
+    "midiEndMs": 23700,
+    "confidence": 0.76
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 23700,
+    "midiEndMs": 25900,
+    "confidence": 0.8447
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 25900,
+    "midiEndMs": 34200,
+    "confidence": 0.6106
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 34200,
+    "midiEndMs": 38400,
+    "confidence": 0.5785
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 38400,
+    "midiEndMs": 42600,
+    "confidence": 0.6728
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 42600,
+    "midiEndMs": 44700,
+    "confidence": 0.8055
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 44700,
+    "midiEndMs": 46700,
+    "confidence": 0.7546
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 46700,
+    "midiEndMs": 48900,
+    "confidence": 0.6367
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 48900,
+    "midiEndMs": 51000,
+    "confidence": 0.8347
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 51000,
+    "midiEndMs": 59300,
+    "confidence": 0.6205
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 59300,
+    "midiEndMs": 61300,
+    "confidence": 0.6639
+  },
+  {
+    "symbol": "Cm",
+    "midiStartMs": 61300,
+    "midiEndMs": 63500,
+    "confidence": 0.587
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 63500,
+    "midiEndMs": 67700,
+    "confidence": 0.7662
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 67700,
+    "midiEndMs": 69800,
+    "confidence": 0.7857
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 69800,
+    "midiEndMs": 71900,
+    "confidence": 0.8393
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 71900,
+    "midiEndMs": 72900,
+    "confidence": 0.7438
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 72900,
+    "midiEndMs": 73900,
+    "confidence": 0.7026
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 73900,
+    "midiEndMs": 74500,
+    "confidence": 0.8175
+  },
+  {
+    "symbol": "Am",
+    "midiStartMs": 74500,
+    "midiEndMs": 75000,
+    "confidence": 0.5968
+  },
+  {
+    "symbol": "Bb",
+    "midiStartMs": 75000,
+    "midiEndMs": 75500,
+    "confidence": 0.8157
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 75500,
+    "midiEndMs": 76100,
+    "confidence": 0.8232
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 76100,
+    "midiEndMs": 80200,
+    "confidence": 0.6307
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 80200,
+    "midiEndMs": 84400,
+    "confidence": 0.8577
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 84400,
+    "midiEndMs": 88600,
+    "confidence": 0.6444
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 88600,
+    "midiEndMs": 92800,
+    "confidence": 0.8158
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 92800,
+    "midiEndMs": 99100,
+    "confidence": 0.7565
+  },
+  {
+    "symbol": "G7",
+    "midiStartMs": 99100,
+    "midiEndMs": 101200,
+    "confidence": 0.7147
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 101200,
+    "midiEndMs": 105300,
+    "confidence": 0.7823
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 105300,
+    "midiEndMs": 109500,
+    "confidence": 0.759
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 109500,
+    "midiEndMs": 111600,
+    "confidence": 0.8946
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 111600,
+    "midiEndMs": 113700,
+    "confidence": 0.8295
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 115600,
+    "midiEndMs": 115800,
+    "confidence": 0.7412
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 115800,
+    "midiEndMs": 117900,
+    "confidence": 0.9174
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 117900,
+    "midiEndMs": 125800,
+    "confidence": 0.5248
+  },
+  {
+    "symbol": "Dm",
+    "midiStartMs": 125800,
+    "midiEndMs": 126300,
+    "confidence": 0.513
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 126300,
+    "midiEndMs": 130500,
+    "confidence": 0.5166
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 130500,
+    "midiEndMs": 134700,
+    "confidence": 0.7614
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 134700,
+    "midiEndMs": 136800,
+    "confidence": 0.8333
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 136800,
+    "midiEndMs": 138900,
+    "confidence": 0.8281
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 138900,
+    "midiEndMs": 139900,
+    "confidence": 0.9014
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 139900,
+    "midiEndMs": 141000,
+    "confidence": 0.77
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 141000,
+    "midiEndMs": 143100,
+    "confidence": 0.8808
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 143100,
+    "midiEndMs": 151500,
+    "confidence": 0.4834
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 151500,
+    "midiEndMs": 155700,
+    "confidence": 0.7918
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 155700,
+    "midiEndMs": 159900,
+    "confidence": 0.7978
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 159900,
+    "midiEndMs": 162000,
+    "confidence": 0.9048
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 162000,
+    "midiEndMs": 162400,
+    "confidence": 0.8835
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 167000,
+    "midiEndMs": 176700,
+    "confidence": 0.8958
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 176700,
+    "midiEndMs": 180700,
+    "confidence": 0.8594
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 180700,
+    "midiEndMs": 184900,
+    "confidence": 0.8159
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 184900,
+    "midiEndMs": 187200,
+    "confidence": 0.6808
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 187200,
+    "midiEndMs": 187600,
+    "confidence": 0.8407
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 195600,
+    "midiEndMs": 201700,
+    "confidence": 0.824
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 207600,
+    "midiEndMs": 214127,
+    "confidence": 0.8167
+  }
+]

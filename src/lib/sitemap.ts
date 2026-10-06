@@ -8,6 +8,8 @@ export const PUBLIC_PATHS = [
   "/outils/transposeur",
   "/outils/gammes",
   "/outils/progressions",
+  "/outils/boite-a-rythmes",
+  "/backing-tracks",
   "/articles",
   "/a-propos",
 ] as const;

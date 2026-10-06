@@ -1,5 +1,5 @@
-export const MIN_BPM = 40;
-export const MAX_BPM = 240;
+import { clampBpm, DEFAULT_BPM } from "../../domain/rhythm/tempo.ts";
+export { MIN_BPM, MAX_BPM, clampBpm } from "../../domain/rhythm/tempo.ts";
 export const SIGNATURES = ["2/4", "3/4", "4/4", "6/8"] as const;
 export type TimeSignature = (typeof SIGNATURES)[number];
 export type MetronomeSettings = {
@@ -9,17 +9,12 @@ export type MetronomeSettings = {
   volume: number;
 };
 export const DEFAULT_SETTINGS: MetronomeSettings = {
-  bpm: 120,
+  bpm: DEFAULT_BPM,
   signature: "4/4",
   accent: true,
   volume: 0.5,
 };
 
-export function clampBpm(value: number): number {
-  return Number.isFinite(value)
-    ? Math.max(MIN_BPM, Math.min(MAX_BPM, Math.round(value)))
-    : DEFAULT_SETTINGS.bpm;
-}
 export function parseBpm(value: string): number | null {
   if (!value.trim()) return null;
   const number = Number(value);

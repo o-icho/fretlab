@@ -9,6 +9,7 @@ export function Icon({
   style?: CSSProperties;
 }) {
   const paths: Record<string, React.ReactNode> = {
+    drums: <><ellipse cx="12" cy="8" rx="8" ry="3" /><path d="M4 8v9c0 4 16 4 16 0V8M4 12l5 7 6-8 5 6M3 2l12 5M21 2l-6 5" /></>,
     lock: <><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" /></>,
     unlock: <><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 7.5-2M12 14v3" /></>,
     progression: <><rect x="3" y="5" width="5" height="14" rx="1" /><rect x="10" y="8" width="5" height="11" rx="1" /><rect x="17" y="3" width="4" height="16" rx="1" /></>,

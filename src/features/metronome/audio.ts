@@ -4,10 +4,8 @@ import {
   type BeatCursor,
   type MetronomeSettings,
 } from "./rhythm";
+import { AudioScheduler, AUDIO_START_DELAY } from "../audio/AudioScheduler";
 
-const LOOKAHEAD_SECONDS = 0.1;
-const POLL_MS = 25;
-const START_DELAY = 0.04;
 const CLICK_DURATION = 0.035;
 type Voice = { oscillator: OscillatorNode; gain: GainNode };
 
@@ -18,9 +16,7 @@ export class MetronomeAudio {
   private master: GainNode | null = null;
   private voices = new Set<Voice>();
   private cursor: BeatCursor = { time: 0, beat: 0 };
-  private visuals: BeatCursor[] = [];
-  private timer: ReturnType<typeof setTimeout> | null = null;
-  private frame: number | null = null;
+  private scheduler: AudioScheduler<BeatCursor> | null = null;
   private running = false;
   private generation = 0;
   private disposed = false;
@@ -43,8 +39,8 @@ export class MetronomeAudio {
       );
     if (signatureChanged && this.running && this.context) {
       this.clearVoices();
-      this.visuals = [];
-      this.cursor = { time: this.context.currentTime + START_DELAY, beat: 0 };
+      this.scheduler?.clearVisuals();
+      this.cursor = { time: this.context.currentTime + AUDIO_START_DELAY, beat: 0 };
       this.onBeat(-1);
     }
   }
@@ -57,6 +53,7 @@ export class MetronomeAudio {
       this.context = new AudioContext({ latencyHint: "interactive" });
       this.master = this.context.createGain();
       this.master.connect(this.context.destination);
+      this.scheduler = new AudioScheduler(this.context, this.schedule, (event) => this.onBeat(event.beat), this.onInterrupted);
       this.context.onstatechange = () => {
         if (this.running && this.context?.state !== "running") {
           this.stop();
@@ -71,27 +68,25 @@ export class MetronomeAudio {
       throw new Error("Le navigateur n’a pas autorisé la lecture audio.");
     this.master!.gain.setValueAtTime(this.settings.volume, context.currentTime);
     this.running = true;
-    this.cursor = { time: context.currentTime + START_DELAY, beat: 0 };
-    this.schedule();
-    this.animate();
+    this.cursor = { time: context.currentTime + AUDIO_START_DELAY, beat: 0 };
+    this.scheduler!.start();
     return true;
   }
 
-  private schedule = () => {
-    if (!this.running || !this.context) return;
+  private schedule = (now: number, horizon: number): BeatCursor[] => {
+    if (!this.running || !this.context) return [];
     const plan = planBeats(
       this.cursor,
-      this.context.currentTime,
-      LOOKAHEAD_SECONDS,
+      now,
+      horizon,
       this.settings.bpm,
       this.settings.signature,
     );
     for (const event of plan.events) {
       this.click(event);
-      this.visuals.push(event);
     }
     this.cursor = plan.next;
-    this.timer = setTimeout(this.schedule, POLL_MS);
+    return plan.events;
   };
 
   private click(event: BeatCursor) {
@@ -124,23 +119,6 @@ export class MetronomeAudio {
     oscillator.stop(event.time + CLICK_DURATION + 0.005);
   }
 
-  private animate = () => {
-    if (!this.running || !this.context) return;
-    // Use the actual output clock where available to account for audio latency.
-    const timestamp = this.context.getOutputTimestamp?.();
-    const audibleTime =
-      timestamp && typeof timestamp.performanceTime === "number" && timestamp.performanceTime > 0 && typeof timestamp.contextTime === "number"
-        ? timestamp.contextTime +
-          Math.max(0, performance.now() - timestamp.performanceTime) / 1000
-        : this.context.currentTime -
-          (this.context.outputLatency || this.context.baseLatency || 0);
-    let latest: BeatCursor | undefined;
-    while (this.visuals.length && this.visuals[0].time <= audibleTime)
-      latest = this.visuals.shift();
-    if (latest) this.onBeat(latest.beat);
-    this.frame = requestAnimationFrame(this.animate);
-  };
-
   private clearVoices() {
     for (const { oscillator, gain } of this.voices) {
       oscillator.onended = null;
@@ -154,11 +132,7 @@ export class MetronomeAudio {
   stop() {
     this.generation++;
     this.running = false;
-    if (this.timer !== null) clearTimeout(this.timer);
-    if (this.frame !== null) cancelAnimationFrame(this.frame);
-    this.timer = null;
-    this.frame = null;
-    this.visuals = [];
+    this.scheduler?.stop();
     this.clearVoices();
   }
 
@@ -172,6 +146,7 @@ export class MetronomeAudio {
     }
     this.master?.disconnect();
     this.master = null;
+    this.scheduler = null;
     this.context = null;
   }
 }

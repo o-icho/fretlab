@@ -12,6 +12,9 @@ const routes = [
   "outils/transposeur",
   "outils/gammes",
   "outils/progressions",
+  "outils/boite-a-rythmes",
+  "outils/backing-tracks",
+  "backing-tracks",
   "articles",
   "a-propos",
 ];

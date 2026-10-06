@@ -10,6 +10,7 @@ export default defineConfig([
     "out/**",
     "android/**",
     ".pnpm-store/**",
+    "tools/**/.venv/**",
     "next-env.d.ts",
   ]),
 ]);

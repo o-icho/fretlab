@@ -122,6 +122,44 @@
   margin-top: 14px;
   line-height: 1.7;
 }
+.tapTempo {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 4px 0 28px;
+  padding: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.tapButton {
+  flex-shrink: 0;
+  width: 112px;
+  min-height: 100px;
+  border: 1px solid var(--amber);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--amber);
+  font: inherit;
+  font-size: 24px;
+  font-weight: 750;
+  letter-spacing: 2px;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+.tapButton:hover, .tapButton:active {
+  background: var(--amber);
+  color: var(--bg);
+}
+.tapInfo { min-width: 0; font-size: 12px; line-height: 1.7; }
+.tapTitle { font-weight: 700; margin-bottom: 6px; }
+.tapInfo > p:last-child { font-size: 10px; color: var(--muted); margin-top: 8px; }
+.tapApplied { color: var(--teal); }
+@media (max-width: 540px) {
+  .tapTempo { flex-direction: column; align-items: stretch; gap: 16px; padding: 16px; }
+  .tapButton { width: 100%; min-height: 96px; }
+}
 .controls {
   display: grid;
   grid-template-columns: 1.1fr 1fr;

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMetronome } from "./useMetronome";
+import { TapTempo } from "./TapTempoControl";
 import {
   MAX_BPM,
   MIN_BPM,
@@ -77,7 +78,7 @@ export function Metronome() {
           <span aria-hidden="true">{status === "stopped" ? "▶" : "■"}</span>
           {status === "stopped" ? "Démarrer" : "Arrêter"}
         </button>
-        <p>Barre espace pour démarrer ou arrêter</p>
+        <p>Espace hors des contrôles : démarrer ou arrêter</p>
       </div>
       <div role="status" className={styles.status}>
         {error ||
@@ -87,6 +88,7 @@ export function Metronome() {
               ? "Activation de l’audio…"
               : "Prêt à jouer")}
       </div>
+      <TapTempo onTempo={changeBpm} />
       <div className={styles.controls}>
         <div className={styles.tempoControls}>
           <label htmlFor="bpm-slider">

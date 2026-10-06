@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "./Container";
 import { Icon } from "./Icon";
-import { tools } from "@/lib/content";
+import { tools, toolHref } from "@/lib/content";
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -28,7 +28,7 @@ export function Footer() {
           <nav aria-label="Outils de pied de page">
             <h2>Les outils</h2>
             {tools.map((t) => (
-              <Link key={t.slug} href={`/outils/${t.slug}`}>
+              <Link key={t.slug} href={toolHref(t.slug)}>
                 {t.name}
               </Link>
             ))}

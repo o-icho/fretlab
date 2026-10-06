@@ -57,5 +57,16 @@ export const tools = [
     color: "amber",
     number: "06",
   },
+  {
+    slug: "boite-a-rythmes",
+    name: "Boîte à rythmes",
+    short: "Jouez sur un groove.",
+    description: "Accompagnez votre guitare avec des rythmes rock, blues, funk, metal et pop.",
+    icon: "drums",
+    color: "teal",
+    number: "07",
+  },
+  { slug: "backing-tracks", name: "Backing tracks", short: "Jouez accompagné.", description: "Suivez les accords et alternez accompagnement et exemple complet.", icon: "tuner", color: "purple", number: "08" },
 ] as const;
 export type Tool = (typeof tools)[number];
+export function toolHref(slug: string) { return slug === "backing-tracks" ? "/backing-tracks/" : `/outils/${slug}`; }
