@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { chordsAt, validAudioUrl, type BackingTrack } from "@/domain/music/backingTracks";
 import { useAudioPause } from "@/features/audio/useAudioPause";
@@ -41,7 +42,7 @@ export function BackingTrackPlayer({ track }: { track: BackingTrack }) {
     for (const audio of [a, b]) for (const event of events) audio.addEventListener(event, changed);
     a.src = track.audio.backingUrl;
     if (validAudioUrl(track.audio.exampleUrl)) b.src = track.audio.exampleUrl;
-    else player.message = "Exemple non fourni ou URL invalide. Le backing reste disponible.";
+    else if (track.audio.exampleUrl) player.message = "URL de l’exemple invalide. Le backing reste disponible.";
     frame = requestAnimationFrame(update);
     return () => {
       cancelAnimationFrame(frame); player.dispose(); transport.current = null;
@@ -56,13 +57,13 @@ export function BackingTrackPlayer({ track }: { track: BackingTrack }) {
     <audio ref={backing} preload="metadata" /><audio ref={example} preload="metadata" />
     <p className="eyebrow">{track.style ?? "ACCOMPAGNEMENT"}</p>
     <h2>{track.title}</h2><p className={styles.meta}>{track.key} · {track.bpm} BPM · {state.mode === "EXAMPLE" ? "Exemple complet" : "Backing sans lead"}</p>
-    <div className={styles.chord} aria-live="polite" aria-atomic="true">{chords.current && <><span>Accord courant</span><strong>{chords.current.symbol}</strong>{chords.next && <p>Suivant : <b>{chords.next.symbol}</b></p>}</>}</div>
+    <div className={styles.chord} aria-live="polite" aria-atomic="true">{track.chordTimeline.length === 0 ? <span className={styles.noChords}>Accords non disponibles</span> : chords.current && <><span>Accord courant</span><strong>{chords.current.symbol}</strong>{chords.next && <p>Suivant : <b>{chords.next.symbol}</b></p>}</>}</div>
     <label htmlFor={`${id}-seek`}>Position dans le morceau</label>
     <input id={`${id}-seek`} type="range" min="0" max={track.durationMs} step="100" value={state.time} disabled={!state.ready} aria-valuetext={timeLabel(state.time)} onChange={e => { transport.current?.seek(Number(e.target.value)); refresh(); }} />
     <div className={styles.times}><span>{timeLabel(state.time)}</span><span>{timeLabel(track.durationMs)}</span></div>
     <div className={styles.controls}>
       <button className={styles.play} aria-label={state.playing ? "Mettre en pause" : "Lire"} disabled={!state.ready} onClick={() => { const p = transport.current; if (!p) return; if (!p.active.paused && !p.active.ended) pause(); else { if (p.active.ended || p.timeMs >= track.durationMs) p.seek(0); void p.play().then(refresh); refresh(); } }}><span aria-hidden="true">{state.playing ? "Ⅱ" : "▶"}</span> {state.playing ? "Pause" : "Play"}</button>
-      <button aria-pressed={state.mode === "EXAMPLE"} disabled={!state.example} onClick={() => { void transport.current?.switchMode(state.mode === "EXAMPLE" ? "BACKING" : "EXAMPLE").then(refresh); refresh(); }}>Exemple {state.mode === "EXAMPLE" ? "ON" : "OFF"}</button>
+      {track.audio.exampleUrl ? <button aria-pressed={state.mode === "EXAMPLE"} disabled={!state.example} onClick={() => { void transport.current?.switchMode(state.mode === "EXAMPLE" ? "BACKING" : "EXAMPLE").then(refresh); refresh(); }}>Exemple {state.mode === "EXAMPLE" ? "ON" : "OFF"}</button> : <Link className={styles.contribute} href={`/backing-tracks/${encodeURIComponent(track.slug)}/submit-example/`} lang="en">Example not available · Send yours</Link>}
     </div>
     <p className={styles.help} role="status">{state.playing ? "Lecture en cours" : "Lecture en pause"} · {state.mode === "EXAMPLE" ? "Version complète" : "À vous de jouer le lead"}</p>
     <label htmlFor={`${id}-volume`}>Volume</label><input id={`${id}-volume`} type="range" min="0" max="1" step="0.01" value={volume} onChange={e => { const v = Number(e.target.value); setVolume(v); transport.current?.volume(v); }} />

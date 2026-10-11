@@ -43,7 +43,7 @@ test('génération déterministe, détails chargés, filtres et extras ignorés'
   assert.throws(()=>decodeTrackDetail({...detail(),bpm:120},entries[0]));
 });
 test('erreurs explicites : dossier, mismatch fichier/JSON, fichiers manquants, doublons, JSON invalide',async()=>{
-  for(const options of [{id:'Bad'},{backing:'Backingtrack_other.mp3'},{example:'Example_other.mp3'},{json:'Track_other.json'},{data:detail('other')},{omit:'Example_test_01.mp3'},{omit:'Backingtrack_test_01.mp3'},{omit:'Track_test_01.json'}]){
+  for(const options of [{id:'Bad'},{backing:'Backingtrack_other.mp3'},{example:'Example_other.mp3'},{json:'Track_other.json'},{data:detail('other')},{omit:'Backingtrack_test_01.mp3'},{omit:'Track_test_01.json'}]){
     const {root}=await fixture(options);await assert.rejects(scanBackingTracks(root),/\[.*\]/);
   }
   const {root,folder}=await fixture();await writeFile(join(folder,'Backingtrack_other.mp3'),'audio');
@@ -66,4 +66,17 @@ test('vrai contenu publié : timeline préservée sans modification',async()=>{
     assert.deepEqual(track.chordTimeline,raw.chordTimeline);
     assert.equal(track.chordCoverageEndMs,raw.chordCoverageEndMs);
   }
+});
+
+test('Example facultatif et timeline vide : catalogue et détail sans URL inventée',async()=>{
+  const {root,folder}=await fixture({omit:'Example_test_01.mp3',data:{...detail(),chordTimeline:[]}});
+  const [summary]=await scanBackingTracks(root);
+  assert.equal('exampleUrl' in summary,false);
+  const track=decodeTrackDetail({...detail(),chordTimeline:[]},summary);
+  assert.equal(track.audio.exampleUrl,undefined);
+  assert.deepEqual(track.chordTimeline,[]);
+  await writeFile(join(folder,'Example_other.mp3'),'audio');
+  await assert.rejects(scanBackingTracks(root),/identifiant différent/);
+  await writeFile(join(folder,'Example_test_01.mp3'),'audio');
+  await assert.rejects(scanBackingTracks(root),/exactement 1/);
 });

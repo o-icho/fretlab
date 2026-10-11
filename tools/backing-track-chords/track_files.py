@@ -19,7 +19,7 @@ class TrackFiles:
     identifier: str
     folder: Path
     backing: Path
-    example: Path
+    example: Path | None
     output: Path
 
     @property
@@ -51,14 +51,14 @@ def resolve_track(root, identifier):
                 raise ValueError(f'Folder/id mismatch: {entry.name} in {identifier}')
     expected = (folder / f'Backingtrack_{identifier}.mp3', folder / f'Example_{identifier}.mp3',
                 folder / f'Track_{identifier}.json')
-    for pattern, path in zip((BACKING, EXAMPLE), expected):
+    for pattern, path in zip((BACKING,), expected):
         if not matches[pattern]:
             raise ValueError(f'Missing required file: {path}')
     # Important on case-insensitive filesystems: a differently cased existing
     # JSON must not be silently overwritten through the canonical spelling.
     if expected[2].exists() and not matches[TRACK]:
         raise ValueError(f'Existing JSON does not have the exact canonical filename: {expected[2]}')
-    return TrackFiles(identifier, folder, *expected)
+    return TrackFiles(identifier, folder, expected[0], expected[1] if matches[EXAMPLE] else None, expected[2])
 
 
 def _number(value, label, positive=False, integer=False):

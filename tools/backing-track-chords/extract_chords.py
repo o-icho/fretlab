@@ -19,6 +19,20 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False, allow_nan=False) + '\n', encoding='utf-8')
 
 
+def read_harmony_sources(primary, additional):
+    """Combine notes in seconds, retaining the primary MIDI coverage boundary."""
+    paths = [primary, *additional]
+    if len({p.resolve() for p in paths}) != len(paths):
+        raise ValueError('Duplicate harmony MIDI source')
+    notes, duration, repairs = read_midi(primary)
+    notes = list(notes)
+    for path in additional:
+        extra, _, fixed = read_midi(path)
+        notes.extend(extra)
+        repairs += fixed
+    return notes, duration, repairs
+
+
 def debug_plot(path, midi_times, midi, audio_times, audio, candidate, scale, offset, coverage):
     os.environ.setdefault('MPLCONFIGDIR', str(Path(__file__).resolve().parent / '.cache' / 'matplotlib'))
     import matplotlib
@@ -46,6 +60,8 @@ def debug_plot(path, midi_times, midi, audio_times, audio, candidate, scale, off
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--harmony', type=Path, required=True)
+    parser.add_argument('--additional-harmony', type=Path, action='append', default=[],
+                        help='Additional aligned MIDI stem; repeatable, does not extend primary coverage')
     parser.add_argument('--bass', type=Path)
     parser.add_argument('--track-id')
     parser.add_argument('--tracks-root', type=Path)
@@ -97,7 +113,7 @@ def main(argv=None):
     debug = args.debug_dir or args.output.parent
     destinations = [args.output, debug / 'debug.csv', debug / 'midi-candidate.json',
                     debug / 'timing-checks.json', debug / 'alignment-debug.png']
-    sources = [p.resolve() for p in (args.harmony, args.bass, args.audio,
+    sources = [p.resolve() for p in (args.harmony, *args.additional_harmony, args.bass, args.audio,
                                     files.example if files else None) if p is not None]
     for destination in destinations:
         resolved = destination.resolve()
@@ -108,7 +124,7 @@ def main(argv=None):
     if len({p.resolve() for p in destinations}) != len(destinations):
         parser.error('Output and debug filenames must be distinct')
     print('Reading MIDI...', flush=True)
-    harmony, duration, repairs = read_midi(args.harmony)
+    harmony, duration, repairs = read_harmony_sources(args.harmony, args.additional_harmony)
     bass, bass_duration, bass_repairs = read_midi(args.bass) if args.bass else ([], None, 0)
     edges = np.r_[np.arange(0, duration, args.step), duration]
     centers = (edges[:-1] + edges[1:]) / 2
@@ -148,7 +164,7 @@ def main(argv=None):
                               scaleBounds=list(args.scale_bounds), offsetBounds=list(args.offset_bounds),
                               invalidKeySignatures=repairs + bass_repairs, warnings=warnings,
                               inputs={p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                                      for p in (args.harmony, args.bass, args.audio) if p is not None})
+                                      for p in (args.harmony, *args.additional_harmony, args.bass, args.audio) if p is not None})
     args.output.parent.mkdir(parents=True, exist_ok=True)
     debug.mkdir(parents=True, exist_ok=True)
     track = None
@@ -174,7 +190,7 @@ def main(argv=None):
         if current != original:
             raise ValueError('Track JSON changed during analysis; refusing to overwrite editorial changes')
         atomic_write_track(files.output, track, files.identifier)
-        print(f'Track: {files.identifier}\nBacking: {files.backing.name}\nExample: {files.example.name}'
+        print(f'Track: {files.identifier}\nBacking: {files.backing.name}\nExample: {files.example.name if files.example else "absent (optional)"}'
               f'\nJSON: {files.output.name}\nDuration: {track["durationMs"]} ms'
               f'\nChord coverage: {track["chordCoverageEndMs"]} ms\nChords: {len(track["chordTimeline"])}'
               f'\nAlignment scale: {scale:.9f}\nOffset: {offset * 1000:.3f} ms\nMean similarity: {similarity:.6f}')

@@ -1,7 +1,7 @@
 import { decodeBackingTrackSummary, type BackingTrackSummary } from "../../domain/music/backingTracks.ts";
 import { decodeContentTrack, trackPaths } from "./content.ts";
 export function decodeTrackDetail(input: unknown, summary: BackingTrackSummary) {
-  const track = decodeContentTrack(input);
+  const track = decodeContentTrack(input, "folder" in summary ? "exampleUrl" in summary && summary.exampleUrl !== undefined : true);
   if (JSON.stringify(decodeBackingTrackSummary(track)) !== JSON.stringify(decodeBackingTrackSummary(summary))) throw new Error("Le détail du morceau ne correspond pas au catalogue.");
   return track;
 }

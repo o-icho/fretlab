@@ -1,8 +1,8 @@
 {
-  "title": "Slow Blues in C",
+  "title": "Slow Ballad in C",
   "style": "blues",
   "key": "C",
-  "bpm": 167.075,
+  "bpm": 52,
   "schemaVersion": 1,
   "id": "c-slow-blues",
   "durationMs": 266211,
@@ -11,27 +11,27 @@
     {
       "symbol": "C",
       "startMs": 1978,
-      "endMs": 10440,
+      "endMs": 9840,
       "source": "midi",
       "confidence": 0.7097
     },
     {
       "symbol": "Am",
-      "startMs": 10440,
-      "endMs": 19002,
+      "startMs": 9840,
+      "endMs": 18202,
       "source": "midi",
       "confidence": 0.8603
     },
     {
       "symbol": "F",
-      "startMs": 19002,
-      "endMs": 27464,
+      "startMs": 18202,
+      "endMs": 27064,
       "source": "midi",
       "confidence": 0.7425
     },
     {
       "symbol": "C",
-      "startMs": 27464,
+      "startMs": 27064,
       "endMs": 35926,
       "source": "midi",
       "confidence": 0.7217

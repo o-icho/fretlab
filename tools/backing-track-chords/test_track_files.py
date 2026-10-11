@@ -61,8 +61,7 @@ class TrackFilesTests(unittest.TestCase):
 
     def test_missing_example(self):
         self.files.example.unlink()
-        with self.assertRaisesRegex(ValueError, 'Example_'):
-            resolve_track(self.root, 'track-1')
+        self.assertIsNone(resolve_track(self.root, 'track-1').example)
 
     def test_folder_file_mismatch(self):
         for path, wrong in ((self.files.backing, 'Backingtrack_other.mp3'),

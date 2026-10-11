@@ -4,6 +4,9 @@ import { resolve, sep, extname } from "node:path";
 const root = resolve("out");
 const port = Number(process.env.PORT ?? 3000);
 const reportOnlyHeaders = {};
+// Optional local backend, identical handler to Vercel. Never sends unless its
+// server configuration is explicitly supplied (placeholder fails closed).
+const submission = process.argv.includes("--with-api") ? (await import("../api/submit-example.ts")).default : null;
 if (process.argv.includes("--csp")) {
   const config = JSON.parse(await readFile("vercel.json", "utf8"));
   const header = config.headers
@@ -29,6 +32,19 @@ const types = {
   ".m4a": "audio/mp4",
 };
 createServer(async (request, response) => {
+  if (submission && request.url?.split("?")[0] === "/api/submit-example") {
+    try {
+      const headers = new Headers();
+      for (const [key, value] of Object.entries(request.headers)) if (value !== undefined) headers.set(key, Array.isArray(value) ? value.join(", ") : value);
+      const method = request.method ?? "GET";
+      const result = await submission.fetch(new Request(`http://${request.headers.host}${request.url}`, {
+        method, headers, ...(!["GET", "HEAD"].includes(method) ? { body: request, duplex: "half" } : {}),
+      }));
+      response.writeHead(result.status, Object.fromEntries(result.headers));
+      response.end(Buffer.from(await result.arrayBuffer()));
+    } catch { response.writeHead(500, { "Content-Type": "application/json" }); response.end('{"code":"SEND_FAILED"}'); }
+    return;
+  }
   if (!["GET", "HEAD"].includes(request.method ?? "")) {
     response.writeHead(405);
     response.end();

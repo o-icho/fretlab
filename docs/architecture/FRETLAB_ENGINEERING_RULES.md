@@ -97,7 +97,7 @@ lit le temps des éléments audio (pas du scheduler de pulsations). Les fichiers
 restent des assets ou URL ; seul le JSON importé est persisté par
 `LocalTrackRepository` (localStorage, schemaVersion 1). Le catalogue publié est généré depuis les sous-dossiers de
 public/backing-tracks/ par scripts/generate-backing-tracks-catalog.mjs au dev/build.
-Chaque dossier contient Backingtrack_<id>.mp3, Example_<id>.mp3 et Track_<id>.json.
+Chaque dossier contient Backingtrack_<id>.mp3 et Track_<id>.json ; Example_<id>.mp3 est optionnel.
 catalog.generated.json (ignoré par Git) contient les résumés et URLs conventionnelles,
 jamais la timeline. Le détail est chargé à l'ouverture et adapté au modèle runtime
 existant ; analysis est ignoré. Les routes /backing-tracks/<id>/ sont pré-générées.
@@ -115,6 +115,13 @@ l’ordre du catalogue et les paramètres URL. `library.ts` sépare cette logiqu
 du rendu. L’import local est réservé à `/backing-tracks/ajouter/`, gardé au build
 par `NEXT_PUBLIC_BACKING_TRACK_ADMIN_ENABLED` (désactivé par défaut, sans authentification).
 L’ancienne URL `/outils/backing-tracks/` reste compatible avec la nouvelle canonical.
+
+Les contributions Example utilisent une page statique partagée Web/Android et
+une Vercel Function `api/submit-example.ts` indépendante de l'export Next.
+Le destinataire vient uniquement de `config/backing-tracks.json`, Resend et ses
+secrets restent serveur. Pas de stockage ni publication automatique des pièces
+jointes. L'envoi nécessite Internet ; limite 4 Mo imposée par le transport Vercel.
+Voir `docs/backing-track-submissions.md` pour configuration et recette.
 
 Conserver le scheduler fondé sur l’horloge AudioContext, la libération des
 ressources audio et les arrêts en arrière-plan. `NativeLifecycle` isole les

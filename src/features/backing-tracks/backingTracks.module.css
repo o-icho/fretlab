@@ -18,6 +18,12 @@
 .times { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; color: var(--muted); }
 .controls { display: flex; gap: 16px; margin-top: 28px; }
 .controls > button { flex: 1; min-height: 60px; }
+.contribute { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 60px; flex: 1; padding: 12px; border: 1px solid #454954; border-radius: 8px; font-size: 14px; }
+.contribute:hover { border-color: var(--amber); }
+.chord .noChords { grid-row: 2; align-self: center; }
+.submission fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.submission input:not([type="hidden"]), .submission textarea { width: 100%; min-height: 48px; padding: 12px; border: 1px solid #454954; border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; font-size: 16px; }
+.submission textarea { resize: vertical; }
 .controls .play { background: var(--amber); color: var(--bg); font-weight: 750; }
 .message { color: var(--amber); font-size: 14px; line-height: 1.7; margin-top: 14px; overflow-wrap: anywhere; }
 @media(max-width: 540px) { .player, .library { padding: 20px 16px; } .controls { gap: 10px; } .controls > button { padding-inline: 12px; } .workspace select { font-size: 16px; } }

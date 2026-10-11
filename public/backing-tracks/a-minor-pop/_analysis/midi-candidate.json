@@ -1,0 +1,428 @@
+[
+  {
+    "symbol": "Am",
+    "midiStartMs": 0,
+    "midiEndMs": 1200,
+    "confidence": 0.695
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 1200,
+    "midiEndMs": 3900,
+    "confidence": 0.6899
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 3900,
+    "midiEndMs": 9900,
+    "confidence": 0.6105
+  },
+  {
+    "symbol": "Am",
+    "midiStartMs": 9900,
+    "midiEndMs": 12700,
+    "confidence": 0.7178
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 12700,
+    "midiEndMs": 18000,
+    "confidence": 0.5453
+  },
+  {
+    "symbol": "E7",
+    "midiStartMs": 18000,
+    "midiEndMs": 21600,
+    "confidence": 0.5087
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 23900,
+    "midiEndMs": 26800,
+    "confidence": 0.8082
+  },
+  {
+    "symbol": "Db7",
+    "midiStartMs": 26800,
+    "midiEndMs": 29600,
+    "confidence": 0.5488
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 29600,
+    "midiEndMs": 32500,
+    "confidence": 0.6219
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 32500,
+    "midiEndMs": 35300,
+    "confidence": 0.5698
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 35300,
+    "midiEndMs": 38100,
+    "confidence": 0.5916
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 38100,
+    "midiEndMs": 43800,
+    "confidence": 0.5335
+  },
+  {
+    "symbol": "Gm7",
+    "midiStartMs": 43800,
+    "midiEndMs": 45200,
+    "confidence": 0.8504
+  },
+  {
+    "symbol": "C7",
+    "midiStartMs": 45200,
+    "midiEndMs": 46600,
+    "confidence": 0.5168
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 46600,
+    "midiEndMs": 49400,
+    "confidence": 0.7459
+  },
+  {
+    "symbol": "Db7",
+    "midiStartMs": 49400,
+    "midiEndMs": 52200,
+    "confidence": 0.5
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 52200,
+    "midiEndMs": 55000,
+    "confidence": 0.5532
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 55000,
+    "midiEndMs": 57900,
+    "confidence": 0.5998
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 57900,
+    "midiEndMs": 60700,
+    "confidence": 0.6188
+  },
+  {
+    "symbol": "Fm",
+    "midiStartMs": 60700,
+    "midiEndMs": 63500,
+    "confidence": 0.7516
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 63500,
+    "midiEndMs": 69000,
+    "confidence": 0.6917
+  },
+  {
+    "symbol": "Am",
+    "midiStartMs": 69000,
+    "midiEndMs": 72000,
+    "confidence": 0.6712
+  },
+  {
+    "symbol": "Db7",
+    "midiStartMs": 72000,
+    "midiEndMs": 74800,
+    "confidence": 0.5593
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 74800,
+    "midiEndMs": 77600,
+    "confidence": 0.6603
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 77600,
+    "midiEndMs": 80500,
+    "confidence": 0.5843
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 80500,
+    "midiEndMs": 86100,
+    "confidence": 0.4901
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 86100,
+    "midiEndMs": 88900,
+    "confidence": 0.5606
+  },
+  {
+    "symbol": "C7",
+    "midiStartMs": 88900,
+    "midiEndMs": 91800,
+    "confidence": 0.7491
+  },
+  {
+    "symbol": "Am",
+    "midiStartMs": 91800,
+    "midiEndMs": 94600,
+    "confidence": 0.5369
+  },
+  {
+    "symbol": "Bb7",
+    "midiStartMs": 94600,
+    "midiEndMs": 97400,
+    "confidence": 0.5028
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 97400,
+    "midiEndMs": 100200,
+    "confidence": 0.6287
+  },
+  {
+    "symbol": "Bbm",
+    "midiStartMs": 100200,
+    "midiEndMs": 101300,
+    "confidence": 0.6972
+  },
+  {
+    "symbol": "A7",
+    "midiStartMs": 101300,
+    "midiEndMs": 103100,
+    "confidence": 0.5752
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 103100,
+    "midiEndMs": 104100,
+    "confidence": 0.6285
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 104100,
+    "midiEndMs": 105900,
+    "confidence": 0.8958
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 105900,
+    "midiEndMs": 107300,
+    "confidence": 0.782
+  },
+  {
+    "symbol": "D",
+    "midiStartMs": 107300,
+    "midiEndMs": 108700,
+    "confidence": 0.6503
+  },
+  {
+    "symbol": "Am",
+    "midiStartMs": 108700,
+    "midiEndMs": 111500,
+    "confidence": 0.5512
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 111500,
+    "midiEndMs": 114300,
+    "confidence": 0.474
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 114300,
+    "midiEndMs": 117200,
+    "confidence": 0.5097
+  },
+  {
+    "symbol": "G7",
+    "midiStartMs": 117200,
+    "midiEndMs": 120000,
+    "confidence": 0.5734
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 120000,
+    "midiEndMs": 122800,
+    "confidence": 0.7792
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 122800,
+    "midiEndMs": 125700,
+    "confidence": 0.5847
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 125700,
+    "midiEndMs": 128500,
+    "confidence": 0.7471
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 128500,
+    "midiEndMs": 131300,
+    "confidence": 0.5303
+  },
+  {
+    "symbol": "Fm7",
+    "midiStartMs": 131300,
+    "midiEndMs": 134100,
+    "confidence": 0.771
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 134100,
+    "midiEndMs": 137000,
+    "confidence": 0.6637
+  },
+  {
+    "symbol": "E7",
+    "midiStartMs": 137000,
+    "midiEndMs": 138800,
+    "confidence": 0.6388
+  },
+  {
+    "symbol": "E7",
+    "midiStartMs": 139700,
+    "midiEndMs": 140200,
+    "confidence": 0.8003
+  },
+  {
+    "symbol": "Em",
+    "midiStartMs": 141300,
+    "midiEndMs": 142600,
+    "confidence": 0.4797
+  },
+  {
+    "symbol": "Am",
+    "midiStartMs": 142600,
+    "midiEndMs": 145400,
+    "confidence": 0.5588
+  },
+  {
+    "symbol": "E7",
+    "midiStartMs": 145400,
+    "midiEndMs": 148200,
+    "confidence": 0.7917
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 148200,
+    "midiEndMs": 151100,
+    "confidence": 0.8117
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 151100,
+    "midiEndMs": 153900,
+    "confidence": 0.7098
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 153900,
+    "midiEndMs": 156700,
+    "confidence": 0.6839
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 156700,
+    "midiEndMs": 159500,
+    "confidence": 0.7026
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 159500,
+    "midiEndMs": 162400,
+    "confidence": 0.5086
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 162400,
+    "midiEndMs": 165200,
+    "confidence": 0.825
+  },
+  {
+    "symbol": "F",
+    "midiStartMs": 165200,
+    "midiEndMs": 168000,
+    "confidence": 0.502
+  },
+  {
+    "symbol": "Em7",
+    "midiStartMs": 168000,
+    "midiEndMs": 173000,
+    "confidence": 0.6974
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 173000,
+    "midiEndMs": 176500,
+    "confidence": 0.614
+  },
+  {
+    "symbol": "Dm7",
+    "midiStartMs": 176500,
+    "midiEndMs": 179300,
+    "confidence": 0.6132
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 179300,
+    "midiEndMs": 182100,
+    "confidence": 0.7044
+  },
+  {
+    "symbol": "Fm7",
+    "midiStartMs": 182100,
+    "midiEndMs": 185100,
+    "confidence": 0.5228
+  },
+  {
+    "symbol": "Am7",
+    "midiStartMs": 185100,
+    "midiEndMs": 188800,
+    "confidence": 0.5737
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 188800,
+    "midiEndMs": 191300,
+    "confidence": 0.6226
+  },
+  {
+    "symbol": "Dm",
+    "midiStartMs": 191300,
+    "midiEndMs": 194500,
+    "confidence": 0.5561
+  },
+  {
+    "symbol": "C",
+    "midiStartMs": 194500,
+    "midiEndMs": 197000,
+    "confidence": 0.6458
+  },
+  {
+    "symbol": "Dm",
+    "midiStartMs": 197000,
+    "midiEndMs": 202100,
+    "confidence": 0.6245
+  },
+  {
+    "symbol": "Em",
+    "midiStartMs": 202100,
+    "midiEndMs": 205600,
+    "confidence": 0.6304
+  },
+  {
+    "symbol": "G",
+    "midiStartMs": 205600,
+    "midiEndMs": 207636,
+    "confidence": 0.6263
+  }
+]

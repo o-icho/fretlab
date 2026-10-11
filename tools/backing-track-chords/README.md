@@ -29,8 +29,8 @@ La racine est configurable avec `--tracks-root`, sans base de données, API ou
 upload. Le scanner ne parcourt que le dossier demandé, pas ses sous-dossiers.
 
 1. Créer `<tracks-root>/<id>/` (par exemple `public/backing-tracks/a-frame-blues/`).
-2. Y placer exactement `Backingtrack_<id>.mp3` et `Example_<id>.mp3`.
-   Les deux fichiers sont obligatoires en V1. L'Example n'est jamais analysé.
+2. Y placer exactement `Backingtrack_<id>.mp3` (obligatoire) et, si disponible,
+   `Example_<id>.mp3` (optionnel). L'Example n'est jamais analysé.
 3. Lancer l'analyse avec `--track-id`, `--tracks-root`, `--harmony`, éventuellement
    `--bass`, et les métadonnées éditoriales ci-dessous.
 4. Le script écrit directement `Track_<id>.json` et les diagnostics dans `_analysis/`.
@@ -212,3 +212,13 @@ le modèle FretLab. La fin MIDI transformée brute reste dans
 analysis.transformedMidiCoverageEndMs (et les diagnostics d'alignement).
 Cette réduction ne prolonge aucun événement. Le mode d'analyse isolée conserve
 sa couverture brute à des fins de diagnostic.
+
+### Plusieurs sources harmoniques MIDI
+Ajouter --additional-harmony "chemin/Guitar.mid" à --harmony "chemin/Keyboard.mid".
+L'option est répétable. Chaque MIDI est décodé avec sa propre tempo map, puis
+les notes sont réunies en secondes avant calcul des chromas. Les sources doivent
+provenir du même arrangement et partager le même zéro temporel.
+La durée du MIDI principal reste la limite de couverture ; une piste ajoutée
+ne la prolonge pas. La basse reste une entrée séparée (--bass). Les empreintes de
+toutes les sources sont inscrites dans analysis.inputs. Aucun MIDI source modifié.
+Une mélodie ou un doublage peut biaiser la reconnaissance : vérifier à l'écoute.

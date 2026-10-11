@@ -1,0 +1,353 @@
+{
+  "title": "Smooth melodic in E",
+  "style": "rock",
+  "key": "E",
+  "mode": "dorian",
+  "exampleOffsetMs": 0,
+  "bpm": 86.022,
+  "schemaVersion": 1,
+  "id": "e-dorian",
+  "durationMs": 208569,
+  "chordCoverageEndMs": 204883,
+  "chordTimeline": [
+    {
+      "symbol": "Abm7",
+      "startMs": 1760,
+      "endMs": 4657,
+      "source": "midi",
+      "confidence": 0.5922
+    },
+    {
+      "symbol": "B",
+      "startMs": 4657,
+      "endMs": 7455,
+      "source": "midi",
+      "confidence": 0.7069
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 7455,
+      "endMs": 13050,
+      "source": "midi",
+      "confidence": 0.8434
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 13050,
+      "endMs": 24140,
+      "source": "midi",
+      "confidence": 0.6317
+    },
+    {
+      "symbol": "Abm7",
+      "startMs": 24140,
+      "endMs": 29736,
+      "source": "midi",
+      "confidence": 0.4997
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 29736,
+      "endMs": 35331,
+      "source": "midi",
+      "confidence": 0.6933
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 35331,
+      "endMs": 40926,
+      "source": "midi",
+      "confidence": 0.6011
+    },
+    {
+      "symbol": "A",
+      "startMs": 40926,
+      "endMs": 46521,
+      "source": "midi",
+      "confidence": 0.6796
+    },
+    {
+      "symbol": "Abm",
+      "startMs": 46521,
+      "endMs": 52016,
+      "source": "midi",
+      "confidence": 0.4955
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 52016,
+      "endMs": 57611,
+      "source": "midi",
+      "confidence": 0.7064
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 57611,
+      "endMs": 68802,
+      "source": "midi",
+      "confidence": 0.6277
+    },
+    {
+      "symbol": "Abm",
+      "startMs": 68802,
+      "endMs": 74397,
+      "source": "midi",
+      "confidence": 0.4667
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 74397,
+      "endMs": 79992,
+      "source": "midi",
+      "confidence": 0.706
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 79992,
+      "endMs": 82790,
+      "source": "midi",
+      "confidence": 0.5864
+    },
+    {
+      "symbol": "E",
+      "startMs": 82790,
+      "endMs": 85587,
+      "source": "midi",
+      "confidence": 0.6374
+    },
+    {
+      "symbol": "A",
+      "startMs": 85587,
+      "endMs": 88385,
+      "source": "midi",
+      "confidence": 0.7966
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 88385,
+      "endMs": 91182,
+      "source": "midi",
+      "confidence": 0.6347
+    },
+    {
+      "symbol": "Abm",
+      "startMs": 91182,
+      "endMs": 97976,
+      "source": "midi",
+      "confidence": 0.5746
+    },
+    {
+      "symbol": "E",
+      "startMs": 97976,
+      "endMs": 102273,
+      "source": "midi",
+      "confidence": 0.7086
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 102273,
+      "endMs": 107868,
+      "source": "midi",
+      "confidence": 0.6288
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 107868,
+      "endMs": 113463,
+      "source": "midi",
+      "confidence": 0.4996
+    },
+    {
+      "symbol": "Abm",
+      "startMs": 113463,
+      "endMs": 118958,
+      "source": "midi",
+      "confidence": 0.5672
+    },
+    {
+      "symbol": "E",
+      "startMs": 118958,
+      "endMs": 119957,
+      "source": "midi",
+      "confidence": 0.7959
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 119957,
+      "endMs": 124553,
+      "source": "midi",
+      "confidence": 0.7298
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 124553,
+      "endMs": 127351,
+      "source": "midi",
+      "confidence": 0.6607
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 127351,
+      "endMs": 130148,
+      "source": "midi",
+      "confidence": 0.7022
+    },
+    {
+      "symbol": "Am",
+      "startMs": 130148,
+      "endMs": 132946,
+      "source": "midi",
+      "confidence": 0.8805
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 132946,
+      "endMs": 135744,
+      "source": "midi",
+      "confidence": 0.606
+    },
+    {
+      "symbol": "Abm",
+      "startMs": 135744,
+      "endMs": 141339,
+      "source": "midi",
+      "confidence": 0.5735
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 141339,
+      "endMs": 146934,
+      "source": "midi",
+      "confidence": 0.657
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 146934,
+      "endMs": 158124,
+      "source": "midi",
+      "confidence": 0.5772
+    },
+    {
+      "symbol": "E",
+      "startMs": 158124,
+      "endMs": 163919,
+      "source": "midi",
+      "confidence": 0.7899
+    },
+    {
+      "symbol": "E",
+      "startMs": 167916,
+      "endMs": 169314,
+      "source": "midi",
+      "confidence": 0.7969
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 169314,
+      "endMs": 172112,
+      "source": "midi",
+      "confidence": 0.6115
+    },
+    {
+      "symbol": "E",
+      "startMs": 172112,
+      "endMs": 174910,
+      "source": "midi",
+      "confidence": 0.8936
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 174910,
+      "endMs": 180405,
+      "source": "midi",
+      "confidence": 0.5829
+    },
+    {
+      "symbol": "E",
+      "startMs": 180405,
+      "endMs": 183302,
+      "source": "midi",
+      "confidence": 0.694
+    },
+    {
+      "symbol": "Abm",
+      "startMs": 183302,
+      "endMs": 186000,
+      "source": "midi",
+      "confidence": 0.6537
+    },
+    {
+      "symbol": "Dbm7",
+      "startMs": 186000,
+      "endMs": 191595,
+      "source": "midi",
+      "confidence": 0.708
+    },
+    {
+      "symbol": "Gbm7",
+      "startMs": 191595,
+      "endMs": 194393,
+      "source": "midi",
+      "confidence": 0.6871
+    },
+    {
+      "symbol": "A",
+      "startMs": 194393,
+      "endMs": 195991,
+      "source": "midi",
+      "confidence": 0.9256
+    },
+    {
+      "symbol": "B7",
+      "startMs": 195991,
+      "endMs": 197490,
+      "source": "midi",
+      "confidence": 0.7962
+    },
+    {
+      "symbol": "E",
+      "startMs": 197490,
+      "endMs": 203385,
+      "source": "midi",
+      "confidence": 0.7193
+    }
+  ],
+  "analysis": {
+    "schemaVersion": 1,
+    "method": "MIDI Viterbi + audio HPSS/CQT affine",
+    "windowMs": 100.0,
+    "changePenalty": 0.65,
+    "bassWeight": 0.65,
+    "qualities": [
+      "major",
+      "minor",
+      "7",
+      "m7"
+    ],
+    "scaleBounds": [
+      0.95,
+      1.05
+    ],
+    "offsetBounds": [
+      -5,
+      5
+    ],
+    "invalidKeySignatures": 3,
+    "warnings": [
+      "4 boundaries (1 with confidence >=0.65) have no nearby peak or >250 ms residual; inspect timing-checks.json."
+    ],
+    "inputs": {
+      "E Dorian Guitar Solos (Keyboard).mid": "071ae5e14e6046b4a7af82db594e1b08105c656d89805b2f29f5ca4f44c715c1",
+      "E Dorian Guitar Solos (Strings).mid": "215bf34c80eb069063270bdaa93175a0b4ddc57cb796ea1cde0059faf760dfea",
+      "E Dorian Guitar Solos (Synth).mid": "e7e1b39533c2542ca3fceca91db8847e298b1a4dba59526454275facf44b189f",
+      "Backingtrack_e-dorian.mp3": "9c55cc55323c267b7bdfee4f88f1e11993afa14fc9b5b4f4ed18cbbadab0baec"
+    },
+    "scale": 0.9991330485654898,
+    "offsetMs": 460.9768499356005,
+    "meanSimilarity": 0.6867526130541053,
+    "midiDurationMs": 204599,
+    "audioDurationMs": 208569,
+    "audioCoverageEndMs": 204883,
+    "transformedMidiCoverageEndMs": 204883
+  }
+}

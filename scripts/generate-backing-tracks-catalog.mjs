@@ -18,6 +18,7 @@ export async function scanBackingTracks(root) {
       const selected = [];
       for (const [label, regex] of [['Backingtrack', BACKING_FILE], ['Example', EXAMPLE_FILE], ['Track JSON', TRACK_FILE]]) {
         const matches = files.filter(file => file.isFile() && regex.test(file.name));
+        if (regex === EXAMPLE_FILE && matches.length === 0) { selected.push(undefined); continue; }
         if (matches.length !== 1) throw new Error(`${label} : exactement 1 fichier attendu, ${matches.length} trouvé(s).`);
         const file = matches[0].name;
         if (regex.exec(file)[1] !== id) throw new Error(`${file} : identifiant différent du dossier ${id}.`);
@@ -26,8 +27,9 @@ export async function scanBackingTracks(root) {
       }
       const raw = JSON.parse(await readFile(join(root, id, selected[2]), 'utf8'));
       if (raw?.id !== id) throw new Error('ID JSON différent du dossier.');
-      const track = decodeContentTrack(raw);
-      catalogue.push({ ...decodeBackingTrackSummary(track), ...trackPaths(id) });
+      const hasExample = selected[1] !== undefined;
+      const track = decodeContentTrack(raw, hasExample);
+      catalogue.push({ ...decodeBackingTrackSummary(track), ...trackPaths(id, hasExample) });
     } catch (error) { throw new Error(`[${id}] ${error.message}`, { cause: error }); }
   }
   return catalogue;
