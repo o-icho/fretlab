@@ -27,6 +27,7 @@
     "@capacitor/android": "8.5.2",
     "@capacitor/app": "8.1.2",
     "@capacitor/core": "8.5.2",
+    "@vercel/analytics": "^2.0.1",
     "gray-matter": "^4.0.3",
     "next": "latest",
     "react": "latest",

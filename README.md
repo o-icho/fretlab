@@ -42,7 +42,32 @@ pnpm start
 - `src/features/chords`, `metronome`, `tuner`, `transposer` : logique, interfaces et tests propres à chacun des outils.
 - `src/app/globals.css` : Tailwind CSS 4, tokens de couleur et styles responsives.
 
-Les routes sont prérendues ; les interfaces interactives des quatre outils et le menu mobile sont des composants clients. Aucun backend applicatif, base de données, compte, analytics ou appel LLM. Les illustrations SVG et CSS sont locales, sans dépendance graphique. L’accordeur traite le microphone uniquement en mémoire dans le navigateur, sans transmission ni enregistrement.
+Les routes sont prérendues ; les interfaces interactives des outils et le menu mobile sont des composants clients. Pas de base de données, compte ou appel LLM. L'envoi des contributions audio utilise une fonction serveur dédiée (voir [le guide](docs/backing-track-submissions.md)). Les illustrations SVG et CSS sont locales, sans dépendance graphique. L’accordeur traite le microphone uniquement en mémoire dans le navigateur, sans transmission ni enregistrement.
+
+## Mesure d'audience Web
+
+`@vercel/analytics` est intégré globalement via `Analytics` de
+`@vercel/analytics/next` dans `src/app/layout.tsx`, qui reste un Server Component.
+Il est rendu uniquement lors d'un build Web de production Vercel
+(`NODE_ENV=production`, `VERCEL_ENV=production`, cible `FRETLAB_BUILD_TARGET`
+absente ou `web`). Les builds Android (`build:android`), le développement local
+et les previews ne l'activent pas. L'export statique reste inchangé.
+
+Dans Vercel, ouvrir **Analytics / Web Analytics**, sélectionner le projet FretLab,
+puis cliquer **Enable** si ce n'est pas déjà activé. Après un prochain déploiement
+de production, visiter `https://fretlab.fr` et naviguer entre plusieurs pages.
+Les statistiques (visiteurs, pages vues, pages, référents, pays et appareils)
+apparaissent ensuite dans ce tableau de bord ; aucune donnée rétroactive n'est
+collectée. Les bloqueurs de contenu peuvent empêcher la mesure.
+Vérifier dans l'onglet Réseau du navigateur le chargement du script Analytics
+et ses requêtes sur le domaine du site (`/_vercel/insights/*` ou la route
+générée par Vercel). L'activation prend effet après déploiement, pas sur localhost.
+
+Aucun événement métier personnalisé, cookie marketing, identifiant utilisateur,
+Google Analytics ou bannière n'est ajouté. Seule l'intégration standard Vercel
+Web Analytics est utilisée. Aucune clé API n'est nécessaire. La CSP existante
+autorise déjà les scripts et connexions de même origine.
+Voir [le guide officiel](https://vercel.com/docs/analytics/quickstart).
 
 Manrope est chargée via `next/font/google` et servie localement en production. Le premier build nécessite l’accès aux serveurs de polices Google. TypeScript est en mode strict et ESLint utilise les règles Next.js Core Web Vitals et TypeScript.
 

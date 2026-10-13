@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
@@ -47,6 +48,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Decided during static export: no analytics in Capacitor, dev or previews.
+  const analyticsEnabled = process.env.NODE_ENV === "production"
+    && process.env.VERCEL_ENV === "production"
+    && (process.env.FRETLAB_BUILD_TARGET ?? "web") === "web";
   return (
     <html lang="fr" className={manrope.variable} data-scroll-behavior="smooth">
       <body className="bg-background text-foreground font-sans antialiased">
@@ -57,6 +62,7 @@ export default function RootLayout({
         <Header />
         <main id="contenu">{children}</main>
         <Footer />
+        {analyticsEnabled && <Analytics />}
       </body>
     </html>
   );
