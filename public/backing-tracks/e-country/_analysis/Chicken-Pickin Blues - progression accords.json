@@ -1,0 +1,1569 @@
+{
+  "source": "Chicken-Pickin' Blues (Without Lead Electric Guitar).mid",
+  "piste_index": 1,
+  "piste_nom": "Distortion Guitar",
+  "nombre_notes_piste": 2153,
+  "source_sha256": "7186e6b0c01ddc3feaf2e929dcff5ad8abeba9180b36f46ecb4ea1de32e06c32",
+  "reference_temps": "MIDI, secondes ; carte de tempo originale ; aucun décalage audio",
+  "methode": "Méthode : uniquement la piste 1 Distortion Guitar (programme MIDI 30). Analyse des notes durant au moins 90 ms, regroupement des départs distants de moins de 25 ms, observation sur 120 ms. Les autres instruments ne contribuent pas aux accords. La carte de tempo du MIDI reste utilisée.",
+  "limites": [
+    "Les accords sont déduits des notes, pas d'étiquettes d'accord fournies par le MIDI. Une compatibilité exacte ne garantit pas l'intention harmonique. Les inversions ne sont pas distinguées.",
+    "Les passages rapides et les notes étrangères peuvent produire plusieurs interprétations : les cas identifiés sont marqués '?'.",
+    "Métadonnée de tonalité invalide ignorée, sans modification des notes ni du fichier original."
+  ],
+  "fin_midi_secondes": 212.78129226874984,
+  "accords": [
+    {
+      "debut_secondes": 0.536836,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 914,
+      "horodatage": "00:00.537",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 2.719009,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 4544,
+      "horodatage": "00:02.719",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 5.208799,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 8630,
+      "horodatage": "00:05.209",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 9.44783,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 15579,
+      "horodatage": "00:09.448",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 9.885334,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 16296,
+      "horodatage": "00:09.885",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 10.17725,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 16775,
+      "horodatage": "00:10.177",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 12.234745,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 20140,
+      "horodatage": "00:12.235",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 14.58341,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 23977,
+      "horodatage": "00:14.583",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 16.932293,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 27821,
+      "horodatage": "00:16.932",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 17.812978,
+      "accord": "Bsus2",
+      "notes_observees": "C# F# B",
+      "tick": 29263,
+      "horodatage": "00:17.813",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 19.281726,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 31667,
+      "horodatage": "00:19.282",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 28.666919,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 47012,
+      "horodatage": "00:28.667",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 28.963779,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 47497,
+      "horodatage": "00:28.964",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 29.25532,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 47973,
+      "horodatage": "00:29.255",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 29.55219,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 48458,
+      "horodatage": "00:29.552",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 29.995072,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 49181,
+      "horodatage": "00:29.995",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 30.140798,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 49419,
+      "horodatage": "00:30.141",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 31.172031,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 51102,
+      "horodatage": "00:31.172",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 31.317806,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 51340,
+      "horodatage": "00:31.318",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 31.609451,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 51816,
+      "horodatage": "00:31.609",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 31.906422,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 52301,
+      "horodatage": "00:31.906",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 33.375224,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 54701,
+      "horodatage": "00:33.375",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 38.073061,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 62377,
+      "horodatage": "00:38.073",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 38.369931,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 62862,
+      "horodatage": "00:38.370",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 38.661606,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 63339,
+      "horodatage": "00:38.662",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 38.953271,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 63816,
+      "horodatage": "00:38.953",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 39.250116,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 64301,
+      "horodatage": "00:39.250",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 39.541698,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 64778,
+      "horodatage": "00:39.542",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 39.838636,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 65263,
+      "horodatage": "00:39.839",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 40.130182,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 65739,
+      "horodatage": "00:40.130",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 40.276433,
+      "accord": "B7",
+      "notes_observees": "D# E F# A B",
+      "tick": 65978,
+      "horodatage": "00:40.276",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 40.573192,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 66463,
+      "horodatage": "00:40.573",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 40.718818,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 66701,
+      "horodatage": "00:40.719",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 41.161404,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 67424,
+      "horodatage": "00:41.161",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 41.307641,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 67663,
+      "horodatage": "00:41.308",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 41.599314,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 68140,
+      "horodatage": "00:41.599",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 41.895968,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 68625,
+      "horodatage": "00:41.896",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 42.333262,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 69339,
+      "horodatage": "00:42.333",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 42.479234,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 69577,
+      "horodatage": "00:42.479",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 42.625416,
+      "accord": "Esus4",
+      "notes_observees": "C# E A B",
+      "tick": 69816,
+      "horodatage": "00:42.625",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 42.770943,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 70054,
+      "horodatage": "00:42.771",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 46.594105,
+      "accord": "Bsus4",
+      "notes_observees": "E F# B",
+      "tick": 76301,
+      "horodatage": "00:46.594",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 46.885552,
+      "accord": "E",
+      "notes_observees": "E G B",
+      "tick": 76777,
+      "horodatage": "00:46.886",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 47.182418,
+      "accord": "E",
+      "notes_observees": "E G# B",
+      "tick": 77262,
+      "horodatage": "00:47.182",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 47.474285,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 77739,
+      "horodatage": "00:47.474",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 47.766054,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 78216,
+      "horodatage": "00:47.766",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 49.67728,
+      "accord": "E5",
+      "notes_observees": "C# E B",
+      "tick": 81337,
+      "horodatage": "00:49.677",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 52.171789,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 85411,
+      "horodatage": "00:52.172",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 52.468773,
+      "accord": "F#",
+      "notes_observees": "C# F# A#",
+      "tick": 85897,
+      "horodatage": "00:52.469",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 53.348914,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 87339,
+      "horodatage": "00:53.349",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 53.640532,
+      "accord": "F#",
+      "notes_observees": "C# F# A#",
+      "tick": 87818,
+      "horodatage": "00:53.641",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 54.08358,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 88545,
+      "horodatage": "00:54.084",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 54.229271,
+      "accord": "F#",
+      "notes_observees": "C# F# A#",
+      "tick": 88784,
+      "horodatage": "00:54.229",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 54.520874,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 89263,
+      "horodatage": "00:54.521",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 56.874984,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 93098,
+      "horodatage": "00:56.875",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 57.171898,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 93580,
+      "horodatage": "00:57.172",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 57.614964,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 94300,
+      "horodatage": "00:57.615",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 57.760768,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 94537,
+      "horodatage": "00:57.761",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 58.057203,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 95019,
+      "horodatage": "00:58.057",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 58.349184,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 95495,
+      "horodatage": "00:58.349",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 58.646036,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 95979,
+      "horodatage": "00:58.646",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 58.942888,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 96463,
+      "horodatage": "00:58.943",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 59.088631,
+      "accord": "E5",
+      "notes_observees": "C# E B",
+      "tick": 96701,
+      "horodatage": "00:59.089",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 61.583445,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 100778,
+      "horodatage": "01:01.583",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 61.875314,
+      "accord": "F#",
+      "notes_observees": "C# F# A#",
+      "tick": 101255,
+      "horodatage": "01:01.875",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 63.932536,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 104617,
+      "horodatage": "01:03.933",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 68.640716,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 112297,
+      "horodatage": "01:08.641",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 70.989643,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 116132,
+      "horodatage": "01:10.990",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 71.286711,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 116617,
+      "horodatage": "01:11.287",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 71.578449,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 117093,
+      "horodatage": "01:11.578",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 71.875006,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 117577,
+      "horodatage": "01:11.875",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 72.167078,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 118054,
+      "horodatage": "01:12.167",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 72.463671,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 118537,
+      "horodatage": "01:12.464",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 72.906592,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 119260,
+      "horodatage": "01:12.907",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 73.052416,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 119498,
+      "horodatage": "01:13.052",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 73.34416,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 119974,
+      "horodatage": "01:13.344",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 75.703074,
+      "accord": "E5",
+      "notes_observees": "D# E G# B",
+      "tick": 123823,
+      "horodatage": "01:15.703",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 75.995148,
+      "accord": "E5",
+      "notes_observees": "C D# G#",
+      "tick": 124300,
+      "horodatage": "01:15.995",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 77.463455,
+      "accord": "E7",
+      "notes_observees": "D# E G# B",
+      "tick": 126699,
+      "horodatage": "01:17.463",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 78.052399,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 127662,
+      "horodatage": "01:18.052",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 80.401268,
+      "accord": "E",
+      "notes_observees": "E G# B",
+      "tick": 131501,
+      "horodatage": "01:20.401",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 82.750206,
+      "accord": "F#",
+      "notes_observees": "C# F# A#",
+      "tick": 135336,
+      "horodatage": "01:22.750",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 85.104141,
+      "accord": "Bsus2",
+      "notes_observees": "C# F# B",
+      "tick": 139180,
+      "horodatage": "01:25.104",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 87.452906,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 143016,
+      "horodatage": "01:27.453",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 89.807148,
+      "accord": "E",
+      "notes_observees": "E G# B",
+      "tick": 146861,
+      "horodatage": "01:29.807",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 92.015929,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 150469,
+      "horodatage": "01:32.016",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 94.218897,
+      "accord": "A#5",
+      "notes_observees": "F A#",
+      "tick": 154067,
+      "horodatage": "01:34.219",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 94.510358,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 154543,
+      "horodatage": "01:34.510",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 98.333678,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 160773,
+      "horodatage": "01:38.334",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 98.927244,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 161739,
+      "horodatage": "01:38.927",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 99.224228,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 162223,
+      "horodatage": "01:39.224",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 106.276235,
+      "accord": "Asus2",
+      "notes_observees": "E A B",
+      "tick": 173735,
+      "horodatage": "01:46.276",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 108.625058,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 177568,
+      "horodatage": "01:48.625",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 118.046994,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 192935,
+      "horodatage": "01:58.047",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 122.604486,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 200381,
+      "horodatage": "02:02.604",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 127.458098,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 208302,
+      "horodatage": "02:07.458",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 127.603915,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 208540,
+      "horodatage": "02:07.604",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 127.749739,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 208778,
+      "horodatage": "02:07.750",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 128.192527,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 209501,
+      "horodatage": "02:08.193",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 128.338351,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 209739,
+      "horodatage": "02:08.338",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 128.635417,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 210224,
+      "horodatage": "02:08.635",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 128.926871,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 210700,
+      "horodatage": "02:08.927",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 129.223929,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 211185,
+      "horodatage": "02:09.224",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 129.515575,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 211661,
+      "horodatage": "02:09.516",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 129.661353,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 211899,
+      "horodatage": "02:09.661",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 129.807128,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 212137,
+      "horodatage": "02:09.807",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 132.015806,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 215744,
+      "horodatage": "02:12.016",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 135.396051,
+      "accord": "G",
+      "notes_observees": "D G B",
+      "tick": 221266,
+      "horodatage": "02:15.396",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 135.83332,
+      "accord": "E7",
+      "notes_observees": "D E G A B",
+      "tick": 221980,
+      "horodatage": "02:15.833",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 136.859508,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 223656,
+      "horodatage": "02:16.860",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 139.213802,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 227497,
+      "horodatage": "02:19.214",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 141.568015,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 231344,
+      "horodatage": "02:21.568",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 143.916845,
+      "accord": "B",
+      "notes_observees": "D# F# B",
+      "tick": 235187,
+      "horodatage": "02:23.917",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 148.624974,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 242857,
+      "horodatage": "02:28.625",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 150.838253,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 246466,
+      "horodatage": "02:30.838",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 153.33824,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 250543,
+      "horodatage": "02:33.338",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 155.978874,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 254863,
+      "horodatage": "02:35.979",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 156.718902,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 256068,
+      "horodatage": "02:36.719",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 157.156434,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 256779,
+      "horodatage": "02:37.156",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 157.307131,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 257024,
+      "horodatage": "02:37.307",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 157.452885,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 257261,
+      "horodatage": "02:37.453",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 157.74999,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 257743,
+      "horodatage": "02:37.750",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 158.041384,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 258216,
+      "horodatage": "02:38.041",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 160.255322,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 261815,
+      "horodatage": "02:40.255",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 162.609257,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 265653,
+      "horodatage": "02:42.609",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 163.786184,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 267572,
+      "horodatage": "02:43.786",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 164.968646,
+      "accord": "G5",
+      "notes_observees": "D G",
+      "tick": 269498,
+      "horodatage": "02:44.969",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 165.557207,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 270456,
+      "horodatage": "02:45.557",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 165.999801,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 271176,
+      "horodatage": "02:46.000",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 166.297032,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 271659,
+      "horodatage": "02:46.297",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 168.36993,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 275032,
+      "horodatage": "02:48.370",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 168.515544,
+      "accord": "G5",
+      "notes_observees": "D G",
+      "tick": 275269,
+      "horodatage": "02:48.516",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 168.812335,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 275752,
+      "horodatage": "02:48.812",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 169.25011,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 276464,
+      "horodatage": "02:49.250",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 169.547058,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 276947,
+      "horodatage": "02:49.547",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 169.838372,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 277421,
+      "horodatage": "02:49.838",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 172.489709,
+      "accord": "Esus4",
+      "notes_observees": "E A B",
+      "tick": 281736,
+      "horodatage": "02:52.490",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 172.786576,
+      "accord": "E5",
+      "notes_observees": "C# E B",
+      "tick": 282220,
+      "horodatage": "02:52.787",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 173.374892,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 283180,
+      "horodatage": "02:53.375",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 174.552172,
+      "accord": "Esus4",
+      "notes_observees": "E A B",
+      "tick": 285100,
+      "horodatage": "02:54.552",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 175.145575,
+      "accord": "Asus2",
+      "notes_observees": "E A B",
+      "tick": 286067,
+      "horodatage": "02:55.146",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 175.583537,
+      "accord": "Esus4",
+      "notes_observees": "E A B",
+      "tick": 286781,
+      "horodatage": "02:55.584",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 176.32307,
+      "accord": "Asus2",
+      "notes_observees": "E A B",
+      "tick": 287987,
+      "horodatage": "02:56.323",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 176.614684,
+      "accord": "Esus4",
+      "notes_observees": "E A B",
+      "tick": 288462,
+      "horodatage": "02:56.615",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 177.20818,
+      "accord": "D5",
+      "notes_observees": "D A",
+      "tick": 289429,
+      "horodatage": "02:57.208",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 177.50023,
+      "accord": "Asus2",
+      "notes_observees": "E A B",
+      "tick": 289905,
+      "horodatage": "02:57.500",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 177.791854,
+      "accord": "G6",
+      "notes_observees": "D E G A B",
+      "tick": 290380,
+      "horodatage": "02:57.792",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 178.088781,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 290863,
+      "horodatage": "02:58.089",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 178.380425,
+      "accord": "F#sus4",
+      "notes_observees": "C# F# B",
+      "tick": 291338,
+      "horodatage": "02:58.380",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 178.677254,
+      "accord": "G",
+      "notes_observees": "D G B",
+      "tick": 291821,
+      "horodatage": "02:58.677",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 178.973904,
+      "accord": "G#m",
+      "notes_observees": "D# G# B",
+      "tick": 292304,
+      "horodatage": "02:58.974",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 179.265728,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 292779,
+      "horodatage": "02:59.266",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 180.151231,
+      "accord": "G",
+      "notes_observees": "D G B",
+      "tick": 294220,
+      "horodatage": "03:00.151",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 180.448078,
+      "accord": "A",
+      "notes_observees": "C# E A",
+      "tick": 294703,
+      "horodatage": "03:00.448",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 181.333176,
+      "accord": "F#m7",
+      "notes_observees": "C# E F# A",
+      "tick": 296143,
+      "horodatage": "03:01.333",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 181.624679,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 296617,
+      "horodatage": "03:01.625",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 183.104283,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 299024,
+      "horodatage": "03:03.104",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 183.254907,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 299269,
+      "horodatage": "03:03.255",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 183.989714,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 300465,
+      "horodatage": "03:03.990",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 184.431976,
+      "accord": "G#5",
+      "notes_observees": "D# F# G#",
+      "tick": 301184,
+      "horodatage": "03:04.432",
+      "statut": "interprétation à vérifier"
+    },
+    {
+      "debut_secondes": 185.171683,
+      "accord": "A#",
+      "notes_observees": "D F A#",
+      "tick": 302390,
+      "horodatage": "03:05.172",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 185.614355,
+      "accord": "Bm",
+      "notes_observees": "D F# B",
+      "tick": 303112,
+      "horodatage": "03:05.614",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 186.348898,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 304311,
+      "horodatage": "03:06.349",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 186.494722,
+      "accord": "Bsus4",
+      "notes_observees": "E F# B",
+      "tick": 304549,
+      "horodatage": "03:06.495",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 186.791467,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 305033,
+      "horodatage": "03:06.791",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 186.937489,
+      "accord": "D",
+      "notes_observees": "D F# A",
+      "tick": 305271,
+      "horodatage": "03:06.937",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 187.22927,
+      "accord": "D#5",
+      "notes_observees": "D# A#",
+      "tick": 305748,
+      "horodatage": "03:07.229",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 187.375082,
+      "accord": "C#m",
+      "notes_observees": "C# E G#",
+      "tick": 305986,
+      "horodatage": "03:07.375",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 187.672053,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 306471,
+      "horodatage": "03:07.672",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 187.817679,
+      "accord": "C5",
+      "notes_observees": "C G",
+      "tick": 306709,
+      "horodatage": "03:07.818",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 188.114614,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 307193,
+      "horodatage": "03:08.115",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 190.322961,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 310797,
+      "horodatage": "03:10.323",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 191.942917,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 313429,
+      "horodatage": "03:11.943",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 192.23404,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 313900,
+      "horodatage": "03:12.234",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 193.130313,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 315350,
+      "horodatage": "03:13.130",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 193.281044,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 315594,
+      "horodatage": "03:13.281",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 193.426823,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 315830,
+      "horodatage": "03:13.427",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 193.723812,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 316310,
+      "horodatage": "03:13.724",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 193.869789,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 316546,
+      "horodatage": "03:13.870",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 194.312663,
+      "accord": "D5",
+      "notes_observees": "D A",
+      "tick": 317262,
+      "horodatage": "03:14.313",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 194.463634,
+      "accord": "C#5",
+      "notes_observees": "C# G#",
+      "tick": 317506,
+      "horodatage": "03:14.464",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 194.60904,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 317741,
+      "horodatage": "03:14.609",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 194.760398,
+      "accord": "G#5",
+      "notes_observees": "D# G#",
+      "tick": 317986,
+      "horodatage": "03:14.760",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 194.906176,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 318222,
+      "horodatage": "03:14.906",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 195.05718,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 318466,
+      "horodatage": "03:15.057",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 195.203254,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 318702,
+      "horodatage": "03:15.203",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 195.500201,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 319183,
+      "horodatage": "03:15.500",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 195.796654,
+      "accord": "A5",
+      "notes_observees": "E A",
+      "tick": 319662,
+      "horodatage": "03:15.797",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 196.093369,
+      "accord": "F#5",
+      "notes_observees": "C# F#",
+      "tick": 320142,
+      "horodatage": "03:16.093",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 196.239337,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 320378,
+      "horodatage": "03:16.239",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 196.687585,
+      "accord": "B5",
+      "notes_observees": "F# B",
+      "tick": 321103,
+      "horodatage": "03:16.688",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 196.984381,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 321583,
+      "horodatage": "03:16.984",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 199.510088,
+      "accord": "G5",
+      "notes_observees": "D G",
+      "tick": 325663,
+      "horodatage": "03:19.510",
+      "statut": "compatible avec les notes MIDI"
+    },
+    {
+      "debut_secondes": 199.947658,
+      "accord": "E5",
+      "notes_observees": "E B",
+      "tick": 326367,
+      "horodatage": "03:19.948",
+      "statut": "compatible avec les notes MIDI"
+    }
+  ]
+}

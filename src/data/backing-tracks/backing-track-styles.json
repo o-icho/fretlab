@@ -3,5 +3,6 @@
   { "id": "rock", "label": "Rock" },
   { "id": "hard-rock", "label": "Hard Rock" },
   { "id": "funk", "label": "Funk" },
-  { "id": "pop", "label": "Pop" }
+  { "id": "pop", "label": "Pop" },
+  { "id": "country", "label": "Country" }
 ]
