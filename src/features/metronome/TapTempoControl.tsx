@@ -59,10 +59,13 @@ export function TapTempo({ onTempo }: { onTempo: (bpm: number) => void }) {
       </button>
       <div className={styles.tapInfo}>
         <p className={styles.tapTitle}>Tap Tempo</p>
-        <p role="status" aria-atomic="true" className={applied ? styles.tapApplied : undefined}>
-          {estimate.bpm !== null && <strong>{estimate.bpm} BPM{!estimate.stable ? " estimés" : ""} · </strong>}
-          {message}
-        </p>
+        <div role="status" aria-atomic="true" className={applied ? styles.tapApplied : undefined}>
+          <p className={styles.tapReading}>
+            <strong className={styles.tapValue}>{estimate.bpm ?? "—"}</strong>
+            <span className={styles.tapUnit}>BPM</span>
+          </p>
+          <p className={styles.tapMessage}>{estimate.bpm !== null && !estimate.stable ? "Estimation · " : ""}{message}</p>
+        </div>
         <p id="tap-help">Tapez la pulsation affichée ci-dessus. Après 2,5 s de pause, une nouvelle séquence commence. Bouton sélectionné : Entrée ou Espace.</p>
       </div>
     </div>
