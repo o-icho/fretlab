@@ -6,9 +6,19 @@ import { generateScale, type Scale } from "./scales.ts";
 
 export type KeyMode = "major" | "minor";
 export type Key = { tonic: Scale["root"]; mode: KeyMode; scale: Scale };
-export type HarmonicQuality = ChordQuality | "m7b5";
+export const EXTENDED_CHORD_INTERVALS = {
+  "(b5)": [0, 4, 6], dim7: [0, 3, 6, 9], mMaj7: [0, 3, 7, 11],
+  "6": [0, 4, 7, 9], m6: [0, 3, 7, 9], add9: [0, 4, 7, 14],
+  madd9: [0, 3, 7, 14], add11: [0, 4, 7, 17],
+  "7sus2": [0, 2, 7, 10], "7sus4": [0, 5, 7, 10],
+  "7b5": [0, 4, 6, 10], "7#5": [0, 4, 8, 10],
+  maj7b5: [0, 4, 6, 11], "maj7#5": [0, 4, 8, 11],
+} as const;
+export type HarmonicQuality = ChordQuality | "m7b5" | "aug" | keyof typeof EXTENDED_CHORD_INTERVALS;
 export const CHORD_TONE_INTERVALS: Record<HarmonicQuality, readonly number[]> = {
   major: [0, 4, 7], minor: [0, 3, 7], dim: [0, 3, 6],
+  aug: [0, 4, 8],
+  ...EXTENDED_CHORD_INTERVALS,
   "7": [0, 4, 7, 10], maj7: [0, 4, 7, 11], m7: [0, 3, 7, 10],
   m7b5: [0, 3, 6, 10], sus2: [0, 2, 7], sus4: [0, 5, 7], "5": [0, 7],
 };
@@ -31,7 +41,7 @@ export function chordFromSymbol(input: string): HarmonyChord | null {
   const symbol = normalized.charAt(0).toUpperCase() + normalized.slice(1);
   const parsed = parseChord(symbol);
   if (!parsed) return null;
-  const quality = parsed.suffix === "m7b5" ? "m7b5" : resolveChordQuality(parsed.suffix);
+  const quality = Object.hasOwn(EXTENDED_CHORD_INTERVALS, parsed.suffix) ? parsed.suffix as keyof typeof EXTENDED_CHORD_INTERVALS : parsed.suffix === "m7b5" ? "m7b5" : parsed.suffix === "aug" ? "aug" : resolveChordQuality(parsed.suffix);
   const pitches = quality === null ? null : CHORD_TONE_INTERVALS[quality].map((interval) => pitchClass(parsed.root.pitchClass + interval));
   if (pitches && parsed.bass && !pitches.includes(parsed.bass.pitchClass)) pitches.push(parsed.bass.pitchClass);
   return { symbol, parsed, quality, pitches };
@@ -39,7 +49,7 @@ export function chordFromSymbol(input: string): HarmonyChord | null {
 
 export function buildHarmonyChord(root: string, quality: HarmonicQuality): HarmonyChord {
   if (!Object.hasOwn(CHORD_TONE_INTERVALS, quality)) throw new RangeError("Qualité d’accord invalide.");
-  const suffix = quality === "m7b5" ? "m7b5" : QUALITY_SUFFIXES[quality];
+  const suffix = Object.hasOwn(QUALITY_SUFFIXES, quality) ? QUALITY_SUFFIXES[quality as ChordQuality] : quality;
   const chord = chordFromSymbol(root + suffix);
   if (!chord) throw new RangeError("Fondamentale d’accord invalide.");
   return chord;

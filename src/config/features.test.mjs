@@ -9,9 +9,9 @@ test("flags, registre et identifiants cohérents", () => {
   assert.equal(isFeatureEnabled("metronome"),true);
   assert.equal(isFeatureEnabled("drumMachine"),false);
   assert.equal(isFeatureEnabled("chordProgressions"),false);
-  assert.equal(getEnabledFeatures().length,6);
+  assert.equal(getEnabledFeatures().length,7);
   for(const id of Object.keys(featureFlags)) assert.equal(getFeatureDefinition(id).id,id);
-  assert.equal(new Set(Object.keys(featureFlags).map(id=>getFeatureDefinition(id).href)).size,8);
+  assert.equal(new Set(Object.keys(featureFlags).map(id=>getFeatureDefinition(id).href)).size,9);
 });
 test("navigation et cartes partagent la liste filtrée ; sitemap filtré",()=>{
   assert.deepEqual(tools,getEnabledFeatures());

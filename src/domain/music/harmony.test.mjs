@@ -43,7 +43,8 @@ test("manual chromatic chords, slash bass and unknown extensions are represented
   assert.equal(chordInKey(key, chordFromSymbol("C/E")).isDiatonic, true);
   assert.equal(chordInKey(key, chordFromSymbol("C/F#")).isDiatonic, false);
   assert.equal(chordInKey(key, chordFromSymbol("F#m")).isDiatonic, false);
-  assert.equal(chordInKey(key, chordFromSymbol("Cadd9")).isDiatonic, null);
+  assert.equal(chordInKey(key, chordFromSymbol("Cadd9")).isDiatonic, true);
+  assert.equal(chordInKey(key, chordFromSymbol("C13")).isDiatonic, null);
   assert.equal(chordFromSymbol(" am ").symbol, "Am");
   assert.equal(chordFromSymbol("Cmin7").quality, "m7");
   for (const input of ["Hello", "Amigo", "H7", "<script>"]) assert.equal(chordFromSymbol(input), null);

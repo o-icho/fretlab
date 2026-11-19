@@ -44,6 +44,38 @@ pnpm start
 
 Les routes sont prérendues ; les interfaces interactives des outils et le menu mobile sont des composants clients. Pas de base de données, compte ou appel LLM. L'envoi des contributions audio utilise une fonction serveur dédiée (voir [le guide](docs/backing-track-submissions.md)). Les illustrations SVG et CSS sont locales, sans dépendance graphique. L’accordeur traite le microphone uniquement en mémoire dans le navigateur, sans transmission ni enregistrement.
 
+## Entraînement de l’oreille
+
+`/outils/oreille` mélange 24 accords courants de trois ou quatre notes : triades,
+sus2/sus4, septièmes, sixtes, add9/add11 et quintes altérées. La liste explicite
+`EAR_CHORDS` réutilise les formules du domaine partagé `harmony.ts` et renseigne
+les degrés pour orthographier correctement les notes. Sans renversement.
+L’exercice propose aussi tous les intervalles chromatiques simples de l’unisson à
+l’octave, ascendants et descendants. La note choisie est la fondamentale ou la
+première note, sans mode. L’écoute note par note espace les départs de 700 ms ;
+les accords et les intervalles peuvent aussi être joués simultanément.
+La réponse reste cachée jusqu’à la demande de l’utilisateur. Changer les réglages
+annule l’exercice ; les tirages sont indépendants et équiprobables (1/24 par
+accord). Les synonymes ne sont pas dupliqués. Les répétitions sont possibles. Le triton représente ses deux noms
+enharmoniques sans double pondération ; l’unisson n’a pas de direction.
+
+`src/domain/music/earTraining.ts` réutilise l’harmonisation et les gammes partagées.
+`src/features/ear-training` contient l’interface et la lecture Web Audio de phrases
+courtes, entièrement programmées sur l’horloge audio, sans timer musical.
+Les oscillateurs sont nettoyés après lecture/arrêt, le contexte fermé au démontage,
+et `useAudioPause` gère le passage en arrière-plan. Aucun fichier audio distant,
+microphone, stockage ou backend : la même page fonctionne dans l’export Android.
+Le feature flag `earTraining` alimente navigation, cartes et sitemap.
+
+Les réglages permettent de mélanger les accords ou de limiter le tirage aux
+3 notes (7 accords) ou 4 notes (17 accords). Pour les intervalles : ascendants,
+descendants (12 chacun), ou mélangés (25 avec l’unisson sans direction).
+Les filtres sont appliqués dans le domaine musical avant le tirage équiprobable.
+Changer un filtre arrête le son et efface l’exercice ; chaque préférence reste
+conservée en mémoire lors du passage entre Accords et Intervalles.
+
+MANUAL TEST REQUIRED : écoute et comportement arrière-plan sur téléphone Android.
+
 ## Mesure d'audience Web
 
 `@vercel/analytics` est intégré globalement via `Analytics` de

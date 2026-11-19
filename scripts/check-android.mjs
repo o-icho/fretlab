@@ -11,6 +11,7 @@ const routes = [
   "outils/accordeur",
   "outils/transposeur",
   "outils/gammes",
+  "outils/oreille",
   "outils/progressions",
   "outils/boite-a-rythmes",
   "outils/backing-tracks",
