@@ -1,13 +1,14 @@
 import {
   DEFAULT_SETTINGS,
   planBeats,
+  updateMetronomeSettings,
   type BeatCursor,
   type MetronomeSettings,
-} from "./rhythm";
-import { AudioScheduler, AUDIO_START_DELAY } from "../audio/AudioScheduler";
+} from "./rhythm.ts";
+import { AudioScheduler, AUDIO_START_DELAY } from "../audio/AudioScheduler.ts";
 
 const CLICK_DURATION = 0.035;
-type Voice = { oscillator: OscillatorNode; gain: GainNode };
+type Voice = { oscillator: OscillatorNode; gain: GainNode; time: number };
 
 /** Timer wakes the scheduler; only the AudioContext clock determines click timing. */
 export class MetronomeAudio {
@@ -15,6 +16,8 @@ export class MetronomeAudio {
   private context: AudioContext | null = null;
   private master: GainNode | null = null;
   private voices = new Set<Voice>();
+  // Includes silent events so an edit within the lookahead can make them audible.
+  private pending: BeatCursor[] = [];
   private cursor: BeatCursor = { time: 0, beat: 0 };
   private scheduler: AudioScheduler<BeatCursor> | null = null;
   private running = false;
@@ -30,7 +33,8 @@ export class MetronomeAudio {
 
   configure(settings: MetronomeSettings) {
     const signatureChanged = settings.signature !== this.settings.signature;
-    this.settings = { ...settings };
+    const soundsChanged = settings.beatSounds.some((sound, index) => sound !== this.settings.beatSounds[index]);
+    this.settings = updateMetronomeSettings(this.settings, settings);
     if (this.context && this.master)
       this.master.gain.setTargetAtTime(
         settings.volume,
@@ -39,9 +43,19 @@ export class MetronomeAudio {
       );
     if (signatureChanged && this.running && this.context) {
       this.clearVoices();
+      this.pending = [];
       this.scheduler?.clearVisuals();
       this.cursor = { time: this.context.currentTime + AUDIO_START_DELAY, beat: 0 };
       this.onBeat(-1);
+    } else if (soundsChanged && this.running && this.context) {
+      const now = this.context.currentTime;
+      // Replace only future sounds, keeping the musical clock and visual queue.
+      // An already audible click finishes normally; a silent step still advances.
+      for (const voice of this.voices) {
+        if (voice.time > now) this.releaseVoice(voice);
+      }
+      this.pending = this.pending.filter((event) => event.time > now);
+      for (const event of this.pending) this.click(event);
     }
   }
 
@@ -68,6 +82,7 @@ export class MetronomeAudio {
       throw new Error("Le navigateur n’a pas autorisé la lecture audio.");
     this.master!.gain.setValueAtTime(this.settings.volume, context.currentTime);
     this.running = true;
+    this.pending = [];
     this.cursor = { time: context.currentTime + AUDIO_START_DELAY, beat: 0 };
     this.scheduler!.start();
     return true;
@@ -85,19 +100,21 @@ export class MetronomeAudio {
     for (const event of plan.events) {
       this.click(event);
     }
+    this.pending = this.pending.filter((event) => event.time > now).concat(plan.events);
     this.cursor = plan.next;
     return plan.events;
   };
 
   private click(event: BeatCursor) {
+    const sound = this.settings.beatSounds[event.beat];
+    if (sound === "silent") return;
     const context = this.context!;
     const oscillator = context.createOscillator();
     const gain = context.createGain();
-    const accented = this.settings.accent && event.beat === 0;
-    const secondary = this.settings.signature === "6/8" && event.beat === 3;
+    const accented = sound === "accent";
     oscillator.type = "sine";
     oscillator.frequency.setValueAtTime(
-      accented ? 1400 : secondary ? 1000 : 850,
+      accented ? 1400 : 850,
       event.time,
     );
     gain.gain.setValueAtTime(0, event.time);
@@ -108,7 +125,7 @@ export class MetronomeAudio {
     gain.gain.exponentialRampToValueAtTime(0.001, event.time + CLICK_DURATION);
     oscillator.connect(gain);
     gain.connect(this.master!);
-    const voice = { oscillator, gain };
+    const voice = { oscillator, gain, time: event.time };
     this.voices.add(voice);
     oscillator.onended = () => {
       oscillator.disconnect();
@@ -120,13 +137,15 @@ export class MetronomeAudio {
   }
 
   private clearVoices() {
-    for (const { oscillator, gain } of this.voices) {
-      oscillator.onended = null;
-      oscillator.stop();
-      oscillator.disconnect();
-      gain.disconnect();
-    }
-    this.voices.clear();
+    for (const voice of this.voices) this.releaseVoice(voice);
+  }
+
+  private releaseVoice(voice: Voice) {
+    voice.oscillator.onended = null;
+    voice.oscillator.stop();
+    voice.oscillator.disconnect();
+    voice.gain.disconnect();
+    this.voices.delete(voice);
   }
 
   stop() {
@@ -134,6 +153,7 @@ export class MetronomeAudio {
     this.running = false;
     this.scheduler?.stop();
     this.clearVoices();
+    this.pending = [];
   }
 
   dispose() {

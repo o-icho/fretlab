@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAudioPause } from "@/features/audio/useAudioPause";
 import { MetronomeAudio } from "./audio";
-import { DEFAULT_SETTINGS, clampBpm, type MetronomeSettings } from "./rhythm";
+import { DEFAULT_SETTINGS, cycleBeatSounds, updateMetronomeSettings, type MetronomeSettings } from "./rhythm";
 
 export function useMetronome() {
   const [settings, setSettings] = useState({ ...DEFAULT_SETTINGS });
@@ -27,12 +27,14 @@ export function useMetronome() {
   );
 
   function update(patch: Partial<MetronomeSettings>) {
-    const next = { ...settingsRef.current, ...patch };
-    next.bpm = clampBpm(next.bpm);
-    next.volume = Math.max(0, Math.min(1, next.volume));
+    const next = updateMetronomeSettings(settingsRef.current, patch);
     settingsRef.current = next;
     engine.current?.configure(next);
     setSettings(next);
+  }
+
+  function cycleBeat(index: number) {
+    update({ beatSounds: cycleBeatSounds(settingsRef.current.beatSounds, index) });
   }
 
   const stop = useCallback(() => {
@@ -107,5 +109,5 @@ export function useMetronome() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  return { settings, update, status, beat, error, toggle };
+  return { settings, update, cycleBeat, status, beat, error, toggle };
 }

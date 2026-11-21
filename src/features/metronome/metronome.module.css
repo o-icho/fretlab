@@ -59,35 +59,83 @@
 .beats {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .beat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 60px;
+  padding: 6px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
   color: var(--muted);
+  font: inherit;
   font-size: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
 }
-.beat > span {
-  width: 27px;
-  height: 27px;
-  background: #111318;
-  border: 2px solid #464a55;
+.beat:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+.beat:hover {
+  background: #ffffff08;
+}
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--beat-color);
+  border: 2px solid var(--beat-color);
   border-radius: 50%;
+  color: var(--bg);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0.5;
 }
-.accent > span {
-  border-color: var(--amber);
+.normal {
+  --beat-color: #7bc8ed;
+  --beat-glow: #7bc8ed66;
 }
-.active > span {
-  background: var(--teal);
-  border-color: var(--teal);
-  box-shadow: 0 0 18px #37b7a52b;
+.accent {
+  --beat-color: var(--amber);
+  --beat-glow: #e6a63766;
 }
-.active.accent > span {
-  background: var(--amber);
-  border-color: var(--amber);
-  box-shadow: 0 0 18px #e6a6372b;
+.silent {
+  --beat-color: #c3c9d4;
+  --beat-glow: #c3c9d444;
+}
+.silent .circle {
+  background: transparent;
+  border-style: dashed;
+}
+.active {
+  color: var(--text);
+  font-weight: 800;
+}
+.active .circle {
+  opacity: 1;
+  box-shadow: 0 0 18px var(--beat-glow);
+  transform: scale(1.12);
+}
+.beatHelp {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+.beatHelp span {
+  white-space: nowrap;
 }
 .transport {
   text-align: center;
@@ -253,18 +301,8 @@
   font: inherit;
   cursor: pointer;
 }
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 44px;
-  margin: 8px 0;
-  cursor: pointer;
-}
-.checkbox input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--amber);
+.volume {
+  margin-top: 20px;
 }
 .note {
   text-align: center;
@@ -299,11 +337,7 @@
     gap: 8px;
   }
   .beats {
-    gap: 15px;
-  }
-  .beat > span {
-    width: 25px;
-    height: 25px;
+    gap: 6px;
   }
   .steps {
     gap: 5px;

@@ -10,14 +10,23 @@ import {
   beatsPerBar,
   isTimeSignature,
   parseBpm,
+  nextBeatSound,
+  signatureDescription,
 } from "./rhythm";
 import styles from "./metronome.module.css";
 
+const SOUND_LABELS = {
+  accent: "son accentué",
+  normal: "son normal",
+  silent: "silence",
+} as const;
+
 export function Metronome() {
-  const { settings, update, status, beat, error, toggle } = useMetronome();
+  const { settings, update, cycleBeat, status, beat, error, toggle } = useMetronome();
   const [draft, setDraft] = useState<string | null>(null);
   const playing = status === "playing";
   const count = beatsPerBar(settings.signature);
+  const beatUnit = settings.signature.endsWith("/8") ? "Croche" : "Temps";
   const changeBpm = (value: number) => {
     setDraft(null);
     update({ bpm: value });
@@ -48,22 +57,37 @@ export function Metronome() {
         <span>BPM</span>
       </div>
       <p className={styles.unit}>
-        {settings.signature === "6/8"
-          ? "À la noire pointée · 2 pulsations, 6 croches"
-          : "À la noire · un clic par temps"}
+        {signatureDescription(settings.signature)}
       </p>
-      <div className={styles.beats} aria-label={`${count} temps par mesure`}>
-        {Array.from({ length: count }, (_, index) => (
-          <span
-            key={index}
-            aria-hidden="true"
-            className={`${styles.beat} ${index === beat && playing ? styles.active : ""} ${index === 0 && settings.accent ? styles.accent : ""}`}
-          >
-            <span />
-            {index + 1}
-          </span>
-        ))}
+      <div
+        className={styles.beats}
+        role="group"
+        aria-label={`Sons des ${count} ${beatUnit === "Croche" ? "croches" : "temps"} de la mesure`}
+        aria-describedby="beat-sounds-help"
+      >
+        {settings.beatSounds.map((sound, index) => {
+          const current = index === beat && playing;
+          return (
+            <button
+              key={index}
+              type="button"
+              aria-label={`${beatUnit} ${index + 1} : ${SOUND_LABELS[sound]}. Passer au ${SOUND_LABELS[nextBeatSound(sound)]}.`}
+              aria-current={current ? "step" : undefined}
+              title={`${SOUND_LABELS[sound]} → ${SOUND_LABELS[nextBeatSound(sound)]}`}
+              onClick={() => cycleBeat(index)}
+              className={`${styles.beat} ${styles[sound]} ${current ? styles.active : ""}`}
+            >
+              <span className={styles.circle} aria-hidden="true">
+                {sound === "accent" ? ">" : sound === "normal" ? "•" : ""}
+              </span>
+              <span aria-hidden="true">{index + 1}</span>
+            </button>
+          );
+        })}
       </div>
+      <p id="beat-sounds-help" className={styles.beatHelp}>
+        Cliquez sur un rond : <span>&gt; Accentué</span> → <span>• Normal</span> → <span>○ Silence</span> → accentué.
+      </p>
       <div className={styles.transport}>
         <button
           type="button"
@@ -189,14 +213,6 @@ export function Metronome() {
               ))}
             </select>
           </div>
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              checked={settings.accent}
-              onChange={(event) => update({ accent: event.target.checked })}
-            />
-            Accentuer le premier temps
-          </label>
           <label className={styles.volume} htmlFor="metronome-volume">
             Volume <span>{Math.round(settings.volume * 100)} %</span>
           </label>
