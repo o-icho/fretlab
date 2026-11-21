@@ -215,6 +215,10 @@ export function Metronome() {
       <p className={styles.note}>
         Clics générés dans votre navigateur · Aucun fichier audio à charger
       </p>
+      <p className={styles.note}>
+        Données de tempo des morceaux :{" "}
+        <a href="https://getsongbpm.com/">GetSongBPM</a>.
+      </p>
     </section>
   );
 }
