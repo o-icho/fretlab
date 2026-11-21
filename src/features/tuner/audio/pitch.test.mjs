@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { detectPitch, PitchStabilizer } from "./pitch.ts";
+import { detectPitch, pitchBufferSize, PitchStabilizer } from "./pitch.ts";
 
 function tone(
   frequency,
@@ -82,4 +82,51 @@ test("large pitch changes re-confirm without hiding octave changes", () => {
   assert.equal(stable.push(detection(220)), 220);
   stable.reset();
   assert.equal(stable.push(detection(220)), null);
+});
+
+// Real capture uses a rate-dependent window: exercise exactly that duration.
+function bassTone(frequency, rate, partials, phaseOffset = 0) {
+  let seed = 4242;
+  return Float32Array.from({ length: pitchBufferSize(rate) }, (_, i) => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    const phase = 2 * Math.PI * frequency * i / rate + phaseOffset;
+    return 0.1 + 0.15 * partials.reduce(
+      (sum, amplitude, index) => sum + amplitude * Math.sin((index + 1) * phase), 0,
+    ) + (seed / 2 ** 32 - 0.5) * 0.0006;
+  });
+}
+
+for (const rate of [44100, 48000, 96000]) {
+  for (const frequency of [30.8677, 41.2034, 55, 73.4162, 97.9989]) {
+    test(`bass ${frequency} Hz at ${rate}: detuning, phase, dominant harmonics`, () => {
+      for (const cents of [-100, -25, 0, 25, 100]) {
+        const expected = frequency * 2 ** (cents / 1200);
+        for (const partials of [[1], [0.08, 1, 0.05], [0.1, 0.25, 1], [0, 1, 0.5]]) {
+          for (const phase of [0, 1.7]) {
+            const result = detectPitch(bassTone(expected, rate, partials, phase), rate);
+            assert.ok(result, JSON.stringify({ expected, rate, partials }));
+            assert.ok(Math.abs(1200 * Math.log2(result.frequency / expected)) < 5,
+              JSON.stringify({ expected, rate, partials, phase, result }));
+          }
+        }
+      }
+    });
+  }
+  test(`bass capture window at ${rate} does not octave-fold guitar/high notes`, () => {
+    for (const frequency of [82.4069, 110, 329.6276, 440, 880, 1500]) {
+      const result = detectPitch(bassTone(frequency, rate, [1, 0.3, 0.2]), rate);
+      assert.ok(result);
+      assert.ok(Math.abs(1200 * Math.log2(result.frequency / frequency)) < 5,
+        JSON.stringify({ frequency, rate, result }));
+    }
+  });
+}
+
+test("sustain threshold still chooses the bass fundamental over its dominant overtone", () => {
+  const frequency = 30.8677;
+  const result = detectPitch(bassTone(frequency, 48000, [0.08, 1, 0.05]), 48000, {
+    yinThreshold: 0.28,
+  });
+  assert.ok(result);
+  assert.ok(Math.abs(1200 * Math.log2(result.frequency / frequency)) < 5);
 });

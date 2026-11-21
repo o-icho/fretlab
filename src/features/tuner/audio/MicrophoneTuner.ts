@@ -1,4 +1,4 @@
-import { analysePitch } from "./pitch.ts";
+import { analysePitch, pitchBufferSize } from "./pitch.ts";
 import { PitchStabilizer, TRACKING } from "./tracking.ts";
 import { musicalAudioConstraints } from "./constraints.ts";
 import { frequencyToNote } from "../music/notes.ts";
@@ -91,7 +91,7 @@ export class MicrophoneTuner {
         console.debug("[FretLab tuner] microphone", {
           requested: musicalAudioConstraints(supported),
           actual: tracks[0]?.getSettings(),
-          bufferSize: 4096,
+          bufferSize: pitchBufferSize(context.sampleRate),
           sampleRate: context.sampleRate,
         });
       if (!tracks.length || tracks.some((track) => track.readyState !== "live"))
@@ -123,7 +123,7 @@ export class MicrophoneTuner {
       };
       this.source = context.createMediaStreamSource(stream);
       this.analyser = context.createAnalyser();
-      this.analyser.fftSize = 4096;
+      this.analyser.fftSize = pitchBufferSize(context.sampleRate);
       this.analyser.smoothingTimeConstant = 0;
       this.buffer = new Float32Array(this.analyser.fftSize);
       // Deliberately no connection to destination: microphone sound is never played back.
@@ -155,7 +155,6 @@ export class MicrophoneTuner {
         yinThreshold: tracking
           ? 1 - TRACKING.holdConfidence
           : 1 - TRACKING.acquireConfidence,
-        referenceFrequency: this.stabilizer.frequency,
       });
       const retained = this.stabilizer.push(analysis.detection, now);
       this.onReading(retained);

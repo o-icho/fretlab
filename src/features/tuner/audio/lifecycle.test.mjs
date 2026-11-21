@@ -9,8 +9,8 @@ function deferred() {
 }
 
 // Only the browser boundary is faked; session/generation/cleanup run unchanged.
-function setup(t) {
-  const requests = [], contexts = [], frames = new Map(), logs = [];
+function setup(t, sampleRate = 48000, frequency = 30.8677) {
+  const requests = [], contexts = [], frames = new Map(), logs = [], analysers = [], readings = [];
   let engine;
   t.after(() => engine?.stop("component-unmount"));
   let frameId = 0;
@@ -28,6 +28,7 @@ function setup(t) {
   global("requestAnimationFrame", (callback) => { frames.set(++frameId, callback); return frameId; });
   global("cancelAnimationFrame", (id) => frames.delete(id));
   global("AudioContext", class {
+    sampleRate = sampleRate;
     state = "running";
     closes = 0;
     onstatechange = null;
@@ -35,17 +36,49 @@ function setup(t) {
     async resume() {}
     async close() { this.closes++; this.state = "closed"; }
     createMediaStreamSource() { return { connect() {}, disconnect() {} }; }
-    createAnalyser() { return { fftSize: 4096, disconnect() {} }; }
+    createAnalyser() {
+      const analyser = {
+        fftSize: 4096,
+        disconnect() {},
+        getFloatTimeDomainData(buffer) {
+          assert.equal(buffer.length, this.fftSize);
+          for (let i = 0; i < buffer.length; i++)
+            buffer[i] = 0.1 * Math.sin(2 * Math.PI * frequency * i / sampleRate);
+        },
+      };
+      analysers.push(analyser);
+      return analyser;
+    }
   });
   const interruptions = [];
-  engine = new MicrophoneTuner(() => {}, (message) => interruptions.push(message));
+  engine = new MicrophoneTuner((reading) => readings.push(reading), (message) => interruptions.push(message));
   const stream = () => {
     const track = { readyState: "live", enabled: true, muted: false, stops: 0,
       stop() { this.stops++; this.readyState = "ended"; } };
     return { active: true, getTracks: () => [track], getAudioTracks: () => [track], track };
   };
-  return { engine, requests, contexts, frames, stream, interruptions, logs };
+  return { engine, requests, contexts, frames, stream, interruptions, logs, analysers, readings };
 }
+
+for (const rate of [44100, 48000, 96000])
+  test(`microphone capture at ${rate} detects low B with its actual analysis buffer`, async (t) => {
+    const s = setup(t, rate), stream = s.stream();
+    const start = s.engine.start();
+    s.requests[0].resolve(stream);
+    await start;
+    assert.ok(s.analysers[0].fftSize / rate >= 4 / 25);
+    for (const now of [60, 120, 180, 240]) {
+      const [id, callback] = s.frames.entries().next().value;
+      s.frames.delete(id);
+      callback(now);
+    }
+    const last = s.readings.at(-1);
+    assert.ok(last !== null);
+    assert.ok(Math.abs(1200 * Math.log2(last / 30.8677)) < 5);
+    s.engine.stop("app-background");
+    assert.equal(s.frames.size, 0);
+    assert.equal(stream.track.stops, 1);
+  });
 
 test("permission async resolves into running, and user Stop releases resources once", async (t) => {
   const s = setup(t), stream = s.stream();

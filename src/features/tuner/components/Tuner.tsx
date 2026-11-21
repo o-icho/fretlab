@@ -2,28 +2,42 @@
 import { useState } from "react";
 import { useTuner } from "../audio/useTuner";
 import {
-  STANDARD_STRINGS,
   frequencyToNote,
-  nearestGuitarString,
+  nearestString,
   midiToNote,
   centsDifference,
   clampCents,
   tuningStatus,
 } from "../music/notes";
+import {
+  STANDARD_TUNING,
+  BASS_4_TUNING,
+  BASS_5_TUNING,
+  tuningNotes,
+} from "@/domain/music/tuning";
 import styles from "./tuner.module.css";
+
+const INSTRUMENT_TUNINGS = {
+  guitar: STANDARD_TUNING,
+  "bass-4": BASS_4_TUNING,
+  "bass-5": BASS_5_TUNING,
+} as const;
+type TunerMode = "chromatic" | keyof typeof INSTRUMENT_TUNINGS;
 
 export function Tuner() {
   const { status, frequency, error, toggle } = useTuner();
-  const [mode, setMode] = useState<"chromatic" | "guitar">("chromatic");
+  const [mode, setMode] = useState<TunerMode>("chromatic");
   const [selected, setSelected] = useState<number | null>(null);
+  const tuning = mode === "chromatic" ? null : INSTRUMENT_TUNINGS[mode];
+  const strings = tuning ? tuningNotes(tuning) : [];
   const note = frequency === null ? null : frequencyToNote(frequency);
   const target =
-    mode === "chromatic"
+    tuning === null
       ? note
       : selected === null
         ? frequency === null
           ? null
-          : nearestGuitarString(frequency)
+          : nearestString(frequency, tuning)
         : midiToNote(selected);
   const cents =
     frequency !== null && target
@@ -36,7 +50,7 @@ export function Tuner() {
         : "Prêt à accorder"
       : tuningStatus(cents);
   const inTune = cents !== null && Math.abs(cents) <= 5;
-  function changeMode(value: "chromatic" | "guitar") {
+  function changeMode(value: TunerMode) {
     setMode(value);
     setSelected(null);
   }
@@ -47,7 +61,9 @@ export function Tuner() {
         {(
           [
             ["chromatic", "Chromatique"],
-            ["guitar", "Accordage standard"],
+            ["guitar", "Guitare 6 cordes"],
+            ["bass-4", "Basse 4 cordes"],
+            ["bass-5", "Basse 5 cordes"],
           ] as const
         ).map(([value, label]) => (
           <label key={value}>
@@ -129,25 +145,25 @@ export function Tuner() {
             : "—"}
         </strong>
       </p>
-      {mode === "guitar" && (
+      {tuning !== null && (
         <div className={styles.strings}>
           <p>
             Choisissez une corde, ou laissez la cible se sélectionner
             automatiquement.
           </p>
-          <div>
-            {STANDARD_STRINGS.map((string, index) => (
+          <div style={{ gridTemplateColumns: `repeat(${strings.length}, 1fr)` }}>
+            {strings.map((string, index) => (
               <button
                 key={string.midi}
                 type="button"
                 aria-pressed={selected === string.midi}
-                aria-label={`Corde ${6 - index}, ${string.note}${string.octave}`}
+                aria-label={`Corde ${strings.length - index}, ${string.note}${string.octave}`}
                 className={
                   target?.midi === string.midi ? styles.targetString : ""
                 }
                 onClick={() => setSelected(string.midi)}
               >
-                <span>{6 - index}</span>
+                <span>{strings.length - index}</span>
                 <strong>
                   {string.note}
                   <small>{string.octave}</small>
@@ -191,6 +207,15 @@ export function Tuner() {
         Jouez une seule note et laissez-la résonner. La jauge est limitée à ±50
         cents ; la valeur affichée conserve l’écart réel.
       </p>
+      {(mode === "bass-4" || mode === "bass-5") && (
+        <p className={styles.help}>
+          Accordage standard : {mode === "bass-5" ? "Si–Mi–La–Ré–Sol" : "Mi–La–Ré–Sol"}.
+          <br />
+          Pour les notes graves, étouffez les autres cordes et laissez le son se
+          stabiliser après l’attaque. Si le microphone capte mal les graves,
+          utilisez une entrée audio adaptée.
+        </p>
+      )}
     </section>
   );
 }

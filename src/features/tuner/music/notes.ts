@@ -1,5 +1,6 @@
 import { frequencyToMidi } from "../../../domain/music/midi.ts";
 import { STANDARD_TUNING, tuningNotes } from "../../../domain/music/tuning.ts";
+import type { Tuning } from "../../../domain/music/tuning.ts";
 export { A4_FREQUENCY, targetFrequency, frequencyToMidi, midiToNote, frequencyToNote } from "../../../domain/music/midi.ts";
 export function centsDifference(
   frequency: number,
@@ -25,13 +26,16 @@ export function tuningStatus(
       : "Note trop haute";
 }
 export const STANDARD_STRINGS = tuningNotes(STANDARD_TUNING);
-export function nearestGuitarString(frequency: number) {
+export function nearestString(frequency: number, tuning: Tuning) {
   const midi = frequencyToMidi(frequency);
-  return midi === null
+  return midi === null || tuning.strings.length === 0
     ? null
-    : STANDARD_STRINGS.reduce((closest, string) =>
+    : tuningNotes(tuning).reduce((closest, string) =>
         Math.abs(string.midi - midi) < Math.abs(closest.midi - midi)
           ? string
           : closest,
       );
+}
+export function nearestGuitarString(frequency: number) {
+  return nearestString(frequency, STANDARD_TUNING);
 }

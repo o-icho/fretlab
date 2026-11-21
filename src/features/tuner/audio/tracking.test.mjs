@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { analysePitch } from "./pitch.ts";
+import { analysePitch, pitchBufferSize } from "./pitch.ts";
 import { PitchStabilizer, TRACKING } from "./tracking.ts";
 import { musicalAudioConstraints } from "./constraints.ts";
 
@@ -130,7 +130,6 @@ for (const rate of [44100, 48000])
           yinThreshold: tracker.isTracking
             ? 1 - TRACKING.holdConfidence
             : 1 - TRACKING.acquireConfidence,
-          referenceFrequency: tracker.frequency,
         });
         const stable = tracker.push(analysis.detection, now);
         if (now >= 180) {
@@ -162,3 +161,92 @@ test("YIN reports low-volume and nonperiodic rejection reasons", () => {
     "invalid-buffer",
   );
 });
+
+function bassFrame(frequency, rate, now, { decaying = false } = {}) {
+  let seed = 12345 + now;
+  return Float32Array.from({ length: pitchBufferSize(rate) }, (_, i) => {
+    const time = now / 1000 + i / rate;
+    if (!decaying) return 0.1 * Math.sin(2 * Math.PI * frequency * time);
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    const noise = (seed / 2 ** 32 - 0.5) * 0.0003;
+    // Decay occurs inside the observation window too. Small string stiffness
+    // stretches partials while leaving the intended fundamental unchanged.
+    const stiffness = 0.0001;
+    const partial = (n) => Math.sin(
+      2 * Math.PI * frequency * n *
+      Math.sqrt((1 + stiffness * n * n) / (1 + stiffness)) * time,
+    );
+    const amplitude = 0.025 * Math.exp(-time / 1.2);
+    return amplitude * (0.12 * partial(1) + partial(2) + 0.25 * partial(3)) + noise;
+  });
+}
+
+function followFrame(tracker, buffer, rate, now) {
+  const analysis = analysePitch(buffer, rate, {
+    minRms: tracker.isTracking ? TRACKING.releaseRms : TRACKING.acquireRms,
+    yinThreshold: tracker.isTracking
+      ? 1 - TRACKING.holdConfidence
+      : 1 - TRACKING.acquireConfidence,
+  });
+  return { analysis, stable: tracker.push(analysis.detection, now) };
+}
+
+function assertPitchNear(actual, expected, context) {
+  assert.ok(actual !== null && actual > 0, context);
+  assert.ok(Math.abs(1200 * Math.log2(actual / expected)) < 5,
+    `${context}: expected ${expected} Hz, received ${actual} Hz`);
+}
+
+for (const rate of [44100, 48000, 96000]) {
+  for (const bass of [30.867706, 41.203445]) {
+    test(`real YIN and tracking follow ${bass} Hz octave up/down at ${rate} Hz`, () => {
+      const tracker = new PitchStabilizer();
+      let now = 0;
+      for (const frequency of [bass, bass * 2, bass]) {
+        for (let frame = 0; frame < 7; frame++, now += 60) {
+          const { analysis, stable } = followFrame(
+            tracker, bassFrame(frequency, rate, now), rate, now,
+          );
+          assertPitchNear(analysis.detection?.frequency ?? null, frequency,
+            `raw octave transition at ${now} ms`);
+          // The stabilizer may hold the previous note only while confirming.
+          if (frame >= 3) assertPitchNear(stable, frequency, `retained at ${now} ms`);
+        }
+      }
+    });
+
+    test(`pure ${bass * 2} Hz is not invented as a bass fundamental at ${rate} Hz`, () => {
+      const tracker = new PitchStabilizer();
+      for (let now = 0; now <= 600; now += 60) {
+        const { analysis, stable } = followFrame(
+          tracker, bassFrame(bass * 2, rate, now), rate, now,
+        );
+        assertPitchNear(analysis.detection?.frequency ?? null, bass * 2,
+          `pure octave raw at ${now} ms`);
+        if (now >= 120) assertPitchNear(stable, bass * 2, `pure octave retained at ${now} ms`);
+      }
+    });
+
+    test(`decaying inharmonic ${bass} Hz with noise remains measured at ${rate} Hz`, () => {
+      const tracker = new PitchStabilizer();
+      let accepted = 0;
+      let quietAccepted = 0;
+      for (let now = 0; now <= 3000; now += 60) {
+        const { analysis, stable } = followFrame(
+          tracker, bassFrame(bass, rate, now, { decaying: true }), rate, now,
+        );
+        if (now < 180) continue;
+        assertPitchNear(stable, bass, `bass sustain at ${now} ms`);
+        if (tracker.decision.accepted) {
+          accepted++;
+          assertPitchNear(analysis.detection?.frequency ?? null, bass,
+            `accepted bass raw at ${now} ms`);
+          if (analysis.rms < TRACKING.acquireRms) quietAccepted++;
+        }
+      }
+      assert.ok(accepted >= 45, `only ${accepted} genuine sustain detections`);
+      assert.ok(quietAccepted >= 10, `only ${quietAccepted} quiet sustain detections`);
+      assert.equal(tracker.push(null, 3600), null, "silence clears the bass reading");
+    });
+  }
+}

@@ -3,15 +3,21 @@ export type PitchDetection = {
   confidence: number;
   rms: number;
 };
-export const MIN_FREQUENCY = 55;
+// Leave room below B0 (30.87 Hz) for a flat five-string bass.
+export const MIN_FREQUENCY = 25;
 export const MAX_FREQUENCY = 1600;
 import { TRACKING } from "./tracking.ts";
 export { PitchStabilizer } from "./tracking.ts";
 const YIN_THRESHOLD = 0.12;
+/** At least four periods of the lowest pitch, including at 96 kHz.
+ * YIN compares two half-windows; a fixed 4096 buffer misses bass fundamentals.
+ */
+export function pitchBufferSize(sampleRate: number): number {
+  return Math.min(32768, Math.max(4096, 2 ** Math.ceil(Math.log2(4 * sampleRate / MIN_FREQUENCY))));
+}
 export type PitchOptions = {
   minRms?: number;
   yinThreshold?: number;
-  referenceFrequency?: number | null;
 };
 export type PitchAnalysis = {
   rms: number;
@@ -37,7 +43,7 @@ export function analysePitch(
 ): PitchAnalysis {
   if (sampleRate <= 0 || !Number.isFinite(sampleRate) || buffer.length < 512)
     return { rms: 0, detection: null, reason: "invalid-buffer" };
-  const factor = Math.max(1, Math.floor(sampleRate / 24000));
+  const factor = Math.max(1, Math.round(sampleRate / 24000));
   const rate = sampleRate / factor;
   const size = Math.floor(buffer.length / factor);
   const signal = new Float32Array(size);
@@ -107,8 +113,11 @@ export function analysePitch(
         ? Math.max(-1, Math.min(1, (before - after) / (2 * denominator)))
         : 0;
     const frequency = rate / (trough + correction);
+    // Compare interpolated residuals too: integer-lag error is proportionally
+    // larger for treble notes and must not make a subharmonic look preferable.
+    const residual = Math.max(0, center - 0.25 * (before - after) * correction);
     if (frequency >= MIN_FREQUENCY && frequency <= MAX_FREQUENCY)
-      candidates.push({ frequency, confidence: 1 - center, rms });
+      candidates.push({ frequency, confidence: 1 - residual, rms });
     // Skip the rest of this trough, then inspect later periods for continuity.
     while (
       lag < maxLag &&
@@ -116,26 +125,19 @@ export function analysePitch(
     )
       lag++;
   }
-  const reference = options.referenceFrequency;
-  const continuous = reference
-    ? candidates.find(
-        (candidate) =>
-          Math.abs(1200 * Math.log2(candidate.frequency / reference)) <=
-          TRACKING.continuityCents,
-      )
-    : undefined;
-  // Preserve continuity only if its trough is nearly as convincing as the best.
+  // A dominant overtone may produce an early, plausible trough. Keep the
+  // shortest period whose residual is comparable to the best one. The absolute
+  // floor tolerates interpolation/noise; the relative term scales with noise.
+  // Never favor the previous frequency's longer-period trough: a pure octave-up
+  // note also repeats at that period and would otherwise stay locked forever.
+  // Temporal continuity remains the stabilizer's job.
   const bestConfidence = candidates.reduce(
     (best, candidate) => Math.max(best, candidate.confidence),
     0,
   );
-  const detection =
-    continuous && continuous.confidence >= bestConfidence - 0.08
-      ? continuous
-      : (candidates.find(
-          (candidate) => candidate.confidence >= TRACKING.acquireConfidence,
-        ) ??
-        candidates[0] ??
-        null);
+  const maxResidual = (1 - bestConfidence) * 1.5 + 0.005;
+  const detection = candidates.find(
+    (candidate) => 1 - candidate.confidence <= maxResidual,
+  ) ?? null;
   return { rms, detection, reason: detection ? null : "periodicity" };
 }

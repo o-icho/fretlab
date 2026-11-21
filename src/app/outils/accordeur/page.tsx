@@ -3,8 +3,8 @@ import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
 import { Tuner } from "@/features/tuner/components/Tuner";
 export const metadata = pageMetadata(
-  "Accordeur guitare en ligne gratuit",
-  "Accordez gratuitement votre guitare grâce au microphone de votre ordinateur ou smartphone.",
+  "Accordeur guitare et basse en ligne gratuit",
+  "Accordez gratuitement votre guitare ou votre basse 4 ou 5 cordes grâce au microphone de votre ordinateur ou smartphone.",
   "/outils/accordeur",
 );
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
       <section className="page-intro">
         <p className="eyebrow">LA BOÎTE À OUTILS / 03</p>
         <h1>Accordeur chromatique</h1>
-        <p>Accordez votre guitare, une note à la fois.</p>
+        <p>Accordez votre guitare ou votre basse 4 ou 5 cordes, une note à la fois.</p>
       </section>
       <Tuner />
     </Container>
