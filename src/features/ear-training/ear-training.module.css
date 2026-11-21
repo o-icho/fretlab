@@ -1,26 +1,26 @@
 .layout { display: grid; grid-template-columns: minmax(250px, 320px) minmax(0, 1fr); gap: 24px; margin-bottom: 48px; }
-.settings, .exercise { background: var(--color-surface); border: 1px solid #343842; border-radius: 16px; padding: clamp(20px, 3vw, 36px); }
+.settings, .exercise { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: clamp(20px, 3vw, 36px); }
 .settings h2, .exercise h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 20px; }
 .settings fieldset { border: 0; padding: 0; margin: 0 0 24px; }
 .settings legend { margin-bottom: 12px; font-size: .9rem; }
 .choices { display: flex; gap: 8px; flex-wrap: wrap; }
-.choices label { display: flex; gap: 8px; align-items: center; min-height: 48px; border: 1px solid #555a66; border-radius: 8px; padding: 10px; cursor: pointer; }
-.choices label:has(input:checked) { border-color: var(--color-primary); background: #e6a63712; }
-.choices input { accent-color: var(--color-primary); }
+.choices label { display: flex; gap: 8px; align-items: center; min-height: 48px; border: 1px solid var(--control-border); border-radius: 8px; padding: 10px; cursor: pointer; }
+.choices label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.choices input { accent-color: var(--accent); }
 .field { display: grid; gap: 10px; margin: 20px 0; font-weight: 600; }
-.field select { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid #555a66; border-radius: 8px; background: var(--color-background); color: var(--color-foreground); }
-.field input { min-height: 44px; width: 100%; accent-color: var(--color-primary); }
-.hint { color: var(--color-muted); font-size: .9rem; line-height: 1.7; }
+.field select { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid var(--control-border); border-radius: 8px; background: var(--bg); color: var(--text); }
+.field input { min-height: 44px; width: 100%; accent-color: var(--accent); }
+.hint { color: var(--muted); font-size: .9rem; line-height: 1.7; }
 .exercise { text-align: center; align-content: center; }
 .answer { min-height: 200px; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 20px 0; overflow-wrap: anywhere; }
-.answer strong { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.2; color: var(--color-primary); }
-.mystery { font-size: 4rem; line-height: 1; color: var(--color-primary); }
+.answer strong { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.2; color: var(--accent); }
+.mystery { font-size: 4rem; line-height: 1; color: var(--accent); }
 .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
 .actions button { min-height: 48px; }
 .actions button:disabled { opacity: .5; cursor: not-allowed; }
-.status { color: var(--color-muted); min-height: 32px; margin: 16px 0; font-size: .85rem; }
+.status { color: var(--muted); min-height: 32px; margin: 16px 0; font-size: .85rem; }
 .error { color: #ffc1b3; margin-top: 20px; }
-.layout :is(button, select, input):focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+.layout :is(button, select, input):focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 760px) {
   .layout { grid-template-columns: 1fr; }
   .settings { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }

@@ -1,0 +1,16 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22em;
+  color: var(--text);
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.95rem, 3vw, 2.5rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.wordmark img {
+  width: 1.05em;
+  height: 1.05em;
+}

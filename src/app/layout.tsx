@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Barlow_Condensed, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -16,11 +16,17 @@ const manrope = Manrope({
   variable: "--font-manrope",
   display: "swap",
 });
+const barlow = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: "800",
+  variable: "--font-barlow",
+  display: "swap",
+});
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#111318",
+  themeColor: "#151321",
 };
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -53,7 +59,7 @@ export default function RootLayout({
     && process.env.VERCEL_ENV === "production"
     && (process.env.FRETLAB_BUILD_TARGET ?? "web") === "web";
   return (
-    <html lang="fr" className={manrope.variable} data-scroll-behavior="smooth">
+    <html lang="fr" className={`${manrope.variable} ${barlow.variable}`} data-scroll-behavior="smooth">
       <body className="bg-background text-foreground font-sans antialiased">
         <NativeLifecycle />
         <a href="#contenu" className="skip-link">

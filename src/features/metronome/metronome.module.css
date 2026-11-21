@@ -28,8 +28,8 @@
   white-space: nowrap;
 }
 .topline .playing {
-  color: var(--teal);
-  border-color: var(--teal);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .tempo {
   display: flex;
@@ -38,14 +38,17 @@
   margin-top: 28px;
 }
 .tempo strong {
+  font-family: var(--font-display);
+  color: var(--text);
   font-size: clamp(80px, 15vw, 120px);
-  line-height: 1.15;
-  letter-spacing: -6px;
+  line-height: 1;
+  letter-spacing: -0.025em;
   font-variant-numeric: tabular-nums;
   font-weight: 750;
 }
 .tempo > span {
-  color: var(--amber);
+  color: var(--muted);
+  margin-top: 6px;
   letter-spacing: 5px;
   font-weight: 700;
   font-size: 14px;
@@ -107,7 +110,7 @@
   --beat-glow: #7bc8ed66;
 }
 .accent {
-  --beat-color: var(--amber);
+  --beat-color: #e6a637;
   --beat-glow: #e6a63766;
 }
 .silent {
@@ -148,7 +151,7 @@
   gap: 15px;
   min-width: 220px;
   min-height: 60px;
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   border: 0;
   border-radius: 9px;
@@ -157,7 +160,7 @@
   cursor: pointer;
 }
 .start:hover {
-  background: #f2b747;
+  background: var(--accent-hover);
 }
 .start > span {
   font-size: 15px;
@@ -189,10 +192,10 @@
   flex-shrink: 0;
   width: 112px;
   min-height: 100px;
-  border: 1px solid var(--amber);
+  border: 1px solid var(--accent);
   border-radius: 9px;
   background: var(--surface);
-  color: var(--amber);
+  color: var(--accent);
   font: inherit;
   font-size: 24px;
   font-weight: 750;
@@ -202,7 +205,7 @@
   user-select: none;
 }
 .tapButton:hover, .tapButton:active {
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
 }
 .tapInfo { min-width: 0; font-size: 14px; line-height: 1.7; }
@@ -212,8 +215,8 @@
 .tapUnit { font-size: 16px; font-weight: 700; letter-spacing: .08em; }
 .tapMessage { min-height: 48px; margin-top: 8px; }
 .tapInfo > p:last-child { font-size: 12px; color: var(--muted); margin-top: 8px; }
-.tapApplied .tapValue { color: var(--teal); }
-.tapApplied { color: var(--teal); }
+.tapApplied .tapValue { color: var(--accent); }
+.tapApplied { color: var(--accent); }
 @media (max-width: 540px) {
   .tapTempo { flex-direction: column; align-items: stretch; gap: 16px; padding: 16px; }
   .tapButton { width: 100%; min-height: 96px; }
@@ -245,7 +248,7 @@
   width: 100%;
   height: 36px;
   margin: 10px 0;
-  accent-color: var(--amber);
+  accent-color: var(--accent);
   cursor: pointer;
 }
 .steps {
@@ -254,7 +257,7 @@
   align-items: center;
 }
 .steps button {
-  background: #111318;
+  background: var(--bg);
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: 7px;
@@ -264,7 +267,7 @@
   font-size: 13px;
 }
 .steps button:hover:not(:disabled) {
-  border-color: var(--amber);
+  border-color: var(--accent);
 }
 .steps button:disabled {
   opacity: 0.4;
@@ -276,7 +279,7 @@
 }
 .numeric input {
   width: 100%;
-  background: #111318;
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 7px;
   min-height: 44px;
@@ -292,7 +295,7 @@
   gap: 10px;
 }
 .signature select {
-  background: #111318;
+  background: var(--bg);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 7px;
@@ -344,8 +347,5 @@
   }
   .steps button {
     min-width: 40px;
-  }
-  .tempo strong {
-    letter-spacing: -4px;
   }
 }

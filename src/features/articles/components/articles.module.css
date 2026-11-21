@@ -10,20 +10,20 @@
 .categories button {
   min-height: 44px;
   padding: 10px 20px;
-  border: 1px solid #30343e;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #1a1d24;
-  color: #a9adb7;
+  background: var(--surface);
+  color: var(--muted);
   cursor: pointer;
 }
 .categories button:hover {
-  border-color: #e6a637;
-  color: #f5f1e8;
+  border-color: var(--accent);
+  color: var(--text);
 }
 .categories button[aria-pressed="true"] {
-  color: #111318;
-  background: #e6a637;
-  border-color: #e6a637;
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 .listHeading {
   display: flex;
@@ -37,41 +37,42 @@
   font-weight: 700;
 }
 .listHeading p {
-  color: #a9adb7;
+  color: var(--muted);
   font-size: 13px;
 }
 .breadcrumbs {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: #a9adb7;
+  color: var(--muted);
   font-size: 12px;
   padding: 30px 0;
 }
 .breadcrumbs a:hover {
-  color: #e6a637;
+  color: var(--accent);
 }
 .article {
   max-width: 760px;
   margin: 20px auto 0;
 }
 .header h1 {
-  font-size: clamp(32px, 4.5vw, 48px);
-  font-weight: 750;
-  line-height: 1.2;
-  letter-spacing: -1.5px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.2vw, 64px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
   margin: 16px 0 24px;
 }
 .lead {
   font-size: 18px;
   line-height: 1.8;
-  color: #a9adb7;
+  color: var(--muted);
 }
 .metadata {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 20px;
-  color: #a9adb7;
+  color: var(--muted);
   font-size: 12px;
   margin: 24px 0 32px;
 }
@@ -82,8 +83,8 @@
   margin-bottom: 32px;
 }
 .toc {
-  border: 1px solid #30343e;
-  background: #1a1d24;
+  border: 1px solid var(--border);
+  background: var(--surface);
   border-radius: 12px;
   padding: 24px;
   margin: 32px 0;
@@ -98,16 +99,16 @@
   display: grid;
   gap: 10px;
   font-size: 13px;
-  color: #a9adb7;
+  color: var(--muted);
 }
 .toc a:hover {
-  color: #e6a637;
+  color: var(--accent);
 }
 .subheading {
   padding-left: 18px;
 }
 .prose {
-  color: #d5d4d0;
+  color: var(--text);
   font-size: 16px;
   line-height: 1.95;
   overflow-wrap: break-word;
@@ -117,7 +118,7 @@
 }
 .prose h2,
 .prose h3 {
-  color: #f5f1e8;
+  color: var(--text);
   font-weight: 700;
   line-height: 1.35;
   scroll-margin-top: 110px;
@@ -132,15 +133,15 @@
   margin: 30px 0 16px;
 }
 .prose a {
-  color: #e6a637;
+  color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .prose a:hover {
-  color: #f5c46b;
+  color: var(--accent-hover);
 }
 .prose strong {
-  color: #f5f1e8;
+  color: var(--text);
   font-weight: 700;
 }
 .prose ul,
@@ -159,11 +160,11 @@
   margin: 8px 0;
 }
 .prose li::marker {
-  color: #e6a637;
+  color: var(--accent);
 }
 .prose code {
   font-family: monospace;
-  background: #1a1d24;
+  background: var(--surface);
   padding: 2px 5px;
   border-radius: 4px;
   font-size: 0.9em;
@@ -171,7 +172,7 @@
 .prose pre {
   overflow-x: auto;
   padding: 20px;
-  background: #1a1d24;
+  background: var(--surface);
   border-radius: 8px;
 }
 .prose pre code {
@@ -183,17 +184,17 @@
   border-radius: 10px;
 }
 .advice {
-  border-left: 3px solid #37b7a5;
+  border-left: 3px solid var(--accent);
   padding: 4px 22px;
   margin: 28px 0;
-  background: #37b7a50c;
+  background: var(--accent-soft);
   border-radius: 0 8px 8px 0;
 }
 .tableScroll {
   overflow-x: auto;
   max-width: 100%;
   margin: 28px 0;
-  border: 1px solid #30343e;
+  border: 1px solid var(--border);
   border-radius: 10px;
 }
 .prose table {
@@ -206,11 +207,11 @@
 .prose td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #30343e;
+  border-bottom: 1px solid var(--border);
 }
 .prose th {
-  background: #1a1d24;
-  color: #f5f1e8;
+  background: var(--surface);
+  color: var(--text);
   font-weight: 700;
 }
 .prose tr:last-child td {
@@ -222,8 +223,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 24px;
-  background: #1a1d24;
-  border: 1px solid #30343e;
+  background: var(--surface);
+  border: 1px solid var(--border);
   padding: 28px;
   border-radius: 12px;
   margin: 44px 0 24px;
@@ -235,24 +236,24 @@
 }
 .toolCta p {
   font-size: 14px;
-  color: #a9adb7;
+  color: var(--muted);
 }
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  color: #a9adb7;
+  color: var(--muted);
   font-size: 12px;
   margin-bottom: 60px;
 }
 .tags span {
-  border: 1px solid #30343e;
+  border: 1px solid var(--border);
   padding: 5px 10px;
   border-radius: 6px;
 }
 .related {
   padding: 60px 0 80px;
-  border-top: 1px solid #30343e;
+  border-top: 1px solid var(--border);
 }
 @media (max-width: 600px) {
   .article {

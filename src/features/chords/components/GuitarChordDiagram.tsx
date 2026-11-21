@@ -38,7 +38,7 @@ export function GuitarChordDiagram({
           )
           .join(" ")}`}
       </desc>
-      <g stroke="#626875" strokeWidth="1.2">
+      <g stroke="var(--muted)" strokeWidth="1.2">
         {Array.from({ length: 6 }, (_, i) => (
           <line key={`string-${i}`} x1={x(i)} x2={x(i)} y1={57} y2={237} />
         ))}
@@ -58,11 +58,11 @@ export function GuitarChordDiagram({
           x2={215}
           y1={57}
           y2={57}
-          stroke="#f5f1e8"
+          stroke="var(--text)"
           strokeWidth="5"
         />
       ) : (
-        <text x={37} y={80} textAnchor="end" fill="#a9adb7" fontSize="14">
+        <text x={37} y={80} textAnchor="end" fill="var(--muted)" fontSize="14">
           {position.baseFret}
         </text>
       )}
@@ -72,7 +72,7 @@ export function GuitarChordDiagram({
             key={`state-${i}`}
             x={x(i)}
             y={37}
-            fill="#f5f1e8"
+            fill="var(--text)"
             fontSize="16"
             textAnchor="middle"
           >
@@ -88,7 +88,7 @@ export function GuitarChordDiagram({
           x2={x(barre.toString)}
           y1={y(barre.fret)}
           y2={y(barre.fret)}
-          stroke="#e6a637"
+          stroke="var(--accent)"
           strokeWidth="20"
           strokeLinecap="round"
         />
@@ -96,13 +96,13 @@ export function GuitarChordDiagram({
       {position.frets.map((fret, i) =>
         fret > 0 ? (
           <g key={`finger-${i}`}>
-            <circle cx={x(i)} cy={y(fret)} r={11} fill="#e6a637" />
+            <circle cx={x(i)} cy={y(fret)} r={11} fill="var(--accent)" />
             {showFingers && !!position.fingers?.[i] && (
               <text
                 x={x(i)}
                 y={y(fret) + 4}
                 textAnchor="middle"
-                fill="#111318"
+                fill="var(--bg)"
                 fontSize="12"
                 fontWeight="700"
               >
@@ -112,14 +112,14 @@ export function GuitarChordDiagram({
           </g>
         ) : null,
       )}
-      <g fill="#a9adb7" fontSize="12" textAnchor="middle">
+      <g fill="var(--muted)" fontSize="12" textAnchor="middle">
         {["Mi", "La", "Ré", "Sol", "Si", "mi"].map((label, i) => (
           <text key={i} x={x(i)} y={262}>
             {label}
           </text>
         ))}
       </g>
-      <text x={135} y={286} textAnchor="middle" fill="#a9adb7" fontSize="10">
+      <text x={135} y={286} textAnchor="middle" fill="var(--muted)" fontSize="10">
         Grave ← cordes → aigu
       </text>
     </svg>

@@ -7,7 +7,7 @@
   overflow-x: auto;
   overscroll-behavior-x: contain;
   border-radius: 8px;
-  scrollbar-color: #626875 var(--bg);
+  scrollbar-color: var(--muted) var(--bg);
   scrollbar-width: thin;
 }
 .scroll:focus-visible {

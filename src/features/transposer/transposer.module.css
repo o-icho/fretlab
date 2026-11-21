@@ -40,12 +40,12 @@
   transition: background 0.15s;
 }
 .step {
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   font-size: 17px;
 }
 .step:hover:not(:disabled) {
-  background: #f2b747;
+  background: var(--accent-hover);
 }
 .reset {
   background: transparent;
@@ -100,12 +100,12 @@
   font-size: 13px;
 }
 .preferences input:checked + span {
-  border-color: var(--teal);
-  color: var(--teal);
-  background: #37b7a510;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 .preferences input:focus-visible + span {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 .help {
@@ -131,7 +131,7 @@
   border-radius: 12px;
 }
 .editor:focus-within {
-  border-color: var(--amber);
+  border-color: var(--accent);
 }
 .editorHeading {
   padding: 14px 20px;
@@ -148,10 +148,10 @@
 .action {
   font-size: 11px;
   background: transparent;
-  color: var(--amber);
+  color: var(--accent);
 }
 .result .editorHeading label {
-  color: var(--teal);
+  color: var(--accent);
 }
 .editor textarea {
   display: block;
@@ -172,7 +172,7 @@
   tab-size: 4;
 }
 .editor textarea:focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--accent);
   outline-offset: -3px;
 }
 .editor textarea::placeholder {
@@ -190,7 +190,7 @@
   line-height: 1.8;
 }
 .bottom p {
-  color: var(--teal);
+  color: var(--accent);
   min-height: 20px;
 }
 .guide {

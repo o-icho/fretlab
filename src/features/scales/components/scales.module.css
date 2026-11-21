@@ -24,7 +24,7 @@
   width: 100%;
   min-height: 48px;
   padding: 10px 12px;
-  border: 1px solid #3b3f49;
+  border: 1px solid var(--control-border);
   border-radius: 7px;
   background: var(--bg);
   color: var(--text);
@@ -70,16 +70,16 @@
   cursor: pointer;
 }
 .workspace button:hover {
-  border-color: var(--amber);
+  border-color: var(--accent);
 }
 .toggle button {
   border-color: transparent;
   background: transparent;
 }
 .toggle button[aria-pressed="true"] {
-  background: #e6a6371c;
-  border-color: var(--amber);
-  color: var(--amber);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .panel {
   min-width: 0;
@@ -92,7 +92,7 @@
   font-size: 10px;
   letter-spacing: 1.8px;
   font-weight: 750;
-  color: var(--teal);
+  color: var(--accent);
   margin-bottom: 12px;
 }
 .summary h2 {
@@ -132,8 +132,8 @@
   color: var(--muted);
 }
 .notes .rootNote {
-  border-color: var(--amber);
-  color: var(--amber);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 .legend {
   display: flex;
@@ -155,12 +155,12 @@
   border-radius: 50%;
 }
 .rootDot {
-  background: var(--amber);
-  outline: 1px solid var(--amber);
+  background: var(--accent);
+  outline: 1px solid var(--accent);
   outline-offset: 3px;
 }
 .noteDot {
-  border: 1.5px solid var(--teal);
+  border: 1.5px solid var(--muted);
 }
 .positions {
   padding-top: 20px;
@@ -227,7 +227,7 @@
   margin-top: 14px;
 }
 .learn a {
-  color: var(--amber);
+  color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 4px;
 }

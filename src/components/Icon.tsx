@@ -47,12 +47,6 @@ export function Icon({
     arrow: <path d="M4 12h16m-6-6 6 6-6 6" />,
     chevron: <path d="m8 10 4 4 4-4" />,
     check: <path d="m5 12 4 4L19 6" />,
-    logo: (
-      <>
-        <path d="M6 4v16M12 4v16M18 4v16M4 8h16M4 16h16" />
-        <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
-      </>
-    ),
   };
   return (
     <svg

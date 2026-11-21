@@ -1,4 +1,5 @@
 .panel {
+  --in-tune: #83d9b5;
   max-width: 850px;
   margin: 0 auto 70px;
   padding: 30px;
@@ -45,12 +46,12 @@
   font-weight: 650;
 }
 .mode input:checked + span {
-  color: var(--amber);
-  border-color: var(--amber);
-  background: #e6a63712;
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 .mode input:focus-visible + span {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 .reading {
@@ -96,7 +97,7 @@
 .track {
   position: relative;
   height: 8px;
-  background: #454955;
+  background: var(--control-border);
   border-radius: 8px;
   margin: 16px 6px;
 }
@@ -114,7 +115,7 @@
   left: 45%;
   width: 10%;
   height: 8px;
-  background: var(--teal);
+  background: var(--in-tune);
 }
 .needle {
   position: absolute;
@@ -123,11 +124,11 @@
   width: 4px;
   height: 31px;
   border-radius: 4px;
-  background: var(--amber);
+  background: var(--accent);
   z-index: 1;
 }
 .inTune .needle {
-  background: var(--teal);
+  background: var(--in-tune);
 }
 .cents {
   text-align: center;
@@ -143,7 +144,7 @@
   min-height: 24px;
 }
 .just {
-  color: var(--teal);
+  color: var(--in-tune);
 }
 .target {
   font-size: 12px;
@@ -182,7 +183,7 @@
   min-height: 44px;
 }
 .strings button:hover {
-  border-color: var(--amber);
+  border-color: var(--accent);
 }
 .strings > div button {
   display: flex;
@@ -203,9 +204,9 @@
   color: var(--muted);
 }
 .strings .targetString {
-  border-color: var(--amber);
-  background: #e6a63710;
-  color: var(--amber);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 .strings .auto {
   color: var(--muted);
@@ -213,8 +214,8 @@
   padding: 10px 15px;
 }
 .auto[aria-pressed="true"] {
-  color: var(--teal);
-  border-color: var(--teal);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .transport {
   text-align: center;
@@ -226,14 +227,14 @@
   border: 0;
   border-radius: 8px;
   padding: 14px 22px;
-  background: var(--amber);
+  background: var(--accent);
   color: var(--bg);
   font-size: 14px;
   font-weight: 750;
   cursor: pointer;
 }
 .start:hover {
-  background: #f2b747;
+  background: var(--accent-hover);
 }
 .transport p {
   font-size: 11px;
@@ -246,7 +247,7 @@
   text-align: center;
   font-size: 11px;
   line-height: 1.9;
-  color: var(--teal);
+  color: var(--accent);
   border-top: 1px solid var(--border);
   padding-top: 22px;
   margin-top: 24px;

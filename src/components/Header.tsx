@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { Container } from "./Container";
 import { Icon } from "./Icon";
 import { tools, toolHref } from "@/lib/content";
+import { Brand } from "./Brand";
 export function Header() {
   const path = usePathname().replace(/\/+$/, "") || "/";
   const [open, setOpen] = useState(false);
@@ -20,11 +21,8 @@ export function Header() {
       }}
     >
       <Container className="header-inner">
-        <Link href="/" className="brand" aria-label="FretLab, accueil">
-          <span className="brand-mark">
-            <Icon name="logo" size={25} />
-          </span>
-          FretLab<span className="brand-dot">.</span>
+        <Link href="/" aria-label="FretLab, accueil" onClick={() => setOpen(false)}>
+          <Brand />
         </Link>
         <button
           ref={menuButton}
@@ -41,13 +39,6 @@ export function Header() {
           aria-label="Navigation principale"
           className={open ? "main-nav is-open" : "main-nav"}
         >
-          <Link
-            href="/"
-            aria-current={path === "/" ? "page" : undefined}
-            onClick={() => setOpen(false)}
-          >
-            Accueil
-          </Link>
           <details
             className="tools-menu"
             onKeyDown={(e) => {
@@ -92,9 +83,6 @@ export function Header() {
             À propos
           </Link>
         </nav>
-        <span className="header-note">
-          <span /> Gratuit. Tout simplement.
-        </span>
       </Container>
     </header>
   );
