@@ -21,6 +21,9 @@ export const CHORD_TONE_INTERVALS: Record<HarmonicQuality, readonly number[]> = 
   ...EXTENDED_CHORD_INTERVALS,
   "7": [0, 4, 7, 10], maj7: [0, 4, 7, 11], m7: [0, 3, 7, 10],
   m7b5: [0, 3, 6, 10], sus2: [0, 2, 7], sus4: [0, 5, 7], "5": [0, 7],
+  "7#9": [0, 4, 7, 10, 15],
+  "11": [0, 4, 7, 10, 14, 17],
+  "13": [0, 4, 7, 10, 14, 17, 21],
 };
 export type HarmonyChord = {
   symbol: string;

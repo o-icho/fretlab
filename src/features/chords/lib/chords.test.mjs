@@ -41,7 +41,7 @@ test("exact lookup never guesses unsupported chords", () => {
     "Amigo",
     "H7",
     "C/E",
-    "Cadd9",
+    "Cadd11",
     "C#b",
     "B#",
   ])
@@ -59,16 +59,24 @@ test("enharmonic aliases return the same source positions and preserve requested
     for (const quality of QUALITIES) {
       const a = findChord(sharp, quality),
         b = findChord(flat, quality);
+      if (sharp === "C#" && quality === "11") {
+        assert.equal(a, null); assert.equal(b, null);
+        continue; // All four upstream C#11 shapes actually contain #11.
+      }
       assert.ok(a);
       assert.ok(b);
       assert.deepEqual(a.positions, b.positions);
       assert.equal(b.root, flat);
     }
 });
-test("coverage includes every requested root and all nine qualities", () => {
+test("coverage includes every requested root and all fifteen qualities", () => {
   for (const root of ROOTS)
     for (const quality of QUALITIES) {
       const chord = findChord(root, quality);
+      if (["C#", "Db"].includes(root) && quality === "11") {
+        assert.equal(chord, null);
+        continue;
+      }
       assert.ok(chord, root + quality);
       assert.ok(chord.positions.length > 0);
     }
@@ -155,6 +163,8 @@ test("every position sounds the declared chord in standard tuning", () => {
     sus4: [0, 5, 7],
     dim: [0, 3, 6],
     5: [0, 7],
+    add9: [0, 2, 4, 7], "7sus4": [0, 5, 7, 10], "7#9": [0, 3, 4, 7, 10],
+    m7b5: [0, 3, 6, 10], "11": [0, 2, 4, 5, 7, 10], "13": [0, 2, 4, 5, 7, 9, 10],
   };
   for (const chord of CHORDS)
     for (const position of chord.positions) {
@@ -166,7 +176,9 @@ test("every position sounds the declared chord in standard tuning", () => {
         ),
       );
       const expected = intervals[chord.quality];
-      const essential = ["7", "maj7", "m7"].includes(chord.quality)
+      const essential = chord.quality === "11" ? [0, 5, 10]
+        : chord.quality === "13" ? [0, 4, 9, 10]
+        : ["7", "maj7", "m7", "7sus4", "7#9"].includes(chord.quality)
         ? expected.filter((note) => note !== 7)
         : expected;
       for (const tone of actual)
@@ -177,4 +189,15 @@ test("every position sounds the declared chord in standard tuning", () => {
       for (const tone of essential)
         assert.ok(actual.has(tone), `${position.id}: missing ${tone}`);
     }
+});
+
+
+test("new chord names, Unicode accidentals and half-diminished aliases resolve", () => {
+  for (const suffix of ["add9", "7sus4", "7#9", "m7b5", "11", "13"]) {
+    assert.equal(searchChord("C" + suffix)?.quality, suffix);
+    assert.ok(searchChord("C" + suffix).positions.length);
+  }
+  assert.equal(searchChord(" E 7♯9 ")?.displayName, "E7#9");
+  assert.equal(searchChord("Bø7")?.displayName, "Bm7b5");
+  assert.equal(searchChord("B♭m7♭5")?.displayName, "Bbm7b5");
 });

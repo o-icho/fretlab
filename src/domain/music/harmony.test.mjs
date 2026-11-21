@@ -44,11 +44,18 @@ test("manual chromatic chords, slash bass and unknown extensions are represented
   assert.equal(chordInKey(key, chordFromSymbol("C/F#")).isDiatonic, false);
   assert.equal(chordInKey(key, chordFromSymbol("F#m")).isDiatonic, false);
   assert.equal(chordInKey(key, chordFromSymbol("Cadd9")).isDiatonic, true);
-  assert.equal(chordInKey(key, chordFromSymbol("C13")).isDiatonic, null);
+  assert.equal(chordInKey(key, chordFromSymbol("Cmaj13")).isDiatonic, null);
   assert.equal(chordFromSymbol(" am ").symbol, "Am");
   assert.equal(chordFromSymbol("Cmin7").quality, "m7");
   for (const input of ["Hello", "Amigo", "H7", "<script>"]) assert.equal(chordFromSymbol(input), null);
   assert.throws(() => createKey("C", "bad"), RangeError);
   assert.throws(() => diatonicChord(key, 8), RangeError);
   assert.throws(() => buildHarmonyChord("C", "bad"), RangeError);
+});
+
+
+test("new dictionary extensions retain their theoretical pitch classes", () => {
+  assert.deepEqual(chordFromSymbol("C7#9").pitches, [0, 4, 7, 10, 3]);
+  assert.deepEqual(chordFromSymbol("C11").pitches, [0, 4, 7, 10, 2, 5]);
+  assert.deepEqual(chordFromSymbol("C13").pitches, [0, 4, 7, 10, 2, 5, 9]);
 });

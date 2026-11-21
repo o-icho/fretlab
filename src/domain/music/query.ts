@@ -22,6 +22,14 @@ const SUFFIXES: Record<string, ChordQuality> = {
   dim: "dim",
   "°": "dim",
   "5": "5",
+  add9: "add9",
+  "7sus4": "7sus4",
+  "7#9": "7#9",
+  m7b5: "m7b5",
+  "ø": "m7b5",
+  "ø7": "m7b5",
+  "11": "11",
+  "13": "13",
 };
 export type ChordQuery = {
   root: ChordRoot;

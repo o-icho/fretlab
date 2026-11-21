@@ -29,6 +29,12 @@ export const QUALITIES = [
   "sus4",
   "dim",
   "5",
+  "add9",
+  "7sus4",
+  "7#9",
+  "m7b5",
+  "11",
+  "13",
 ] as const;
 export type ChordQuality = (typeof QUALITIES)[number];
 export const QUALITY_LABELS: Record<ChordQuality, string> = {
@@ -41,6 +47,12 @@ export const QUALITY_LABELS: Record<ChordQuality, string> = {
   sus4: "Suspendu 4",
   dim: "Diminué",
   "5": "Power chord",
+  add9: "Neuvième ajoutée (add9)",
+  "7sus4": "Septième suspendue 4 (7sus4)",
+  "7#9": "Septième, neuvième augmentée (7#9)",
+  m7b5: "Demi-diminué (m7b5)",
+  "11": "Onzième (11)",
+  "13": "Treizième (13)",
 };
 export const QUALITY_SUFFIXES: Record<ChordQuality, string> = {
   major: "",
@@ -52,5 +64,11 @@ export const QUALITY_SUFFIXES: Record<ChordQuality, string> = {
   sus4: "sus4",
   dim: "dim",
   "5": "5",
+  add9: "add9",
+  "7sus4": "7sus4",
+  "7#9": "7#9",
+  m7b5: "m7b5",
+  "11": "11",
+  "13": "13",
 };
 export const ROOT_PITCH = Object.fromEntries(ROOTS.map(root => [root, parseNote(root)!.pitchClass])) as Record<ChordRoot, PitchClass>;

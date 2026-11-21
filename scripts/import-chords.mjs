@@ -1,3 +1,6 @@
+import { QUALITIES, ROOT_PITCH, QUALITY_SUFFIXES } from "../src/domain/music/catalog.ts";
+import { CHORD_TONE_INTERVALS } from "../src/domain/music/harmony.ts";
+import { STANDARD_TUNING } from "../src/domain/music/tuning.ts";
 import { readFile, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 // Usage: node scripts/import-chords.mjs source.json revision-sha
@@ -7,47 +10,16 @@ if (!sourcePath || !/^[a-f0-9]{40}$/.test(revision ?? ""))
   throw Error("Supply the upstream JSON and its full Git revision.");
 const raw = await readFile(sourcePath, "utf8");
 const source = JSON.parse(raw);
-const intervals = {
-  major: [0, 4, 7],
-  minor: [0, 3, 7],
-  7: [0, 4, 7, 10],
-  maj7: [0, 4, 7, 11],
-  m7: [0, 3, 7, 10],
-  sus2: [0, 2, 7],
-  sus4: [0, 5, 7],
-  dim: [0, 3, 6],
-  5: [0, 7],
-};
-const pitches = {
-  C: 0,
-  "C#": 1,
-  Db: 1,
-  D: 2,
-  "D#": 3,
-  Eb: 3,
-  E: 4,
-  F: 5,
-  "F#": 6,
-  Gb: 6,
-  G: 7,
-  "G#": 8,
-  Ab: 8,
-  A: 9,
-  "A#": 10,
-  Bb: 10,
-  B: 11,
-};
-const tuning = [40, 45, 50, 55, 59, 64];
-const suffixes = {
-  major: "",
-  minor: "m",
-  7: "7",
-  maj7: "maj7",
-  m7: "m7",
-  sus2: "sus2",
-  sus4: "sus4",
-  dim: "dim",
-  5: "5",
+// Reuse the shared musical catalog, parser pitch identities and standard tuning.
+const intervals = Object.fromEntries(QUALITIES.map(quality => [quality, CHORD_TONE_INTERVALS[quality].map(note => note % 12)]));
+const pitches = ROOT_PITCH;
+const tuning = STANDARD_TUNING.strings;
+const suffixes = QUALITY_SUFFIXES;
+// Explicit guitar voicing omissions: extensions need not fit every theoretical
+// chord tone on six strings. The root and defining color remain mandatory.
+const omitted = {
+  "7": [7], maj7: [7], m7: [7], "7sus4": [7], "7#9": [7],
+  "11": [4, 7, 2], "13": [7, 2, 5],
 };
 const chords = [];
 const rejected = [];
@@ -98,13 +70,7 @@ for (const entries of Object.values(source.chords))
           ),
         ].sort((a, b) => a - b);
         const expected = intervals[chord.suffix];
-        // Seventh voicings may omit the perfect fifth (e.g. the standard open C7).
-        const essential =
-          chord.suffix === "7" ||
-          chord.suffix === "maj7" ||
-          chord.suffix === "m7"
-            ? expected.filter((note) => note !== 7)
-            : expected;
+        const essential = expected.filter(note => !(omitted[chord.suffix] ?? []).includes(note));
         if (
           actual.some((note) => !expected.includes(note)) ||
           essential.some((note) => !actual.includes(note))
@@ -165,7 +131,7 @@ await writeFile(
       sha256: createHash("sha256").update(raw).digest("hex"),
       license: "MIT",
       conversion:
-        "Low E to high e; frets converted from relative to absolute; barre spans derived from upstream endpoints. Required chord tones retained; seventh chords may omit the perfect fifth. No invented positions.",
+        "Low E to high e; frets converted from relative to absolute; barre spans derived from upstream endpoints. Shared chord-tone definitions; seventh voicings may omit the perfect fifth; 11 requires root, fourth and minor seventh; 13 requires root, major third, minor seventh and sixth. Optional tones must belong to the theoretical chord. No invented positions.",
       chords: chords.length,
       positions: chords.reduce((sum, chord) => sum + chord.positions.length, 0),
       rejected,

@@ -4,9 +4,9 @@
   "sourceFile": "lib/guitar.json",
   "sha256": "cfe439962b2f444d2c341b1f0261403b4c3a3416e321147286fc608922699974",
   "license": "MIT",
-  "conversion": "Low E to high e; frets converted from relative to absolute; barre spans derived from upstream endpoints. Required chord tones retained; seventh chords may omit the perfect fifth. No invented positions.",
-  "chords": 108,
-  "positions": 426,
+  "conversion": "Low E to high e; frets converted from relative to absolute; barre spans derived from upstream endpoints. Shared chord-tone definitions; seventh voicings may omit the perfect fifth; 11 requires root, fourth and minor seventh; 13 requires root, major third, minor seventh and sixth. Optional tones must belong to the theoretical chord. No invented positions.",
+  "chords": 179,
+  "positions": 696,
   "rejected": [
     {
       "chord": "C#sus2",
@@ -24,9 +24,54 @@
       "reason": "fingers"
     },
     {
+      "chord": "C#7#9",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C#11",
+      "position": 1,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#11",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#11",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#11",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "D7#9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "D11",
+      "position": 4,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Dadd9",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
       "chord": "Ebsus2",
       "position": 4,
       "reason": "barre span"
+    },
+    {
+      "chord": "Eb11",
+      "position": 3,
+      "reason": "chord tones"
     },
     {
       "chord": "Esus2",
@@ -49,13 +94,48 @@
       "reason": "barre span"
     },
     {
+      "chord": "Fadd9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "F#7#9",
+      "position": 1,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F#add9",
+      "position": 1,
+      "reason": "barre span"
+    },
+    {
       "chord": "Gdim",
       "position": 3,
       "reason": "fingers"
     },
     {
+      "chord": "G13",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "G13",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Gadd9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
       "chord": "Absus2",
       "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Ab7#9",
+      "position": 1,
       "reason": "barre span"
     },
     {
@@ -72,6 +152,16 @@
       "chord": "Bbm7",
       "position": 1,
       "reason": "chord tones"
+    },
+    {
+      "chord": "Bbadd9",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Badd9",
+      "position": 2,
+      "reason": "barre span"
     }
   ]
 }
