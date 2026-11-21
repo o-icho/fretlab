@@ -1,5 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import provenance from "../../../data/chords/PROVENANCE.json" with { type: "json" };
+import { CHORD_TONE_INTERVALS } from "../../../domain/music/harmony.ts";
+import { parseChord } from "../../../domain/music/chords.ts";
 import { CHORDS } from "../../../data/chords/dataset.ts";
 import { ROOTS, ROOT_PITCH, QUALITIES } from "./model.ts";
 import {
@@ -7,6 +10,7 @@ import {
   parseChordName,
   searchChord,
   findChord,
+  chordDescription,
   getPosition,
 } from "./search.ts";
 
@@ -28,6 +32,8 @@ test("major and minor remain distinct, including M/m and M7/m7", () => {
   assert.equal(searchChord("AM")?.quality, "major");
   assert.equal(searchChord("AM7")?.quality, "maj7");
   assert.equal(searchChord("Am7")?.quality, "m7");
+  for (const [name, quality] of [["CM9", "maj9"], ["Cm9", "m9"], ["CM11", "maj11"], ["CM7b5", "maj7b5"], ["CM6", "6"], ["Cm6/9", "m69"]])
+    assert.equal(searchChord(name)?.quality, quality);
   assert.notDeepEqual(
     searchChord("A").positions[0].frets,
     searchChord("Am").positions[0].frets,
@@ -40,8 +46,8 @@ test("exact lookup never guesses unsupported chords", () => {
     "Cmajestic",
     "Amigo",
     "H7",
-    "C/E",
-    "Cadd11",
+    "C7/B",
+    "Cadd13",
     "C#b",
     "B#",
   ])
@@ -59,27 +65,40 @@ test("enharmonic aliases return the same source positions and preserve requested
     for (const quality of QUALITIES) {
       const a = findChord(sharp, quality),
         b = findChord(flat, quality);
-      if (sharp === "C#" && quality === "11") {
-        assert.equal(a, null); assert.equal(b, null);
-        continue; // All four upstream C#11 shapes actually contain #11.
+      assert.equal(Boolean(a), Boolean(b));
+      if (a) {
+        assert.equal(a.positions, b.positions);
+        assert.equal(b.root, flat);
       }
-      assert.ok(a);
-      assert.ok(b);
-      assert.deepEqual(a.positions, b.positions);
-      assert.equal(b.root, flat);
     }
 });
-test("coverage includes every requested root and all fifteen qualities", () => {
-  for (const root of ROOTS)
-    for (const quality of QUALITIES) {
-      const chord = findChord(root, quality);
-      if (["C#", "Db"].includes(root) && quality === "11") {
-        assert.equal(chord, null);
-        continue;
-      }
-      assert.ok(chord, root + quality);
-      assert.ok(chord.positions.length > 0);
+test("the selector covers every source suffix, including enharmonic slash spellings", () => {
+  assert.deepEqual(new Set(QUALITIES), new Set(provenance.suffixes));
+  assert.equal(QUALITIES.length, 86);
+  assert.equal(CHORDS.length, 826);
+  for (const quality of QUALITIES) assert.ok(ROOTS.some(root => findChord(root, quality)), quality);
+  for (const quality of QUALITIES.filter(type => !type.includes("/"))) {
+    for (const root of ROOTS) {
+      const unavailable = (["C#", "Db"].includes(root) && quality === "11")
+        || (root === "E" && quality === "madd9")
+        || (["Ab", "G#"].includes(root) && quality === "sus2sus4");
+      assert.equal(Boolean(findChord(root, quality)), !unavailable, root + quality);
     }
+  }
+});
+test("slash searches use the named lowest pitch and preserve its spelling", () => {
+  for (const [name, canonical] of [["C/E", "C/E"], ["cm9/b♭", "Cm9/Bb"], ["c7/g", "C7/G"], ["C/G♭", "C/Gb"]]) {
+    const chord = searchChord(name);
+    assert.equal(chord?.displayName, canonical);
+    const bass = parseChord(canonical).bass.pitchClass;
+    for (const pos of chord.positions) {
+      const midi = pos.frets.flatMap((fret, i) => fret < 0 ? [] : [[40,45,50,55,59,64][i] + fret]);
+      assert.equal(Math.min(...midi) % 12, bass);
+    }
+  }
+  assert.equal(searchChord("C/Gb").positions, searchChord("C/F#").positions);
+  assert.equal(chordDescription(searchChord("C/Gb")), "Do majeur, basse Gb");
+  assert.notEqual(searchChord("C").positions, searchChord("C/E").positions);
 });
 test("known open voicings match source, including seventh with omitted fifth", () => {
   const known = {
@@ -153,19 +172,6 @@ test("all dataset entries have required fields, unique identifiers and six valid
 test("every position sounds the declared chord in standard tuning", () => {
   // Independent musical check, not copied from source MIDI fields.
   const tuning = [4, 9, 2, 7, 11, 4];
-  const intervals = {
-    major: [0, 4, 7],
-    minor: [0, 3, 7],
-    7: [0, 4, 7, 10],
-    maj7: [0, 4, 7, 11],
-    m7: [0, 3, 7, 10],
-    sus2: [0, 2, 7],
-    sus4: [0, 5, 7],
-    dim: [0, 3, 6],
-    5: [0, 7],
-    add9: [0, 2, 4, 7], "7sus4": [0, 5, 7, 10], "7#9": [0, 3, 4, 7, 10],
-    m7b5: [0, 3, 6, 10], "11": [0, 2, 4, 5, 7, 10], "13": [0, 2, 4, 5, 7, 9, 10],
-  };
   for (const chord of CHORDS)
     for (const position of chord.positions) {
       const actual = new Set(
@@ -175,12 +181,23 @@ test("every position sounds the declared chord in standard tuning", () => {
             : [(tuning[i] + fret - ROOT_PITCH[chord.root] + 120) % 12],
         ),
       );
-      const expected = intervals[chord.quality];
-      const essential = chord.quality === "11" ? [0, 5, 10]
-        : chord.quality === "13" ? [0, 4, 9, 10]
-        : ["7", "maj7", "m7", "7sus4", "7#9"].includes(chord.quality)
-        ? expected.filter((note) => note !== 7)
-        : expected;
+      const parsed = parseChord(chord.displayName);
+      const base = parsed.suffix === "m" ? "minor" : parsed.suffix || "major";
+      const expected = CHORD_TONE_INTERVALS[base === "alt" ? "(b5)" : base].map(note => note % 12);
+      if (parsed.bass) {
+        const midi = position.frets.flatMap((fret, i) => fret < 0 ? [] : [[40,45,50,55,59,64][i] + fret]);
+        assert.equal(Math.min(...midi) % 12, parsed.bass.pitchClass, position.id);
+        expected.push((parsed.bass.pitchClass - ROOT_PITCH[chord.root] + 12) % 12);
+      }
+      const essential = {
+        major: [0, 4, 7], minor: [0, 3, 7], "5": [0, 7],
+        dim: [0, 3, 6], dim7: [0, 3, 6, 9], sus2: [0, 2, 7], sus4: [0, 5, 7],
+        "7": [0, 4, 10], m7: [0, 3, 10], maj7: [0, 4, 11],
+        "11": [0, 5, 10], "13": [0, 4, 9, 10], "7sus4": [0, 5, 10],
+        "7#9": [0, 3, 4, 10], m7b5: [0, 3, 6, 10], add9: [0, 2, 4, 7],
+        alt: [0, 4, 6], sus2sus4: [0, 2, 5, 7], "9#11": [0, 4, 6, 10],
+        mmaj11: [0, 3, 5, 11], "69": [0, 2, 4, 9], m69: [0, 2, 3, 9],
+      }[base] ?? [0];
       for (const tone of actual)
         assert.ok(
           expected.includes(tone),

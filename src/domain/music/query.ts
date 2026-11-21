@@ -1,60 +1,50 @@
-import { ROOT_PITCH, QUALITY_SUFFIXES, type ChordRoot, type ChordQuality } from "./catalog.ts";
+import { QUALITIES, ROOT_PITCH, QUALITY_SUFFIXES, type ChordRoot, type ChordQuality } from "./catalog.ts";
 import { parseChord } from "./chords.ts";
+import { parseNote } from "./pitch.ts";
+
 // Search aliases are an input adapter; strict musical parsing remains in chords.ts.
-const SUFFIXES: Record<string, ChordQuality> = {
-  "": "major",
-  M: "major",
-  major: "major",
-  majeur: "major",
-  maj: "major",
-  m: "minor",
-  min: "minor",
-  minor: "minor",
-  mineur: "minor",
-  "7": "7",
-  maj7: "maj7",
-  M7: "maj7",
-  Δ7: "maj7",
-  m7: "m7",
-  min7: "m7",
-  sus2: "sus2",
-  sus4: "sus4",
-  dim: "dim",
-  "°": "dim",
-  "5": "5",
-  add9: "add9",
-  "7sus4": "7sus4",
-  "7#9": "7#9",
-  m7b5: "m7b5",
-  "ø": "m7b5",
-  "ø7": "m7b5",
-  "11": "11",
-  "13": "13",
-};
-export type ChordQuery = {
-  root: ChordRoot;
-  quality: ChordQuality;
-  name: string;
-};
+const SUFFIXES = new Map<string, ChordQuality>(QUALITIES.map(quality => [QUALITY_SUFFIXES[quality], quality]));
+for (const [alias, quality] of Object.entries({
+  M: "major", major: "major", majeur: "major", maj: "major",
+  min: "minor", minor: "minor", mineur: "minor", M7: "maj7", Δ7: "maj7",
+  min7: "m7", "°": "dim", ø: "m7b5", ø7: "m7b5",
+} as const)) SUFFIXES.set(alias, quality);
+
+export type ChordQuery = { root: ChordRoot; quality: ChordQuality; name: string };
+
 export function normalizeChordName(input: string): string {
-  return input
-    .trim()
-    .replace(/[♯＃]/g, "#")
-    .replace(/♭/g, "b")
-    .replace(/\s+/g, "");
+  return input.trim().replace(/[♯＃]/g, "#").replace(/♭/g, "b").replace(/\s+/g, "");
 }
+
 export function resolveChordQuality(suffix: string): ChordQuality | null {
-  if (Object.hasOwn(SUFFIXES, suffix)) return SUFFIXES[suffix];
-  const lower = suffix.toLowerCase();
-  return Object.hasOwn(SUFFIXES, lower) ? SUFFIXES[lower] : null;
+  const exact = SUFFIXES.get(suffix);
+  if (exact) return exact;
+  if (/^M\d/.test(suffix)) {
+    const extension = suffix.slice(1);
+    return SUFFIXES.get(extension.startsWith("6") ? extension : "maj" + extension) ?? null;
+  }
+  return SUFFIXES.get(suffix.toLowerCase()) ?? null;
 }
+
 export function parseChordName(input: string): ChordQuery | null {
-  const match = /^([a-gA-G])([#b]?)(.*)$/.exec(normalizeChordName(input));
+  const normalized = normalizeChordName(input).replace(/6\/9(?=\/|$)/, "69");
+  const match = /^([a-gA-G])([#b]?)([^/]*)(?:\/([a-gA-G][#b]?))?$/.exec(normalized);
   if (!match) return null;
   const root = (match[1].toUpperCase() + match[2]) as ChordRoot;
-  if (!(root in ROOT_PITCH)) return null;
-  const quality = resolveChordQuality(match[3]);
-  if (!quality) return null;
-  const chord = parseChord(root + QUALITY_SUFFIXES[quality]);
-  return chord ? { root, quality, name: chord.root.name + chord.suffix } : null;
+  const base = resolveChordQuality(match[3]);
+  if (!Object.hasOwn(ROOT_PITCH, root) || !base) return null;
+
+  const bass = match[4] ? match[4][0].toUpperCase() + match[4].slice(1) : "";
+  const symbol = QUALITY_SUFFIXES[base] + (bass ? "/" + bass : "");
+  let quality = SUFFIXES.get(symbol);
+  if (!quality && bass) {
+    const pitch = parseNote(bass)!.pitchClass;
+    // E.g. C/Gb uses the same source positions as the catalogued C/F#.
+    quality = QUALITIES.find(candidate => {
+      const [prefix, bassName] = QUALITY_SUFFIXES[candidate].split("/");
+      return bassName && prefix === QUALITY_SUFFIXES[base] && parseNote(bassName)?.pitchClass === pitch;
+    });
+  }
+  const name = root + symbol;
+  return quality && parseChord(name) ? { root, quality, name } : null;
 }

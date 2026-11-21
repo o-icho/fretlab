@@ -29,7 +29,7 @@ implémenter par anticipation, ni ajouter Redis, microservices ou Kubernetes.
   leur spelling. Les doubles altérations ne sont pas encore supportées.
 - `chords.ts` : grammaire stricte commune, modèle Chord (fondamentale,
   suffixe préservé, basse optionnelle), validation et transposition.
-- `catalog.ts` : fondamentales proposées et neuf qualités du dictionnaire,
+- `catalog.ts` : fondamentales et types d’accords du catalogue guitare chords-db,
   suffixes canoniques et labels. Ce catalogue ne prétend pas décrire tous
   les accords acceptés par le transposeur.
 - `query.ts` : adaptation des saisies de recherche (espaces, casse, alias

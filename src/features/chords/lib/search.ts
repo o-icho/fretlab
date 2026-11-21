@@ -9,25 +9,35 @@ import {
   type GuitarChord,
 } from "./model.ts";
 
-import { parseChordName } from "../../../domain/music/query.ts";
+import { parseChordName, resolveChordQuality } from "../../../domain/music/query.ts";
+import { parseChord } from "../../../domain/music/chords.ts";
 export { normalizeChordName, parseChordName, type ChordQuery } from "../../../domain/music/query.ts";
+function lookupKey(root: ChordRoot, quality: ChordQuality) {
+  const [symbol, bass] = QUALITY_SUFFIXES[quality].split("/");
+  return `${ROOT_PITCH[root]}:${symbol}:${bass ? ROOT_PITCH[bass as ChordRoot] : ""}`;
+}
+const byPitchAndQuality = new Map(CHORDS.map(chord => [lookupKey(chord.root, chord.quality), chord]));
 export function findChord(
   root: ChordRoot,
   quality: ChordQuality,
 ): GuitarChord | null {
-  const source = CHORDS.find(
-    (chord) =>
-      ROOT_PITCH[chord.root] === ROOT_PITCH[root] && chord.quality === quality,
-  );
+  const source = byPitchAndQuality.get(lookupKey(root, quality));
   return source
-    ? { ...source, root, displayName: root + QUALITY_SUFFIXES[quality] }
+    ? { ...source, root, quality, displayName: root + QUALITY_SUFFIXES[quality] }
     : null;
 }
 export function searchChord(input: string): GuitarChord | null {
   const query = parseChordName(input);
-  return query ? findChord(query.root, query.quality) : null;
+  if (!query) return null;
+  const chord = findChord(query.root, query.quality);
+  return chord ? { ...chord, displayName: query.name } : null;
 }
 export function chordDescription(chord: GuitarChord): string {
+  const parsed = parseChord(chord.displayName);
+  if (parsed?.bass) {
+    const base = resolveChordQuality(parsed.suffix)!;
+    return `${ROOT_LABELS[chord.root]} ${QUALITY_LABELS[base].toLowerCase()}, basse ${parsed.bass.name}`;
+  }
   return `${ROOT_LABELS[chord.root]} ${QUALITY_LABELS[chord.quality].toLowerCase()}`;
 }
 export function getPosition(chord: GuitarChord, index: number) {

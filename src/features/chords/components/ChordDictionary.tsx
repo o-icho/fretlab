@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { GuitarChordDiagram } from "./GuitarChordDiagram";
+import { ChordPlayback } from "./ChordPlayback";
+import { playedNotes } from "../lib/voicing";
 import {
   ROOTS,
   QUALITIES,
@@ -19,6 +21,11 @@ import {
 import styles from "./chords.module.css";
 
 const POPULAR = ["C", "G", "Am", "F", "D", "Em", "E", "A"];
+const TYPE_GROUPS = [
+  { label: "Types d’accords", types: QUALITIES.filter((q) => !/\/[A-G]/.test(QUALITY_SUFFIXES[q])) },
+  { label: "Accords avec basse indiquée", types: QUALITIES.filter((q) => /\/[A-G]/.test(QUALITY_SUFFIXES[q])) },
+];
+
 export function ChordDictionary() {
   const [query, setQuery] = useState("Am");
   const [root, setRoot] = useState<ChordRoot>("A");
@@ -26,14 +33,16 @@ export function ChordDictionary() {
   const [positionIndex, setPositionIndex] = useState(0);
   const [showFingers, setShowFingers] = useState(true);
   const chord = searchChord(query);
+  const unavailable = chord ? null : parseChordName(query);
   const position = chord?.positions[positionIndex];
+  const notes = chord && position ? playedNotes(chord, position) : [];
   function search(value: string) {
     setQuery(value);
     setPositionIndex(0);
-    const parsed = parseChordName(value);
-    if (parsed) {
-      setRoot(parsed.root);
-      setQuality(parsed.quality);
+    const next = parseChordName(value);
+    if (next) {
+      setRoot(next.root);
+      setQuality(next.quality);
     }
   }
   function filter(nextRoot: ChordRoot, nextQuality: ChordQuality) {
@@ -89,10 +98,14 @@ export function ChordDictionary() {
               filter(root, event.target.value as ChordQuality)
             }
           >
-            {QUALITIES.map((type) => (
-              <option key={type} value={type} disabled={!findChord(root, type)}>
-                {QUALITY_LABELS[type]}
-              </option>
+            {TYPE_GROUPS.map(({ label, types }) => (
+              <optgroup key={label} label={label}>
+                {types.map((type) => (
+                  <option key={type} value={type} disabled={!findChord(root, type)}>
+                    {QUALITY_LABELS[type]}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </div>
@@ -132,6 +145,9 @@ export function ChordDictionary() {
                 name={chord.displayName}
                 showFingers={showFingers}
               />
+              <p className={styles.playedNotes}>
+                Notes jouées <strong>{notes.map((note) => note.name).join(" – ")}</strong>
+              </p>
               <div className={styles.positionNav}>
                 <button
                   type="button"
@@ -153,6 +169,7 @@ export function ChordDictionary() {
                   →
                 </button>
               </div>
+              <ChordPlayback notes={notes.map((note) => note.midi)} />
             </div>
             <aside className={styles.guide}>
               <p className="eyebrow">À VOUS DE JOUER</p>
@@ -203,9 +220,8 @@ export function ChordDictionary() {
         ) : (
           <div className={styles.empty}>
             <h2>
-              {query.trim()
-                ? "Aucun accord trouvé"
-                : "Quel accord souhaitez-vous jouer ?"}
+              {unavailable ? `Aucun doigté disponible pour ${unavailable.name}` :
+                query.trim() ? "Aucun accord trouvé" : "Quel accord souhaitez-vous jouer ?"}
             </h2>
             <p>
               Essayez Am, Cmaj7 ou F#m, ou choisissez une fondamentale et un

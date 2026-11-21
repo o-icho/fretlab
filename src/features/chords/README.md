@@ -1,8 +1,10 @@
 # chords
 
-Le dataset local `src/data/chords/dataset.ts` contient 179 accords canoniques et
-696 positions sourcées dans chords-db (MIT). Les 17 noms de fondamentales sont
-recherchables via équivalence enharmonique ; quinze qualités sont couvertes.
+Le catalogue guitare de chords-db (MIT) déclare 86 suffixes. FretLab propose
+tous ces suffixes et conserve 826 des 828 couples fondamentale/type fournis,
+soit 3 165 positions. Les variantes enharmoniques partagent les doigtés, y
+compris les basses après la barre oblique. Les combinaisons absentes de la
+bibliothèque pour une fondamentale restent indisponibles.
 
 `lib/model.ts` définit les types, avec cordes de Mi grave à mi aigu, frettes
 absolues, -1 pour une corde muette et 0 pour une corde ouverte. Les doigts vont
@@ -18,22 +20,18 @@ accessible, cordes ouvertes/muettes, doigts, barrés et numéro de première fre
 `components/ChordDictionary.tsx` contient la recherche, les filtres, les raccourcis
 et la navigation entre les positions. Les styles sont isolés dans un CSS Module.
 
-Provenance détaillée : `src/data/chords/PROVENANCE.json`, avec révision Git, hash
-du JSON source et liste des positions rejetées. Licence upstream conservée dans
-`LICENSE.chords-db.txt`. L’import convertit les cases relatives en cases absolues,
-vérifie les notes MIDI source, les doigts, la fenêtre de cases et les barrés, puis
-contrôle les notes de l’accord. Une septième peut omettre la quinte juste, comme
-le C7 ouvert usuel. Les 7sus4 et 7#9 peuvent aussi omettre la quinte juste.
-Pour 11, fondamentale, onzième et septième mineure sont obligatoires ; tierce,
-quinte et neuvième sont facultatives. Pour 13, fondamentale, tierce majeure,
-septième mineure et treizième sont obligatoires ; quinte, neuvième et onzième
-sont facultatives. Toute note jouée doit appartenir à l’accord théorique.
-Les add9 et m7b5 conservent toutes leurs notes constitutives.
+La révision Git, le hash du JSON source, la liste des suffixes et les positions
+rejetées sont dans `src/data/chords/PROVENANCE.json`. La licence est conservée
+dans `LICENSE.chords-db.txt`. Aucun doigté n'est transposé ni inventé à l'import.
+Les quatre positions étiquetées C#11 contiennent une onzième augmentée et les
+quatre Emadd9 ont des notes étrangères. Aucun de ces deux accords n'est proposé.
 
-Types ajoutés : add9, 7sus4, 7#9, m7b5, 11 et 13. Les quatre positions source de
-C#11 contiennent une onzième augmentée : elles sont rejetées et C#11/Db11 reste
-indisponible (filtre désactivé), sans correction ni transposition inventée. Aucune
-position n’est inventée ni obtenue par déplacement automatique d’une forme.
+L'import vérifie les frettes absolues, le MIDI de chaque corde, le doigté, les
+barrés et la basse réelle des accords avec basse imposée. Il contrôle les notes
+autorisées et la présence des extensions caractéristiques, avec les omissions
+de guitare explicites de `scripts/import-chords.mjs`. Par exemple, certains
+m9 sur basse de septième omettent la tierce et gardent la quinte et la neuvième.
+Dans cette source, « alt » indique une triade majeure à quinte diminuée.
 
 Reproduction : télécharger `lib/guitar.json` à la révision indiquée, puis exécuter
 `node scripts/import-chords.mjs chemin/guitar.json revision-git`. Les tests

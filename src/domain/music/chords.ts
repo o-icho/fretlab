@@ -1,7 +1,7 @@
 import { parseNote, transposeNote, type AccidentalPreference } from "./pitch.ts";
 // Explicit musical grammar: never accept arbitrary letters following a root.
 const CHORD =
-  /^([A-G][#b♯♭]?)((?:(?:mMaj|maj|min|m|dim|aug|sus2|sus4|sus|add(?:2|4|9|11|13)|M|Δ|ø|°|\+|-)?(?:5|6|7|9|11|13)?)(?:(?:add|no|omit)(?:2|3|4|5|6|7|9|11|13)|[#b](?:5|9|11|13)|sus[24]|\((?:[#b]?(?:5|6|7|9|11|13))(?:,[#b]?(?:5|6|7|9|11|13))*\))*)(?:\/([A-G][#b♯♭]?))?$/;
+  /^([A-G][#b♯♭]?)((?:(?:m[Mm]aj|maj|min|m|dim|aug|alt|sus2|sus4|sus|add(?:2|4|9|11|13)|M|Δ|ø|°|\+|-)?(?:5|69|6|7|9|11|13)?)(?:(?:add|no|omit)(?:2|3|4|5|6|7|9|11|13)|[#b](?:5|9|11|13)|sus[24]|\((?:[#b]?(?:5|6|7|9|11|13))(?:,[#b]?(?:5|6|7|9|11|13))*\))*)(?:\/([A-G][#b♯♭]?))?$/;
 
 export function parseChord(value: string) {
   const match = CHORD.exec(value);

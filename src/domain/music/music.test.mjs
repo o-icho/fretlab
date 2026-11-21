@@ -45,5 +45,5 @@ test("dictionary catalog and transposer use the same canonical chord pitches", (
   assert.equal(parseChordName("c MAJ7").name, "Cmaj7");
   assert.equal(parseChordName("CM").quality, "major");
   assert.equal(parseChordName("Cm").quality, "minor");
-  assert.equal(parseChordName("C/E"), null); // No unsupported guitar fingering is invented.
+  assert.equal(parseChordName("C/E").name, "C/E");
 });

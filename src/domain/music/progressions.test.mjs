@@ -131,7 +131,7 @@ test("manual edits preserve the model and honestly report chromatic or unknown c
   assert.equal(slash.bars[1].chord.parsed.bass.name, "E");
   assert.equal(slash.bars[1].isDiatonic, true);
   assert.equal(editProgressionBar(progression, 1, "Cadd9").bars[1].isDiatonic, true);
-  assert.equal(editProgressionBar(progression, 1, "Cmaj13").bars[1].isDiatonic, null);
+  assert.equal(editProgressionBar(progression, 1, "C7(b9)").bars[1].isDiatonic, null);
   assert.throws(() => editProgressionBar(toggleBarLock(progression, 0), 0, "Dm"), RangeError);
   assert.throws(() => editProgressionBar(progression, 99, "Dm"), RangeError);
   assert.throws(() => editProgressionBar(progression, 0, "Hello"), RangeError);

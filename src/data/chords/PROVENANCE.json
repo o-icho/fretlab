@@ -4,10 +4,133 @@
   "sourceFile": "lib/guitar.json",
   "sha256": "cfe439962b2f444d2c341b1f0261403b4c3a3416e321147286fc608922699974",
   "license": "MIT",
-  "conversion": "Low E to high e; frets converted from relative to absolute; barre spans derived from upstream endpoints. Shared chord-tone definitions; seventh voicings may omit the perfect fifth; 11 requires root, fourth and minor seventh; 13 requires root, major third, minor seventh and sixth. Optional tones must belong to the theoretical chord. No invented positions.",
-  "chords": 179,
-  "positions": 696,
+  "conversion": "Low E to high e; absolute frets; barre spans from matching frets and fingers. Source MIDI, chord tones, defining extensions and lowest slash bass verified. Guitar omissions are listed in scripts/import-chords.mjs. No invented or transposed positions.",
+  "suffixes": [
+    "major",
+    "minor",
+    "dim",
+    "dim7",
+    "sus",
+    "sus2",
+    "sus4",
+    "sus2sus4",
+    "7sus4",
+    "7/G",
+    "alt",
+    "aug",
+    "5",
+    "6",
+    "69",
+    "7",
+    "7b5",
+    "aug7",
+    "9",
+    "9b5",
+    "aug9",
+    "7b9",
+    "7#9",
+    "11",
+    "9#11",
+    "13",
+    "maj7",
+    "maj7b5",
+    "maj7#5",
+    "maj7sus2",
+    "maj9",
+    "maj11",
+    "maj13",
+    "m6",
+    "m69",
+    "m7",
+    "m7b5",
+    "m9",
+    "m11",
+    "mmaj7",
+    "mmaj7b5",
+    "mmaj9",
+    "mmaj11",
+    "add9",
+    "madd9",
+    "add11",
+    "/E",
+    "/F",
+    "/F#",
+    "/G",
+    "/G#",
+    "/A",
+    "/Bb",
+    "/B",
+    "/C",
+    "/C#",
+    "m/B",
+    "m/C",
+    "m/C#",
+    "/D",
+    "m/D",
+    "/D#",
+    "m/D#",
+    "m/E",
+    "m/F",
+    "m/F#",
+    "m/G",
+    "m/G#",
+    "m9/Bb",
+    "m9/B",
+    "m9/C",
+    "m9/C#",
+    "m9/D",
+    "m9/Eb",
+    "m9/E",
+    "m9/F",
+    "m9/F#",
+    "m9/G",
+    "m9/Ab",
+    "m9/A",
+    "/Eb",
+    "/Ab",
+    "m/A",
+    "m/Bb",
+    "m/Eb",
+    "m/Ab"
+  ],
+  "chords": 826,
+  "positions": 3165,
   "rejected": [
+    {
+      "chord": "C6",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C9",
+      "position": 1,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C9",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C9",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C7b9",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Cmaj9",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Cmmaj7b5",
+      "position": 3,
+      "reason": "barre span"
+    },
     {
       "chord": "C#sus2",
       "position": 2,
@@ -24,9 +147,39 @@
       "reason": "fingers"
     },
     {
-      "chord": "C#7#9",
-      "position": 3,
+      "chord": "C#aug",
+      "position": 1,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#aug",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#aug",
+      "position": 4,
       "reason": "barre span"
+    },
+    {
+      "chord": "C#6",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C#7b5",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#9",
+      "position": 1,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C#7b9",
+      "position": 4,
+      "reason": "chord tones"
     },
     {
       "chord": "C#11",
@@ -47,6 +200,31 @@
       "chord": "C#11",
       "position": 4,
       "reason": "chord tones"
+    },
+    {
+      "chord": "C#9#11",
+      "position": 1,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "C#maj13",
+      "position": 1,
+      "reason": "fingers"
+    },
+    {
+      "chord": "C#mmaj7b5",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "C#/F",
+      "position": 2,
+      "reason": "fingers"
+    },
+    {
+      "chord": "D9",
+      "position": 1,
+      "reason": "barre span"
     },
     {
       "chord": "D7#9",
@@ -59,9 +237,44 @@
       "reason": "fingers"
     },
     {
+      "chord": "Dmaj7b5",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Dmaj9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Dmaj9",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Dmmaj7",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Dmmaj7b5",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Dmmaj11",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
       "chord": "Dadd9",
       "position": 3,
       "reason": "chord tones"
+    },
+    {
+      "chord": "D/F#",
+      "position": 2,
+      "reason": "fingers"
     },
     {
       "chord": "Ebsus2",
@@ -69,9 +282,69 @@
       "reason": "barre span"
     },
     {
+      "chord": "Ebalt",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Eb7b5",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Eb9b5",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
       "chord": "Eb11",
       "position": 3,
       "reason": "chord tones"
+    },
+    {
+      "chord": "Ebmaj7b5",
+      "position": 2,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Ebmaj7b5",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Ebmaj7#5",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Ebmaj9",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Ebm9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Ebm69",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Ebmmaj7b5",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Ebmmaj9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Eb/G",
+      "position": 2,
+      "reason": "fingers"
     },
     {
       "chord": "Esus2",
@@ -79,8 +352,48 @@
       "reason": "barre span"
     },
     {
+      "chord": "Eaug",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
+      "chord": "E9",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Emaj9",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
       "chord": "Em7",
       "position": 1,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Emadd9",
+      "position": 1,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Emadd9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Emadd9",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Emadd9",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "E/Ab",
+      "position": 2,
       "reason": "fingers"
     },
     {
@@ -94,19 +407,79 @@
       "reason": "barre span"
     },
     {
+      "chord": "Falt",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F6",
+      "position": 1,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F9",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F9b5",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Fmaj9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Fmaj9",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
       "chord": "Fadd9",
       "position": 2,
       "reason": "chord tones"
     },
     {
-      "chord": "F#7#9",
+      "chord": "F#alt",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F#alt",
+      "position": 4,
+      "reason": "fingers"
+    },
+    {
+      "chord": "F#6",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F#9",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F#maj9",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "F#m9",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "F#mmaj7b5",
       "position": 1,
       "reason": "barre span"
     },
     {
-      "chord": "F#add9",
-      "position": 1,
-      "reason": "barre span"
+      "chord": "F#/Bb",
+      "position": 2,
+      "reason": "fingers"
     },
     {
       "chord": "Gdim",
@@ -114,13 +487,38 @@
       "reason": "fingers"
     },
     {
-      "chord": "G13",
+      "chord": "G9",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "G7b9",
       "position": 2,
       "reason": "barre span"
     },
     {
       "chord": "G13",
-      "position": 4,
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Gmaj9",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Gmaj13",
+      "position": 1,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Gm11",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Gmmaj7b5",
+      "position": 1,
       "reason": "barre span"
     },
     {
@@ -129,14 +527,44 @@
       "reason": "chord tones"
     },
     {
+      "chord": "Gmadd9",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
       "chord": "Absus2",
       "position": 2,
       "reason": "barre span"
     },
     {
-      "chord": "Ab7#9",
+      "chord": "Ab9",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Abaug9",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Ab7b9",
+      "position": 2,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Abmaj7b5",
+      "position": 3,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Abmmaj7b5",
       "position": 1,
       "reason": "barre span"
+    },
+    {
+      "chord": "Ab/C",
+      "position": 4,
+      "reason": "fingers"
     },
     {
       "chord": "Adim",
@@ -144,7 +572,52 @@
       "reason": "chord tones"
     },
     {
-      "chord": "Asus4",
+      "chord": "Adim7",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Aaug",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "A6",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Amaj7#5",
+      "position": 4,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Ammaj7b5",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "A/C#",
+      "position": 4,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Bb6",
+      "position": 3,
+      "reason": "fingers"
+    },
+    {
+      "chord": "Bb6",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Bbaug9",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Bb7b9",
       "position": 3,
       "reason": "barre span"
     },
@@ -154,13 +627,58 @@
       "reason": "chord tones"
     },
     {
+      "chord": "Bbm9",
+      "position": 1,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Bbm9",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Bbm69",
+      "position": 2,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Bbmmaj7b5",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
       "chord": "Bbadd9",
       "position": 3,
       "reason": "chord tones"
     },
     {
-      "chord": "Badd9",
+      "chord": "Baug",
+      "position": 4,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Baug7",
       "position": 2,
+      "reason": "fingers"
+    },
+    {
+      "chord": "B7b9",
+      "position": 3,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Bmaj9",
+      "position": 2,
+      "reason": "chord tones"
+    },
+    {
+      "chord": "Bm11",
+      "position": 4,
+      "reason": "barre span"
+    },
+    {
+      "chord": "Bmmaj7b5",
+      "position": 3,
       "reason": "barre span"
     }
   ]

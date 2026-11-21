@@ -7,7 +7,7 @@ export type Interval = {
   label: string;
 };
 
-export function spellInterval(root: { spelling: NoteSpelling; pitchClass: PitchClass }, interval: Interval) {
+export function spellInterval(root: { spelling: NoteSpelling; pitchClass: PitchClass }, interval: Pick<Interval, "degree" | "semitones">) {
   const letterIndex = NOTE_LETTERS.indexOf(root.spelling.letter);
   const letter = NOTE_LETTERS[(letterIndex + interval.degree - 1) % 7];
   return spellPitchClass(pitchClass(root.pitchClass + interval.semitones), letter);
