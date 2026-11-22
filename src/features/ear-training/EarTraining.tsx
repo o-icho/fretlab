@@ -1,10 +1,15 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { drawEarExercise, earExercises, type EarExercise, type EarExerciseKind, type EarChordSize, type EarIntervalDirection } from "@/domain/music/earTraining";
 import { SHARP_NOTES } from "@/domain/music/pitch";
 import { useAudioPause } from "@/features/audio/useAudioPause";
 import { EarAudio } from "./EarAudio";
 import styles from "./ear-training.module.css";
+
+const ChordPositions = dynamic(() => import("./ChordPositions"), {
+  loading: () => <p role="status">Chargement du diagramme…</p>,
+});
 
 export function EarTraining() {
   const [root, setRoot] = useState("C");
@@ -14,6 +19,18 @@ export function EarTraining() {
   const pool = earExercises(root, kind, { chordSize, direction });
   const [exercise, setExercise] = useState<EarExercise | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const diagram = useRef<HTMLDialogElement>(null);
+  const [diagramOpen, setDiagramOpen] = useState(false);
+  useEffect(() => {
+    if (!diagramOpen) return;
+    const onBack = (event: Event) => {
+      if (!diagram.current?.open) return;
+      event.preventDefault();
+      diagram.current.close();
+    };
+    window.addEventListener("fretlab:back", onBack);
+    return () => window.removeEventListener("fretlab:back", onBack);
+  }, [diagramOpen]);
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [error, setError] = useState("");
@@ -61,8 +78,26 @@ export function EarTraining() {
       <h2 id="ear-exercise">{kind === "chord" ? "Quel accord entendez-vous ?" : "Quel intervalle entendez-vous ?"}</h2>
       <p className={styles.hint}>{kind === "chord" ? "Fondamentale" : "Première note"} : {root}</p>
       <div className={styles.answer} aria-live="polite" aria-atomic="true">
-        {revealed && exercise ? <><strong>{exercise.answer}</strong><p>{exercise.notes.join(" · ")}</p><p className={styles.hint}>{exercise.detail}</p></> : <><span className={styles.mystery} aria-hidden="true">?</span><p>{exercise ? "Écoutez autant de fois que nécessaire." : "À vous de tendre l’oreille."}</p></>}
+        {revealed && exercise ? <>
+          {exercise.kind === "chord" ? <button type="button" className={styles.answerChord}
+            aria-haspopup="dialog" aria-label={`${exercise.answer} · Voir le diagramme`}
+            onClick={() => { diagram.current?.showModal(); setDiagramOpen(true); }}>
+            {exercise.answer}
+          </button> : <strong>{exercise.answer}</strong>}
+          <p>{exercise.notes.join(" · ")}</p><p className={styles.hint}>{exercise.detail}</p>
+        </> : <><span className={styles.mystery} aria-hidden="true">?</span><p>{exercise ? "Écoutez autant de fois que nécessaire." : "À vous de tendre l’oreille."}</p></>}
       </div>
+      {revealed && exercise?.kind === "chord" && (
+        <dialog ref={diagram} className={styles.chordDialog} aria-label={`Diagramme de ${exercise.answer}`}
+          onClose={() => setDiagramOpen(false)}>
+          <header className={styles.dialogHeader}>
+            <strong>{exercise.answer}</strong>
+            <button type="button" className={styles.closeDiagram} aria-label="Fermer le diagramme"
+              onClick={() => diagram.current?.close()}>×</button>
+          </header>
+          {diagramOpen && <ChordPositions exercise={exercise} />}
+        </dialog>
+      )}
       <div className={styles.actions}>
         <button className="button button-primary" onClick={() => exercise ? void listen(exercise) : nextExercise()}>{exercise ? "Réécouter note par note" : "Commencer et écouter"}</button>
         {exercise && <button className="button button-secondary" onClick={() => void listen(exercise, true)}>Écouter les notes ensemble</button>}
