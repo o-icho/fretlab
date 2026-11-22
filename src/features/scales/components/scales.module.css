@@ -58,7 +58,8 @@
   border-radius: 9px;
   background: var(--surface);
 }
-.workspace button {
+.toolbar button,
+.actions button {
   min-height: 44px;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -69,7 +70,8 @@
   font-weight: 650;
   cursor: pointer;
 }
-.workspace button:hover {
+.toolbar button:hover,
+.actions button:hover {
   border-color: var(--accent);
 }
 .toggle button {

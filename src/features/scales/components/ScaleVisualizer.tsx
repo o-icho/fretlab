@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ROOTS } from "@/domain/music/catalog";
 import { SCALE_DEFINITIONS, generateScale } from "@/domain/music/scales";
 import { TUNINGS, tuningNotes } from "@/domain/music/tuning";
 import { mapScaleToFretboard } from "@/domain/music/fretboard";
 import { Fretboard } from "@/components/music/Fretboard";
+import { MidiNotePlayer } from "@/features/audio/MidiNotePlayer";
+import { useAudioPause } from "@/features/audio/useAudioPause";
 import { Icon } from "@/components/Icon";
 import { DEFAULT_SCALE_SETTINGS, POSITION_STARTS, parseScaleSettings, scaleSearchParams, scaleFretRange, type ScaleSettings } from "../settings";
 import styles from "./scales.module.css";
@@ -21,6 +23,23 @@ export function ScaleVisualizer() {
   const strings = tuningNotes(tuning);
   const title = `${scale.root.name} · ${scale.definition.name.toLocaleLowerCase("fr")}`;
   const [shareStatus, setShareStatus] = useState<"idle" | "copied" | "error">("idle");
+  const player = useRef<MidiNotePlayer | null>(null);
+  const [audioError, setAudioError] = useState(false);
+  useAudioPause(useCallback(() => player.current?.stop(), []));
+  useEffect(() => () => {
+    player.current?.dispose();
+    player.current = null;
+  }, []);
+
+  async function playNote(midi: number) {
+    const audio = player.current ??= new MidiNotePlayer(() => [0]);
+    setAudioError(false);
+    try {
+      await audio.play([midi], false, 0.8, () => {});
+    } catch {
+      if (player.current === audio) setAudioError(true);
+    }
+  }
 
   useEffect(() => {
     if (shareStatus === "idle") return;
@@ -131,9 +150,11 @@ export function ScaleVisualizer() {
           <span><i className={styles.rootDot} aria-hidden="true" />Fondamentale · double cercle</span>
           <span><i className={styles.noteDot} aria-hidden="true" />Autres notes de la gamme</span>
         </div>
-        <Fretboard title={`${title} — manche de guitare`} tuning={tuning} range={range}
+        <p className={styles.summaryHelp}>Cliquez sur une note du manche pour l’écouter.</p>
+        {audioError && <p role="alert">Lecture audio indisponible. Réessayez en sélectionnant une note.</p>}
+        <Fretboard title={`${title} — manche de guitare`} tuning={tuning} range={range} onPlay={playNote}
           markers={positions.map((position) => ({
-            stringIndex: position.stringIndex, fret: position.fret, isRoot: position.scaleNote.isRoot,
+            stringIndex: position.stringIndex, fret: position.fret, midi: position.midi, isRoot: position.scaleNote.isRoot,
             label: settings.display === "notes" ? position.scaleNote.name : position.scaleNote.interval.label,
             description: `Corde ${strings.length - position.stringIndex}, case ${position.fret} : ${position.scaleNote.name}, intervalle ${position.scaleNote.interval.label}${position.scaleNote.isRoot ? ", fondamentale" : ""}`,
           }))} />

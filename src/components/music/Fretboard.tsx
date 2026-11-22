@@ -9,14 +9,16 @@ export type FretboardMarker = {
   label: string;
   description: string;
   isRoot: boolean;
+  midi: number;
 };
 
 /** Horizontal neck renderer. Markers are supplied by the caller's domain logic. */
-export function Fretboard({ tuning, range, markers, title }: {
+export function Fretboard({ tuning, range, markers, title, onPlay }: {
   tuning: Tuning;
   range: FretRange;
   markers: readonly FretboardMarker[];
   title: string;
+  onPlay: (midi: number) => void;
 }) {
   const id = useId();
   const strings = tuningNotes(tuning);
@@ -35,7 +37,7 @@ export function Fretboard({ tuning, range, markers, title }: {
       <div className={styles.scroll} role="region" tabIndex={0}
         aria-label="Manche de guitare, défilement horizontal" aria-describedby={`${id}-help`}>
         <svg className={`${styles.board} ${frets.length > 6 ? styles.full : ""}`} width={width} height={height} viewBox={`0 0 ${width} ${height}`}
-          role="img" aria-labelledby={`${id}-title ${id}-description`}>
+          role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-description`}>
           <title id={`${id}-title`}>{title}</title>
           <desc id={`${id}-description`}>
             {`${tuning.name}, cases ${range.start} à ${range.end}. Corde grave en bas, aiguë en haut.
@@ -69,6 +71,10 @@ export function Fretboard({ tuning, range, markers, title }: {
                 fill={marker.isRoot ? "var(--accent)" : "var(--surface)"} stroke={marker.isRoot ? "var(--accent)" : "var(--muted)"} strokeWidth={1.5} />
               <text x={x(marker.fret)} y={y(marker.stringIndex) + 4.5} textAnchor="middle"
                 fill={marker.isRoot ? "var(--bg)" : "var(--text)"} fontSize={13} fontWeight={750}>{marker.label}</text>
+              <foreignObject x={x(marker.fret) - 21} y={y(marker.stringIndex) - 21} width={42} height={42}>
+                <button type="button" className={styles.playNote} title={marker.description}
+                  aria-label={`Jouer · ${marker.description}`} onClick={() => onPlay(marker.midi)} />
+              </foreignObject>
             </g>
           ))}
           <text x={left} y={331} fill="var(--muted)" fontSize={12}>
