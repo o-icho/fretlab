@@ -5,8 +5,11 @@ Une boucle peut partir d’une mesure vide ou de l’un des onze rythmes propos�
 Les neuf pistes et la bibliothèque de rythmes personnels sont disponibles sur
 le Web et dans l’application Android. Les enregistrements sont livrés avec l’application.
 
-Le bouton « Plein écran » agrandit l’éditeur en portrait ou en paysage. La
-lecture continue et la mesure en cours d’édition reste sélectionnée. Le bouton
+Le bouton « Plein écran » agrandit l’éditeur. Sur téléphone, il demande le
+paysage ; si le navigateur refuse, l’utilisateur peut tourner le téléphone.
+En paysage, les cinq premières pistes sont visibles dès l’ouverture et un
+glissement vers le haut révèle les suivantes. La lecture continue et la mesure
+en cours d’édition reste sélectionnée. Le bouton
 « Quitter le plein écran », Échap ou le retour Android ramènent à la page.
 
 ## Temps et transport

@@ -282,3 +282,65 @@
 .immersive .gridPanel { padding: 10px 4px; }
 .immersive .gridHeading { padding-inline: 6px; margin-bottom: 8px; }
 .immersive .pad, .immersive .lane { min-height: clamp(44px, 6dvh, 76px); }
+.rotationHint { display: none; }
+
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 600px) {
+  .immersive .rotationHint {
+    display: block;
+    padding: 4px 10px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+}
+
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+  .immersive .controls {
+    grid-template-columns: minmax(64px, .8fr) minmax(104px, 1.1fr) minmax(66px, .7fr) minmax(0, 1.65fr) minmax(68px, .85fr) minmax(68px, .8fr);
+    column-gap: 4px;
+    padding: max(2px, var(--safe-area-inset-top, env(safe-area-inset-top, 0px))) 4px 2px;
+  }
+  .immersive .controls button { min-width: 0; padding: 4px; line-height: 1.2; }
+  .immersive .tempo button { min-width: 30px; }
+  .immersive .controls select { padding-inline: 4px; }
+  .immersive .fullscreenSuffix { display: none; }
+  .immersive .controls label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+  }
+  .immersive .controls label span { display: inline; }
+  .immersive .gridPanel { padding: 2px 0; }
+  .immersive .gridHeading { margin-bottom: 3px; }
+  .immersive .gridHeading h2 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .immersive .gridHeading > div:first-child { flex: 1; min-width: 0; }
+  .immersive .grid thead th { height: 24px; }
+  .immersive .grid th:first-child { min-width: 108px; width: 108px; padding-inline: 3px; }
+}
+
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 600px) and (max-width: 740px) {
+  .immersive .play span, .immersive .fullscreenButton svg { display: none; }
+  .immersive .controls label span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* Put the measure selector after the nine tracks on short landscape screens
+   so the fifth track is already in reach before the first swipe. */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 399px) {
+  .immersive .gridPanel {
+    display: flex;
+    flex-direction: column;
+    --safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+    --safe-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+    --track-height: clamp(28px, calc((100dvh - 108px - var(--safe-top) - var(--safe-bottom)) / 5 - 1px), 44px);
+  }
+  .immersive .gridScroll { order: -1; }
+  .immersive .gridHeading { margin: 6px 0 0; }
+  .immersive .grid td { height: var(--track-height); }
+  .immersive .lane, .immersive .pad { min-height: var(--track-height); }
+}

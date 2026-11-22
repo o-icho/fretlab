@@ -13,7 +13,7 @@ import { isUserPattern } from "./editor/patternEditing";
 import styles from "./drums.module.css";
 
 export function DrumMachine() {
-  const { ref, active, enter, exit, enterButton, exitButton } = useWorkspaceFullscreen();
+  const { ref, active, enter, exit, enterButton, exitButton } = useWorkspaceFullscreen({ landscapeOnPhone: true });
   const { settings, update, status, error, toggle, playback, preview } = useDrumMachine();
   const { pattern } = settings;
   const [draft, setDraft] = useState<string | null>(null);
@@ -83,11 +83,12 @@ export function DrumMachine() {
         </div>
         <button type="button" className={styles.secondary} onClick={() => { editor.newPattern(); setRenameDraft(null); }}>Nouveau rythme</button>
         <button type="button" ref={active ? exitButton : enterButton} className={styles.fullscreenButton}
-          onClick={active ? exit : enter}>
+          aria-label={active ? "Quitter le plein écran" : undefined} onClick={active ? exit : enter}>
           <Icon name={active ? "collapse" : "expand"} size={18} />
-          {active ? "Quitter le plein écran" : "Plein écran"}
+          {active ? <span>Quitter<span className={styles.fullscreenSuffix}> le plein écran</span></span> : "Plein écran"}
         </button>
       </div>
+      {active && <p className={styles.rotationHint}>Tournez le téléphone pour afficher plus de cases.</p>}
       {status === "starting" && <p className={styles.feedback} role="status">Activation de l’audio…</p>}
       {error && <p className={styles.feedback} role="alert">{error}</p>}
 
