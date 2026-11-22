@@ -86,6 +86,28 @@ test("multiple bars retain event positions and loop at the full pattern boundary
   assert.equal(hits.length, 1); near(hits[0].time, 3.125); assert.equal(hits[0].bar, 1);
   assert.equal(plan.events.at(-1).bar, 0); assert.equal(plan.events.at(-1).step, 0);
 });
+test("multibar live edits continue in order, wrap a shortened pattern and start a different rhythm at bar zero", () => {
+  const original = { ...rock, bars: 3 };
+  const revised = { ...original, tracks: [{ instrument: "ride", events: [
+    { position: { bar: 1, beat: 0, part: 0 }, velocity: 1 },
+  ] }] };
+  const duringFirst = planDrumSteps(startDrumCursor(original, 0, 0), 0, 0.5, 120).next;
+  const downbeat = planDrumSteps(queuePattern(duringFirst, revised), 2, 0.001, 120).events[0];
+  assert.equal(downbeat.bar, 1); assert.deepEqual(downbeat.hits, [{ instrument: "ride", velocity: 1 }]);
+  const duringSecond = planDrumSteps(startDrumCursor(original, 0, 0), 0, 2.5, 120).next;
+  for (const [pattern, bar] of [[revised, 2], [{ ...revised, bars: 2 }, 0], [{ ...revised, id: "other" }, 0]]) {
+    const e = planDrumSteps(queuePattern(duringSecond, pattern), 4, 0.001, 120).events[0];
+    assert.equal(e.pattern, pattern); assert.equal(e.step, 0); assert.equal(e.bar, bar);
+  }
+});
+test("an extension at an unscheduled loop boundary takes effect immediately and count-in still leads into bar one", () => {
+  const longer = { ...rock, bars: 2 };
+  const loopBoundary = planDrumSteps(startDrumCursor(rock, 0, 0), 0, 2, 120).next;
+  assert.equal(queuePattern(loopBoundary, longer).bar, 1);
+  const countInBoundary = planDrumSteps(startDrumCursor(rock, 0, 1), 0, 2, 120).next;
+  const play = planDrumSteps(queuePattern(countInBoundary, longer), 2, 2.01, 120);
+  assert.deepEqual(play.events.filter(e => e.step === 0).map(e => [e.bar, e.countIn]), [[0, 0], [1, 0]]);
+});
 test("late scheduler skips old hits without a burst, including queued changes/count-in", () => {
   let cursor = startDrumCursor(rock, 0, 2);
   cursor = planDrumSteps(cursor, 0, 0.2, 120).next;

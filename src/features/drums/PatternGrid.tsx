@@ -1,63 +1,132 @@
 "use client";
-import { useSyncExternalStore } from "react";
-import { stepsPerBar, type DrumInstrument, type DrumPattern } from "../../domain/rhythm/drums";
+import { useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
+import { DRUM_INSTRUMENTS, stepsPerBar, type DrumInstrument, type DrumPattern } from "../../domain/rhythm/drums";
 import type { PlaybackStore } from "./playbackStore";
-import { isUserPattern } from "./editor/patternEditing";
+import { nextStepVelocity } from "./editor/patternEditing";
 import styles from "./drums.module.css";
 
-const INSTRUMENTS: { id: DrumInstrument; name: string }[] = [
-  { id: "kick", name: "Kick" }, { id: "snare", name: "Snare" }, { id: "closed-hat", name: "Closed Hi-Hat" },
-  { id: "open-hat", name: "Open Hi-Hat" }, { id: "crash", name: "Crash" },
-  { id: "ride", name: "Ride" }, { id: "tom-low", name: "Tom grave" }, { id: "tom-high", name: "Tom aigu" },
-];
-function label(pattern: DrumPattern, step: number): string {
-  const part = step % pattern.subdivision;
-  if (!part) return String(Math.floor(step / pattern.subdivision) + 1);
-  return pattern.subdivision === 4 ? ["", "e", "&", "a"][part] : pattern.subdivision === 3 ? ["", "tri", "let"][part] : "&";
+const LANES: Record<DrumInstrument, { name: string; family: string }> = {
+  kick: { name: "Grosse caisse", family: "drum" },
+  snare: { name: "Caisse claire", family: "drum" },
+  "closed-hat": { name: "Charleston fermé", family: "metal" },
+  "open-hat": { name: "Charleston ouvert", family: "metal" },
+  crash: { name: "Crash", family: "metal" },
+  ride: { name: "Ride", family: "metal" },
+  "tom-low": { name: "Tom grave", family: "tom" },
+  "tom-mid": { name: "Tom médium", family: "tom" },
+  "tom-high": { name: "Tom aigu", family: "tom" },
+};
+
+function stepLabel(subdivision: number, step: number) {
+  const part = step % subdivision;
+  if (part === 0) return String(Math.floor(step / subdivision) + 1);
+  if (subdivision === 4) return ["", "e", "&", "a"][part];
+  if (subdivision === 2) return "&";
+  return "·";
 }
-export function PatternGrid({ selected, playback, onCycle, onMute }: {
-  selected: DrumPattern; playback: PlaybackStore;
+
+type GridProps = {
+  selected: DrumPattern;
+  playback: PlaybackStore;
   onCycle: (instrument: DrumInstrument, bar: number, step: number) => void;
   onMute: (instrument: DrumInstrument) => void;
-}) {
+  onChangeBars: (count: number) => void;
+  onPreview: (instrument: DrumInstrument, velocity: number) => void;
+};
+
+export function PatternGrid({ selected: pattern, playback, onCycle, onMute, onChangeBars, onPreview }: GridProps) {
   const current = useSyncExternalStore(playback.subscribe, playback.getSnapshot, playback.getServerSnapshot);
-  const pattern = selected;
-  const steps = Array.from({ length: stepsPerBar(pattern) }, (_, index) => index);
-  const instruments = INSTRUMENTS.filter((value, index) => index < 5 || pattern.tracks.some((track) => track.instrument === value.id));
-  const pending = current !== null && selected !== current.pattern;
-  const active = pending ? null : current;
-  return (
-    <section className={styles.gridPanel} aria-label="Visualisation du pattern">
-      <div className={styles.gridHeading}>
-        <div><h2>{pattern.name}</h2><p>{pattern.meter.beats}/{pattern.meter.beatUnit} · {pattern.bars} mesure{pattern.bars > 1 ? "s" : ""} · {steps.length} pas par mesure</p></div>
-        <p>{pattern.subdivision === 3 ? "Triolets de croches" : pattern.subdivision === 4 ? "Doubles croches" : "Croches"} · BPM à la {pattern.meter.pulseBeats === 3 ? "noire pointée" : "noire"}</p>
+  const [requestedBar, setBar] = useState(0);
+  const bar = Math.min(requestedBar, pattern.bars - 1);
+  const [focus, setFocus] = useState({ row: 0, step: 0 });
+  const table = useRef<HTMLTableElement>(null);
+  const steps = useMemo(() => Array.from({ length: stepsPerBar(pattern) }, (_, step) => step), [pattern]);
+  const focusedStep = Math.min(focus.step, steps.length - 1);
+  const stepsPerPulse = pattern.subdivision * pattern.meter.pulseBeats;
+  const hits = useMemo(() => new Map(pattern.tracks.map((track) => [
+    track.instrument, new Map(track.events.filter((event) => event.position.bar === bar)
+      .map(({ position, velocity }) => [position.beat * pattern.subdivision + position.part, velocity])),
+  ])), [bar, pattern]);
+  const pending = current !== null && current.pattern !== pattern;
+  const playingStep = current && !pending && !current.countIn && current.bar === bar ? current.step : -1;
+
+  function moveFocus(event: KeyboardEvent<HTMLButtonElement>, row: number, step: number) {
+    switch (event.key) {
+      case "ArrowLeft": step--; break;
+      case "ArrowRight": step++; break;
+      case "ArrowUp": row--; break;
+      case "ArrowDown": row++; break;
+      case "Home": step = 0; break;
+      case "End": step = steps.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    row = Math.max(0, Math.min(row, DRUM_INSTRUMENTS.length - 1));
+    step = Math.max(0, Math.min(step, steps.length - 1));
+    table.current?.tBodies[0].rows[row]?.cells[step + 1]?.querySelector("button")?.focus();
+  }
+
+  return <section className={styles.gridPanel} aria-label="Grille du rythme">
+    <div className={styles.gridHeading}>
+      <div>
+        <h2>{pattern.name}</h2>
+        <p>{steps.length} pas par mesure · {pattern.bars} mesure{pattern.bars > 1 ? "s" : ""}</p>
       </div>
-      <p role="status" className={styles.gridStatus}>
-        {current?.countIn ? `Décompte : ${current.countIn} mesure${current.countIn > 1 ? "s" : ""} restante${current.countIn > 1 ? "s" : ""}. ` : current ? "Groove en lecture. " : "Lecture arrêtée. "}
-        {pending ? `En lecture : ${current.pattern.name}. Cette grille attend la prochaine mesure disponible.` : ""}
-      </p>
-      {Array.from({ length: pattern.bars }, (_, bar) => (
-        <div key={bar} className={styles.gridScroll} role="region" tabIndex={0} aria-label={`Grille, mesure ${bar + 1}`}>
-          <table className={styles.grid}>
-            <caption className={styles.srOnly}>Mesure {bar + 1}. Chaque bouton alterne Silence, Normal, Accent.</caption>
-            <thead><tr><th scope="col">Instrument</th>{steps.map((step) => <th scope="col" key={step} className={active?.bar === bar && active.step === step ? styles.current : undefined} aria-current={active?.bar === bar && active.step === step ? "step" : undefined}>{label(pattern, step)}</th>)}</tr></thead>
-            <tbody>{instruments.map((instrument) => <tr key={instrument.id}>
-              <th scope="row">{instrument.name}<button type="button" className={styles.mute} aria-pressed={!!pattern.tracks.find((track) => track.instrument === instrument.id)?.muted} aria-label={`Mute ${instrument.name}`} onClick={() => onMute(instrument.id)}>{pattern.tracks.find((track) => track.instrument === instrument.id)?.muted ? "Muet" : "Mute"}</button></th>
-              {steps.map((step) => {
-                const hit = pattern.tracks.find((track) => track.instrument === instrument.id)?.events.find((event) => event.position.bar === bar && event.position.beat * pattern.subdivision + event.position.part === step);
-                const state = !hit ? "Silence" : hit.velocity === 1 ? "Accent" : "Normal";
-                return <td key={step} className={active?.bar === bar && active.step === step ? styles.current : undefined}>
-                  <button type="button" className={styles.stepButton} onClick={() => onCycle(instrument.id, bar, step)} aria-label={`${instrument.name}, mesure ${bar + 1}, pas ${step + 1} : ${state}${hit ? `, vélocité ${Math.round(hit.velocity * 100)} %` : ""}`}>
-                    <span aria-hidden="true" className={hit ? hit.velocity < 0.4 ? styles.ghost : styles.hit : styles.rest}>{!hit ? "—" : hit.velocity === 1 ? "◆" : "●"}</span>
-                  </button>
-                </td>;
-              })}
-            </tr>)}</tbody>
-          </table>
-        </div>
-      ))}
-      <p className={styles.help}>Tapez une case : — Silence → ● Normal → ◆ Accent → Silence. Les frappes douces des presets restent intactes jusqu’à leur édition. Mute coupe une piste sans effacer ses notes. La colonne encadrée suit le pas joué ; la grille défile horizontalement sur petit écran.</p>
-      <p className={styles.description}>{isUserPattern(pattern) ? "Point de départ avant édition : " : ""}{pattern.description}</p>
-    </section>
-  );
+      <div className={styles.bars} aria-label="Mesures du rythme" role="group">
+        <label className={styles.srOnly} htmlFor="drum-bar">Mesure à éditer</label>
+        <select id="drum-bar" value={bar} onChange={(event) => setBar(Number(event.target.value))}>
+          {Array.from({ length: pattern.bars }, (_, index) => <option key={index} value={index}>Mesure {index + 1}</option>)}
+        </select>
+        <button type="button" disabled={pattern.bars >= 32} aria-label="Ajouter une mesure" title="Ajouter une mesure"
+          onClick={() => { onChangeBars(pattern.bars + 1); setBar(pattern.bars); }}>+</button>
+        <button type="button" disabled={pattern.bars <= 1} aria-label="Supprimer la dernière mesure" title="Supprimer la dernière mesure"
+          onClick={() => onChangeBars(pattern.bars - 1)}>−</button>
+      </div>
+    </div>
+    <div className={styles.gridScroll} role="region" aria-label={`Grille, mesure ${bar + 1}`}>
+      <table className={styles.grid} ref={table}>
+        <caption className={styles.srOnly}>Grille de batterie. Les flèches déplacent le curseur. Entrée ou Espace change la frappe.</caption>
+        <thead><tr><th scope="col">Instrument</th>
+          {steps.map((step) => <th scope="col" key={step} data-pulse={step % stepsPerPulse === 0 || undefined}
+            aria-current={step === playingStep ? "step" : undefined}>{stepLabel(pattern.subdivision, step)}</th>)}
+        </tr></thead>
+        <tbody>{DRUM_INSTRUMENTS.map((id, row) => {
+          const { name, family } = LANES[id];
+          const muted = Boolean(pattern.tracks.find((track) => track.instrument === id)?.muted);
+          return <tr key={id} data-family={family} data-muted={muted || undefined}>
+            <th scope="row">
+              <button type="button" className={styles.lane} aria-label={`Couper la piste ${name}`} aria-pressed={muted}
+                title={`${muted ? "Réactiver" : "Couper"} la piste ${name}`} onClick={() => onMute(id)}>
+                <span>{name}</span><span aria-hidden="true" className={styles.mute}>M</span>
+              </button>
+            </th>
+            {steps.map((step) => {
+              const velocity = hits.get(id)?.get(step);
+              const state = !velocity ? "Silence" : velocity === 1 ? "Accent" : "Frappe";
+              return <td key={step} data-pulse={step % stepsPerPulse === 0 || undefined} data-playing={step === playingStep || undefined}>
+                <button type="button" className={styles.pad} data-state={state} data-ghost={velocity && velocity < 0.4 || undefined}
+                  aria-label={`${name}, mesure ${bar + 1}, pas ${step + 1} : ${state}`}
+                  aria-pressed={Boolean(velocity)} tabIndex={focus.row === row && focusedStep === step ? 0 : -1}
+                  onFocus={() => setFocus({ row, step })}
+                  onKeyDown={(event) => moveFocus(event, row, step)}
+                  onClick={() => {
+                    onCycle(id, bar, step);
+                    const next = nextStepVelocity(velocity);
+                    if (!muted && next > 0) onPreview(id, next);
+                  }}>
+                  <span aria-hidden="true">{velocity === 1 ? "◆" : velocity ? "●" : ""}</span>
+                </button>
+              </td>;
+            })}
+          </tr>;
+        })}</tbody>
+      </table>
+    </div>
+    <div className={styles.gridFoot}>
+      <p>Chaque clic alterne entre case vide, <strong>●</strong> frappe et <strong>◆</strong> accent.</p>
+      <p role="status">{current?.countIn ? `Décompte · ${current.countIn} mesure${current.countIn > 1 ? "s" : ""}` :
+        pending ? `En lecture : ${current.pattern.name}. Modification à la prochaine mesure.` :
+        current ? `Lecture · mesure ${current.bar + 1} sur ${pattern.bars}` : ""}</p>
+    </div>
+  </section>;
 }

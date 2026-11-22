@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { clampBpm } from "../../domain/rhythm/tempo";
+import type { DrumInstrument } from "../../domain/rhythm/drums";
 import { useAudioPause } from "../audio/useAudioPause";
 import { DrumPlayer, type DrumSettings } from "./audio/DrumPlayer";
 import { DRUM_PATTERNS } from "./presets";
@@ -31,6 +32,22 @@ export function useDrumMachine() {
     engine.current?.configure(next);
     setSettings(next);
   }
+  function getPlayer() {
+    engine.current ??= new DrumPlayer(settingsRef.current, playback.set, () => {
+      stop();
+      setError("L’audio a été interrompu. Appuyez sur Lecture pour reprendre.");
+    });
+    return engine.current;
+  }
+  async function preview(instrument: DrumInstrument, velocity: number) {
+    if (statusRef.current !== "stopped") return;
+    const token = request.current;
+    try {
+      await getPlayer().preview(instrument, velocity);
+    } catch {
+      if (request.current === token) setError("Impossible de lire la frappe.");
+    }
+  }
   async function toggle() {
     if (statusRef.current !== "stopped") { stop(); return; }
     const token = ++request.current;
@@ -38,9 +55,7 @@ export function useDrumMachine() {
     setStatus("starting");
     setError("");
     try {
-      if (!engine.current) engine.current = new DrumPlayer(settingsRef.current, playback.set, () => { stop(); setError("L’audio a été interrompu. Appuyez sur Lecture pour reprendre."); });
-      engine.current.configure(settingsRef.current);
-      const started = await engine.current.start();
+      const started = await getPlayer().start();
       if (token !== request.current) return;
       statusRef.current = started ? "playing" : "stopped";
       setStatus(statusRef.current);
@@ -50,5 +65,5 @@ export function useDrumMachine() {
       setError("Impossible d’activer l’audio. Réessayez avec le bouton Lecture.");
     }
   }
-  return { settings, update, status, error, toggle, playback };
+  return { settings, update, status, error, toggle, playback, preview };
 }

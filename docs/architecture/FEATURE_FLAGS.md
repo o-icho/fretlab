@@ -4,11 +4,10 @@
 src/config/features.ts est la source versionnée des flags de build Web et Android.
 FeatureId est dérivé des clés de featureFlags :
 chordDictionary, metronome, tuner, transposer, scales, chordProgressions,
-drumMachine, backingTracks.
+drumMachine, backingTracks, earTraining.
 
-Les six outils actifs restent disponibles. chordProgressions et drumMachine sont
-false. Pour réactiver la boîte à rythmes : drumMachine: true. Pour désactiver
-un outil : mettre son booléen à false. Rebuild/déploiement Web et export Android,
+Huit outils sont actifs, dont la boîte à rythmes. Le générateur de progressions
+est désactivé. Pour masquer un outil, mettre son booléen à false. Rebuild/déploiement Web et export Android,
 cap sync puis nouvelle application sont nécessaires. Aucun flag réseau.
 
 Le même fichier contient le registre (id, href, slug, name, short, description,
@@ -33,8 +32,7 @@ pas l'autorisation de sécurité ou la confidentialité du code livré.
 
 FeatureLink lie les recommandations à un FeatureId. Les CTA d'articles ne sont
 rendus que si leur outil est actif. Les liens Markdown vers un outil désactivé
-deviennent du texte sans lien. Aucun article actuel ne cite les deux outils
-désactivés. Les slugs tool des articles existants sont conservés, résolus via le
+deviennent du texte sans lien. Les slugs tool des articles existants sont conservés, résolus via le
 registre pour ne pas imposer une migration de contenu sans besoin.
 
 Pour ajouter une feature : ajouter son flag et sa définition, protéger sa route

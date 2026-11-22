@@ -1,7 +1,8 @@
-import { SIGNATURE_INFO, isTimeSignature } from "./meter.ts";
+import { SIGNATURE_INFO, isTimeSignature, type TimeSignature } from "./meter.ts";
 import { clampBpm, DRUM_BPM_RANGE, type BpmRange } from "./tempo.ts";
 
-export type DrumInstrument = "kick" | "snare" | "closed-hat" | "open-hat" | "crash" | "ride" | "tom-low" | "tom-high";
+export const DRUM_INSTRUMENTS = ["kick", "snare", "closed-hat", "open-hat", "crash", "ride", "tom-low", "tom-mid", "tom-high"] as const;
+export type DrumInstrument = typeof DRUM_INSTRUMENTS[number];
 export type DrumStyle = "rock" | "blues" | "funk" | "metal" | "pop";
 export type Meter = { beats: number; beatUnit: 4 | 8; pulseBeats: number };
 export type DrumEvent = { position: { bar: number; beat: number; part: number }; velocity: number };
@@ -11,7 +12,10 @@ export type DrumPattern = {
   meter: Meter; bars: number; subdivision: number; tracks: readonly DrumTrack[];
 };
 export type DrumHit = { instrument: DrumInstrument; velocity: number };
-export const DRUM_INSTRUMENTS: DrumInstrument[] = ["kick", "snare", "closed-hat", "open-hat", "crash", "ride", "tom-low", "tom-high"];
+export function meterForSignature(signature: TimeSignature): Meter {
+  const { steps, unit, subdivisions } = SIGNATURE_INFO[signature];
+  return { beats: steps, beatUnit: unit === "quarter" ? 4 : 8, pulseBeats: subdivisions };
+}
 export function stepsPerBar(pattern: DrumPattern): number { return pattern.meter.beats * pattern.subdivision; }
 export function stepSeconds(pattern: DrumPattern, bpm: number, range: BpmRange = DRUM_BPM_RANGE): number {
   return 60 / clampBpm(bpm, range) / pattern.meter.pulseBeats / pattern.subdivision;
@@ -26,7 +30,10 @@ export function validatePattern(pattern: DrumPattern): void {
   if (!pattern.id || !pattern.name || !pattern.description || !["rock", "blues", "funk", "metal", "pop"].includes(pattern.style)) throw new RangeError("Pattern incomplet.");
   const signature = `${m.beats}/${m.beatUnit}`;
   if (!Number.isInteger(m.beats) || !Number.isInteger(m.beatUnit) || !isTimeSignature(signature) || SIGNATURE_INFO[signature].subdivisions !== m.pulseBeats) throw new RangeError("Signature non prise en charge.");
-  if (!Number.isInteger(pattern.bars) || pattern.bars < 1 || pattern.bars > 32 || ![1, 2, 3, 4].includes(pattern.subdivision)) throw new RangeError("Mesures ou subdivision invalides.");
+  // Six and eight divisions per quarter preserve sixteenth-note triplets and 32nds
+  // when converting a pattern written in eighths to one written in quarters.
+  const subdivisions = m.beatUnit === 4 ? [1, 2, 3, 4, 6, 8] : [1, 2, 3, 4];
+  if (!Number.isInteger(pattern.bars) || pattern.bars < 1 || pattern.bars > 32 || !subdivisions.includes(pattern.subdivision)) throw new RangeError("Mesures ou subdivision invalides.");
   const instruments = new Set<DrumInstrument>();
   for (const track of pattern.tracks) {
     if (!DRUM_INSTRUMENTS.includes(track.instrument) || instruments.has(track.instrument)) throw new RangeError("Piste invalide ou dupliquée.");
@@ -42,27 +49,31 @@ export function validatePattern(pattern: DrumPattern): void {
   }
 }
 
-export type DrumCursor = { time: number; step: number; bar: number; pattern: DrumPattern; pending: DrumPattern | null; countIn: number };
+export type DrumCursor = { time: number; step: number; bar: number; boundaryBar: number; pattern: DrumPattern; pending: DrumPattern | null; countIn: number };
 export type DrumStep = { time: number; step: number; bar: number; pattern: DrumPattern; countIn: number; hits: DrumHit[]; click: "accent" | "beat" | null };
 export function startDrumCursor(pattern: DrumPattern, time: number, countIn: number): DrumCursor {
   validatePattern(pattern);
   if (!Number.isFinite(time) || time < 0 || ![0, 1, 2].includes(countIn)) throw new RangeError("Départ invalide.");
-  return { time, step: 0, bar: 0, pattern, pending: null, countIn };
+  return { time, step: 0, bar: 0, boundaryBar: 0, pattern, pending: null, countIn };
+}
+function atBarBoundary(cursor: DrumCursor, pattern: DrumPattern, followingBar: number): DrumCursor {
+  // Keep the unwrapped index until the downbeat is scheduled. An edit can still
+  // extend the loop at exactly the old end and make that next bar playable.
+  const boundaryBar = cursor.pattern.id === pattern.id ? followingBar : 0;
+  return { ...cursor, step: 0, bar: boundaryBar < pattern.bars ? boundaryBar : 0, boundaryBar, pattern, pending: null };
 }
 export function queuePattern(cursor: DrumCursor, pattern: DrumPattern): DrumCursor {
   validatePattern(pattern);
   // Step zero has not been scheduled yet: this boundary is still available.
-  if (cursor.step === 0) return { ...cursor, pattern, bar: 0, pending: null };
+  if (cursor.step === 0) return atBarBoundary(cursor, pattern, cursor.boundaryBar);
   return { ...cursor, pending: pattern === cursor.pattern ? null : pattern };
 }
 function advance(cursor: DrumCursor, bpm: number, range: BpmRange): DrumCursor {
   const next = { ...cursor, time: cursor.time + stepSeconds(cursor.pattern, bpm, range), step: cursor.step + 1 };
   if (next.step < stepsPerBar(next.pattern)) return next;
-  next.step = 0;
-  next.bar = next.countIn > 0 ? 0 : (next.bar + 1) % next.pattern.bars;
+  const followingBar = next.countIn > 0 ? 0 : next.bar + 1;
   next.countIn = Math.max(0, next.countIn - 1);
-  if (next.pending) { next.pattern = next.pending; next.pending = null; next.bar = 0; }
-  return next;
+  return atBarBoundary(next, next.pending ?? next.pattern, followingBar);
 }
 /** One shared audio horizon; old steps are skipped, never replayed in a burst. */
 export function planDrumSteps(cursor: DrumCursor, now: number, horizon: number, bpm: number, range: BpmRange = DRUM_BPM_RANGE): { events: DrumStep[]; next: DrumCursor } {

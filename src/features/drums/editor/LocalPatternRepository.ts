@@ -1,4 +1,4 @@
-import { validatePattern, type DrumPattern } from "../../../domain/rhythm/drums.ts";
+import { DRUM_INSTRUMENTS, validatePattern, type DrumPattern } from "../../../domain/rhythm/drums.ts";
 import { patternName, type UserPattern } from "./patternEditing.ts";
 import type { PatternRepository } from "./PatternRepository.ts";
 
@@ -21,10 +21,11 @@ export function decodeUserPattern(input: unknown): UserPattern {
   if (updatedAt < createdAt) throw new Error("Dates de pattern incohérentes.");
   if (raw.basedOnPresetId !== undefined && (typeof raw.basedOnPresetId !== "string" || !/^[a-z0-9-]{1,80}$/.test(raw.basedOnPresetId))) throw new Error("Origine de pattern invalide.");
   const meter = object(raw.meter);
-  if (!Array.isArray(raw.tracks) || raw.tracks.length > 8) throw new Error("Pistes invalides.");
+  if (!Array.isArray(raw.tracks) || raw.tracks.length > DRUM_INSTRUMENTS.length) throw new Error("Pistes invalides.");
+  const maxEvents = Number(raw.bars) * Number(meter.beats) * Number(raw.subdivision);
   const tracks = raw.tracks.map((inputTrack: unknown) => {
     const track = object(inputTrack);
-    if (!Array.isArray(track.events) || track.events.length > 768 || (track.muted !== undefined && typeof track.muted !== "boolean")) throw new Error("Piste invalide.");
+    if (!Array.isArray(track.events) || track.events.length > maxEvents || (track.muted !== undefined && typeof track.muted !== "boolean")) throw new Error("Piste invalide.");
     return { instrument: track.instrument, muted: track.muted ?? false, events: track.events.map((inputEvent: unknown) => {
       const event = object(inputEvent), position = object(event.position);
       return { position: { bar: position.bar, beat: position.beat, part: position.part }, velocity: event.velocity };

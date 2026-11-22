@@ -1,9 +1,9 @@
-# Boîte à rythmes V1
+# Boîte à rythmes
 
-Route `/outils/boite-a-rythmes/`. Batterie synthétique locale, onze patterns,
-sans samples, CDN, IA ou backend. Sauvegarde locale des patterns utilisateur.
-Même moteur et interface sur Web et
-Capacitor Android. Le kit Basic est électronique, sans promesse de réalisme acoustique.
+L’éditeur est disponible dans le menu Outils et sur `/outils/boite-a-rythmes/`.
+Une boucle peut partir d’une mesure vide ou de l’un des onze rythmes proposés.
+Les neuf pistes et la bibliothèque de rythmes personnels sont disponibles sur
+le Web et dans l’application Android. Les enregistrements sont livrés avec l’application.
 
 ## Temps et transport
 
@@ -41,11 +41,11 @@ unité écrite ; le meter déclare beats, beatUnit et pulseBeats :
 
 | Signature | beats / beatUnit | pulseBeats | Unité du BPM | Exemple de grille |
 | --- | --- | --- | --- | --- |
-| 4/4 | 4 / 4 | 1 | noire | 16 doubles croches ou 12 triolets |
-| 3/4 | 3 / 4 | 1 | noire | 6 croches |
-| 6/8 | 6 / 8 | 3 | noire pointée | 6 croches, deux pulsations |
+| 2/4, 3/4, 4/4, 7/4 | 2, 3, 4 ou 7 / 4 | 1 | noire | 4/4 en doubles croches : 16 pas |
+| 5/8, 7/8 | 5 ou 7 / 8 | 1 | croche | 5/8 en doubles croches : 10 pas |
+| 6/8, 9/8, 12/8 | 6, 9 ou 12 / 8 | 3 | noire pointée | 6/8 en croches : 6 pas, deux pulsations |
 
-Le décompte de 0, 1 ou 2 mesures utilise un clic par pulsation (4, 3 ou 2),
+Le décompte de 0, 1 ou 2 mesures utilise un clic par pulsation,
 accentue le début de mesure et ne joue aucun instrument. La grille montre les
 subdivisions ; le nombre de pulsations du 6/8 n’est pas confondu avec ses six
 croches. L’option de décompte se règle avant Lecture.
@@ -72,18 +72,14 @@ de création de pistes se transforme immédiatement en événements structurés.
 
 ## Son et cycle de vie
 
-`DrumSoundProvider` reçoit instrument, temps absolu et vélocité. `DrumPlayer`
-accepte une factory de kit : un futur SampleBasedDrumKit pourra charger des
-assets à licence compatible puis respecter ce même contrat. Aucune dépendance
-du transport aux oscillateurs, aux filtres ou aux buffers.
-
-`BasicDrumKit` combine kick avec enveloppe de pitch, snare bruit + sinus,
-hi-hats bruit filtré et crash bruit avec décroissance longue. Les charlestons
-fermés étouffent les ouverts à leur temps programmé. Le modèle prévoit ride
-et toms ; leurs voix synthétiques sont disponibles sans ajouter de pistes UI
-aux presets V1. Les vélocités modulent l’amplitude ; seul le volume général
-est exposé. Chaque source a un arrêt programmé et déconnecte ses nœuds à sa fin.
-Stop détruit aussi les voix futures ; le démontage ferme l’AudioContext.
+`DrumSoundProvider` reçoit l’instrument, le temps absolu et la vélocité.
+`AcousticDrumKit` joue les frappes enregistrées de grosse caisse, caisse claire,
+charleston fermé et ouvert, trois toms, crash et ride. Les prises sont documentées
+dans [la liste des échantillons](./audio/SAMPLES.md). `BasicDrumKit` assure
+le repli synthétique si une prise est indisponible. Le charleston fermé étouffe
+le charleston ouvert. À l’arrêt, placer ou accentuer une frappe sur une piste
+audible en joue un aperçu au volume du lecteur. Stop annule les frappes programmées et le démontage
+ferme l’AudioContext.
 
 `useDrumMachine` détient une seule source de vérité des réglages. Le composant
 Tap Tempo du métronome la met à jour directement. Les démarrages asynchrones
@@ -129,6 +125,12 @@ que le player. UserPattern ajoute `createdAt`, `updatedAt`, `basedOnPresetId` ;
 `id` et `name` restent ceux du pattern. Aucun userId local ou format parallèle.
 Les identifiants `user-…` sont stables ; une duplication crée une nouvelle identité.
 
+Un nouveau rythme commence par une mesure vide en doubles croches. L’éditeur
+permet de travailler sur 1 à 32 mesures. Lors d’un changement de signature, les
+frappes gardent leur position écrite depuis le début de chaque mesure, y compris
+les triolets. Les pas supplémentaires sont vides. Si le raccourcissement retire
+des frappes d’un rythme personnel, l’éditeur demande confirmation.
+
 Les presets sont gelés en profondeur. La première édition ou le premier mute
 crée une copie « Nom - copie ». Une case passe de silence (événement absent)
 à Normal (0,75), Accent (1), puis silence. Les autres vélocités du preset sont
@@ -136,6 +138,8 @@ préservées. `DrumTrack.muted` filtre les événements dans le moteur sans effa
 les notes de la grille. Pas de solo en V1. La file de lecture compare les
 snapshots par référence, pas uniquement par ID : plusieurs éditions du même
 pattern remplacent la demande en attente et s’appliquent à la prochaine mesure.
+La lecture d’un rythme personnel continue alors à la mesure suivante. Choisir
+un autre rythme démarre celui-ci à sa première mesure.
 
 Vider les frappes, Réinitialiser et Supprimer demandent confirmation. Changer
 de pattern avec un brouillon non sauvegardé demande confirmation. Les liens

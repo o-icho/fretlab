@@ -5,7 +5,7 @@ export const featureFlags = {
   transposer: true,
   scales: true,
   chordProgressions: false,
-  drumMachine: false,
+  drumMachine: true,
   backingTracks: true,
   earTraining: true,
 } as const;
@@ -72,8 +72,8 @@ const definitions = [
   {
     id: "drumMachine", href: "/outils/boite-a-rythmes", slug: "boite-a-rythmes",
     name: "Boîte à rythmes",
-    short: "Jouez sur un groove.",
-    description: "Accompagnez votre guitare avec des rythmes rock, blues, funk, metal et pop.",
+    short: "Composez une partie de batterie.",
+    description: "Placez vos frappes sur neuf pistes, choisissez la signature et écoutez votre boucle.",
     icon: "drums",
     color: "teal",
     number: "07",

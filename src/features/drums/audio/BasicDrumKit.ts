@@ -34,6 +34,7 @@ export class BasicDrumKit implements DrumSoundProvider {
       case "crash": this.noisy(instrument, time, 2600, "highpass", 1.2, v * 0.2); break;
       case "ride": this.noisy(instrument, time, 4200, "bandpass", 0.5, v * 0.13); break;
       case "tom-low": this.tone(instrument, time, 130, 75, 0.32, v * 0.4); break;
+      case "tom-mid": this.tone(instrument, time, 175, 100, 0.28, v * 0.38); break;
       case "tom-high": this.tone(instrument, time, 230, 130, 0.24, v * 0.35); break;
     }
   }

@@ -1,4 +1,5 @@
-import { DRUM_INSTRUMENTS, stepsPerBar, validatePattern, type DrumInstrument, type DrumPattern, type DrumTrack } from "../../../domain/rhythm/drums.ts";
+import { DRUM_INSTRUMENTS, meterForSignature, stepsPerBar, validatePattern, type DrumInstrument, type DrumPattern, type DrumTrack } from "../../../domain/rhythm/drums.ts";
+import type { TimeSignature } from "../../../domain/rhythm/meter.ts";
 
 /** A saved user pattern is the player's exact model plus persistence metadata. */
 export type UserPattern = DrumPattern & { createdAt: string; updatedAt: string; basedOnPresetId?: string };
@@ -14,12 +15,23 @@ function updated(pattern: UserPattern, now: string): UserPattern {
   if (!Number.isFinite(Date.parse(now))) throw new RangeError("Date invalide.");
   return { ...pattern, updatedAt: new Date(Math.max(Date.parse(now), Date.parse(pattern.createdAt))).toISOString() };
 }
+function userIdentity(id: string, now: string) {
+  if (!/^user-[a-zA-Z0-9-]{1,80}$/.test(id) || !Number.isFinite(Date.parse(now))) throw new RangeError("Identité ou date invalide.");
+  const date = new Date(now).toISOString();
+  return { id, createdAt: date, updatedAt: date };
+}
+export function blankUserPattern(source: DrumPattern, id: string, now: string): UserPattern {
+  if (id === source.id) throw new RangeError("Identité déjà utilisée.");
+  return {
+    ...userIdentity(id, now), name: "Mon rythme", description: "Rythme personnel.", style: source.style,
+    meter: { ...source.meter }, subdivision: 16 / source.meter.beatUnit, bars: 1, tracks: [],
+  };
+}
 export function copyUserPattern(source: DrumPattern, id: string, now: string): UserPattern {
-  if (!/^user-[a-zA-Z0-9-]{1,80}$/.test(id) || id === source.id || !Number.isFinite(Date.parse(now))) throw new RangeError("Identité ou date invalide.");
+  if (id === source.id) throw new RangeError("Identité déjà utilisée.");
   const name = `${source.name.slice(0, 72)} - copie`;
   const basedOnPresetId = isUserPattern(source) ? source.basedOnPresetId : source.id;
-  const date = new Date(now).toISOString();
-  const copy: UserPattern = { ...structuredClone(source), id, name, createdAt: date, updatedAt: date, basedOnPresetId };
+  const copy: UserPattern = { ...structuredClone(source), ...userIdentity(id, now), name, basedOnPresetId };
   validatePattern(copy);
   return copy;
 }
@@ -34,6 +46,10 @@ function replaceTrack(pattern: UserPattern, instrument: DrumInstrument, transfor
   validatePattern(result);
   return result;
 }
+export function nextStepVelocity(previousVelocity = 0): number {
+  if (previousVelocity === 0) return 0.75;
+  return previousVelocity < 1 ? 1 : 0;
+}
 export function cycleStep(pattern: UserPattern, instrument: DrumInstrument, bar: number, step: number, now: string): UserPattern {
   if (!Number.isInteger(bar) || bar < 0 || bar >= pattern.bars || !Number.isInteger(step) || step < 0 || step >= stepsPerBar(pattern)) throw new RangeError("Pas invalide.");
   const beat = Math.floor(step / pattern.subdivision), part = step % pattern.subdivision;
@@ -42,7 +58,8 @@ export function cycleStep(pattern: UserPattern, instrument: DrumInstrument, bar:
     const previous = track.events.find(matches);
     const events = track.events.filter((event) => !matches(event));
     // Preserve preset dynamics until a cell is edited; accents are exactly 1.0.
-    if (!previous || previous.velocity < 1) events.push({ position: { bar, beat, part }, velocity: previous ? 1 : 0.75 });
+    const velocity = nextStepVelocity(previous?.velocity);
+    if (velocity > 0) events.push({ position: { bar, beat, part }, velocity });
     events.sort((a, b) => a.position.bar - b.position.bar || a.position.beat - b.position.beat || a.position.part - b.position.part);
     return { ...track, events };
   }, now);
@@ -55,6 +72,33 @@ export function clearUserPattern(pattern: UserPattern, now: string): UserPattern
 }
 export function renameUserPattern(pattern: UserPattern, name: string, now: string): UserPattern {
   return updated({ ...pattern, name: patternName(name) }, now);
+}
+export function changePatternBars(pattern: UserPattern, bars: number, now: string): UserPattern {
+  if (!Number.isInteger(bars) || bars < 1 || bars > 32) throw new RangeError("Choisissez de 1 à 32 mesures.");
+  if (pattern.bars === bars) return pattern;
+  const tracks = bars >= pattern.bars ? pattern.tracks : pattern.tracks.map(track => ({
+    ...track, events: track.events.filter(event => event.position.bar < bars),
+  }));
+  return updated({ ...pattern, bars, tracks }, now);
+}
+export function changePatternSignature(pattern: UserPattern, signature: TimeSignature, now: string): UserPattern {
+  const meter = meterForSignature(signature);
+  if (pattern.meter.beats === meter.beats && pattern.meter.beatUnit === meter.beatUnit) return pattern;
+  // The new grid must contain every old grid line. When a triplet or quarter
+  // crosses an eighth-note boundary, split its steps in two rather than rounding.
+  const partsPerUnit = pattern.subdivision * pattern.meter.beatUnit / meter.beatUnit;
+  const subdivision = Number.isInteger(partsPerUnit) ? partsPerUnit : partsPerUnit * 2;
+  const stepRatio = subdivision / partsPerUnit;
+  const tracks = pattern.tracks.map(track => ({
+    ...track,
+    events: track.events.flatMap(event => {
+      const { bar, beat, part } = event.position;
+      const step = (beat * pattern.subdivision + part) * stepRatio;
+      if (step >= meter.beats * subdivision) return [];
+      return [{ ...event, position: { bar, beat: Math.floor(step / subdivision), part: step % subdivision } }];
+    }),
+  }));
+  return updated({ ...pattern, meter, subdivision, tracks }, now);
 }
 export function resetUserPattern(pattern: UserPattern, preset: DrumPattern, now: string): UserPattern {
   if (pattern.basedOnPresetId !== preset.id || isUserPattern(preset)) throw new RangeError("Preset d’origine incompatible.");

@@ -8,11 +8,12 @@ export function createGroovePlayer(
   { bpm, signature, volume }: Pick<MetronomeSettings, "bpm" | "signature" | "volume">,
   onInterrupted: () => void,
 ) {
+  const pattern = metronomeGroove(signature);
   return new DrumPlayer(
-    { bpm, volume, pattern: metronomeGroove(signature), countIn: 0 },
+    { bpm, volume, pattern, countIn: 0 },
     null,
     onInterrupted,
-    (context, output) => new AcousticDrumKit(context, output),
+    (context, output) => new AcousticDrumKit(context, output, pattern.tracks.map(track => track.instrument)),
     METRONOME_BPM_RANGE,
   );
 }

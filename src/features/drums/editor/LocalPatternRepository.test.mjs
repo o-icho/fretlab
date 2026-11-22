@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { DRUM_PATTERNS } from "../presets.ts";
-import { copyUserPattern, cycleStep, renameUserPattern, toggleTrackMute } from "./patternEditing.ts";
+import { DRUM_INSTRUMENTS } from "../../../domain/rhythm/drums.ts";
+import { blankUserPattern, changePatternBars, changePatternSignature, copyUserPattern, cycleStep, renameUserPattern, toggleTrackMute } from "./patternEditing.ts";
 import { decodeUserPattern, LocalPatternRepository, PATTERN_SCHEMA_VERSION, PATTERN_STORAGE_KEY } from "./LocalPatternRepository.ts";
 
 const date = "2026-10-05T10:00:00.000Z";
@@ -11,6 +12,21 @@ function memory() {
   const values = new Map();
   return { values, getItem: (key) => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
 }
+test("schema 1 reloads old preset copies alongside new nine-track rhythms in an odd meter", () => {
+  const storage = memory();
+  const original = pattern();
+  storage.setItem(PATTERN_STORAGE_KEY, JSON.stringify({ schemaVersion: 1, patterns: [original] }));
+  const repo = new LocalPatternRepository(storage);
+  let draft = blankUserPattern(original, "user-nine", date);
+  draft = changePatternBars(changePatternSignature(draft, "7/8", later), 3, later);
+  for (const instrument of DRUM_INSTRUMENTS) draft = cycleStep(draft, instrument, 2, 12, later);
+  repo.save(draft);
+  const reloaded = repo.list();
+  assert.equal(reloaded.length, 2);
+  assert.deepEqual(reloaded[0], decodeUserPattern(original));
+  assert.deepEqual(reloaded[1], decodeUserPattern(draft));
+  assert.equal(reloaded[1].tracks.length, 9);
+});
 test("save/load round trip preserves accent, mute, identity and dates in schema 1", () => {
   const storage = memory(); const repo = new LocalPatternRepository(storage);
   assert.deepEqual(repo.list(), []);

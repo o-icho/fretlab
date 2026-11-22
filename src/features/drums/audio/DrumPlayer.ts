@@ -1,7 +1,7 @@
-import { planDrumSteps, queuePattern, startDrumCursor, type DrumCursor, type DrumPattern, type DrumStep } from "../../../domain/rhythm/drums.ts";
+import { planDrumSteps, queuePattern, startDrumCursor, type DrumCursor, type DrumInstrument, type DrumPattern, type DrumStep } from "../../../domain/rhythm/drums.ts";
 import { clampBpm, DRUM_BPM_RANGE, type BpmRange } from "../../../domain/rhythm/tempo.ts";
 import { AudioScheduler, AUDIO_START_DELAY } from "../../audio/AudioScheduler.ts";
-import { BasicDrumKit } from "./BasicDrumKit.ts";
+import { AcousticDrumKit } from "./AcousticDrumKit.ts";
 import type { DrumKitFactory, DrumSoundProvider } from "./DrumSoundProvider";
 
 export type DrumSettings = { bpm: number; volume: number; pattern: DrumPattern; countIn: 0 | 1 | 2 };
@@ -23,7 +23,7 @@ export class DrumPlayer {
     settings: DrumSettings,
     onStep: ((step: DrumStep) => void) | null,
     onInterrupted: () => void,
-    createKit: DrumKitFactory = (context, output) => new BasicDrumKit(context, output),
+    createKit: DrumKitFactory = (context, output) => new AcousticDrumKit(context, output),
     bpmRange: BpmRange = DRUM_BPM_RANGE,
   ) {
     this.settings = settings;
@@ -37,10 +37,7 @@ export class DrumPlayer {
     this.settings = { ...settings, bpm: clampBpm(settings.bpm, this.bpmRange), volume: Math.max(0, Math.min(1, settings.volume)) };
     if (this.master && this.context) this.master.gain.setTargetAtTime(this.settings.volume, this.context.currentTime, 0.015);
   }
-  async start(): Promise<boolean> {
-    if (this.disposed) return false;
-    if (this.running) return true;
-    const generation = ++this.generation;
+  private async prepareAudio(generation: number) {
     if (!this.context) {
       this.context = new AudioContext({ latencyHint: "interactive" });
       this.master = this.context.createGain();
@@ -51,12 +48,27 @@ export class DrumPlayer {
     }
     const context = this.context;
     if (context.state === "suspended") await context.resume();
-    if (this.disposed || generation !== this.generation) return false;
+    if (generation !== this.generation) return null;
     if (this.kit?.prepare) await this.kit.prepare();
-    if (this.disposed || generation !== this.generation) return false;
+    if (generation !== this.generation) return null;
     if (context.state !== "running") throw new Error("Audio indisponible.");
-    this.master!.gain.setValueAtTime(this.settings.volume, this.context.currentTime);
-    this.cursor = startDrumCursor(this.settings.pattern, this.context.currentTime + AUDIO_START_DELAY, this.settings.countIn);
+    this.master!.gain.setValueAtTime(this.settings.volume, context.currentTime);
+    return context;
+  }
+  async preview(instrument: DrumInstrument, velocity: number) {
+    if (this.disposed || this.running || velocity <= 0 || this.settings.volume === 0) return;
+    const generation = ++this.generation;
+    const context = await this.prepareAudio(generation);
+    if (context && generation === this.generation) this.kit!.trigger(instrument, context.currentTime, velocity);
+  }
+  async start(): Promise<boolean> {
+    if (this.disposed) return false;
+    if (this.running) return true;
+    const generation = ++this.generation;
+    this.kit?.stop();
+    const context = await this.prepareAudio(generation);
+    if (!context || generation !== this.generation) return false;
+    this.cursor = startDrumCursor(this.settings.pattern, context.currentTime + AUDIO_START_DELAY, this.settings.countIn);
     this.running = true;
     this.scheduler!.start();
     return this.running;

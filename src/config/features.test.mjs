@@ -7,29 +7,28 @@ import { tools } from "../lib/content.ts";
 import { PUBLIC_PATHS } from "../lib/sitemap.ts";
 test("flags, registre et identifiants cohérents", () => {
   assert.equal(isFeatureEnabled("metronome"),true);
-  assert.equal(isFeatureEnabled("drumMachine"),false);
+  assert.equal(isFeatureEnabled("drumMachine"),true);
   assert.equal(isFeatureEnabled("chordProgressions"),false);
-  assert.equal(getEnabledFeatures().length,7);
+  assert.equal(getEnabledFeatures().length,8);
   for(const id of Object.keys(featureFlags)) assert.equal(getFeatureDefinition(id).id,id);
   assert.equal(new Set(Object.keys(featureFlags).map(id=>getFeatureDefinition(id).href)).size,9);
 });
 test("navigation et cartes partagent la liste filtrée ; sitemap filtré",()=>{
   assert.deepEqual(tools,getEnabledFeatures());
-  for(const id of ["drumMachine","chordProgressions"]){
-    const feature=getFeatureDefinition(id);
-    assert.equal(tools.some(tool=>tool.id===id),false);
-    assert.equal(PUBLIC_PATHS.includes(feature.href),false);
-  }
+  const disabled=getFeatureDefinition("chordProgressions");
+  assert.equal(tools.some(tool=>tool.id===disabled.id),false);
+  assert.equal(PUBLIC_PATHS.includes(disabled.href),false);
+  assert.ok(tools.some(tool=>tool.id==="drumMachine"));
   for(const feature of tools) assert.ok(PUBLIC_PATHS.includes(feature.href));
 });
 test("garde des routes : fallback noindex pour disabled, enabled autorisé",()=>{
   assert.equal(featureRouteFallback("metronome"),null);
-  for(const id of ["drumMachine","chordProgressions"])
-    assert.match(renderToStaticMarkup(featureRouteFallback(id)), /noindex, nofollow/);
+  assert.equal(featureRouteFallback("drumMachine"),null);
+  assert.match(renderToStaticMarkup(featureRouteFallback("chordProgressions")), /noindex, nofollow/);
 });
 test("liens éditoriaux : routes connues, query, sous-pages et sites externes",()=>{
   assert.equal(isFeatureHrefEnabled("/outils/progressions/?key=G"),false);
-  assert.equal(isFeatureHrefEnabled("https://fretlab.fr/outils/boite-a-rythmes/"),false);
+  assert.equal(isFeatureHrefEnabled("https://fretlab.fr/outils/boite-a-rythmes/"),true);
   assert.equal(isFeatureHrefEnabled("/outils/metronome"),true);
   assert.equal(isFeatureHrefEnabled("/articles/test"),true);
   assert.equal(isFeatureHrefEnabled("https://example.com/outils/progressions"),true);

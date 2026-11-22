@@ -1,5 +1,5 @@
-import type { DrumPattern, DrumEvent } from "../../domain/rhythm/drums.ts";
-import { SIGNATURE_INFO, type TimeSignature } from "../../domain/rhythm/meter.ts";
+import { meterForSignature, type DrumPattern, type DrumEvent } from "../../domain/rhythm/drums.ts";
+import type { TimeSignature } from "../../domain/rhythm/meter.ts";
 
 // All positions are eighth notes from the downbeat, including in compound time.
 // The hats articulate the grouping while the kick and snare supply the groove.
@@ -18,10 +18,9 @@ const GROOVES: Record<TimeSignature, Groove> = {
 
 export function metronomeGroove(signature: TimeSignature): DrumPattern {
   const groove = GROOVES[signature];
-  const meter = SIGNATURE_INFO[signature];
-  const quarterNotes = meter.unit === "quarter";
-  const subdivision = quarterNotes ? 2 : 1;
-  const lastEighth = meter.steps * subdivision - 1;
+  const meter = meterForSignature(signature);
+  const subdivision = 8 / meter.beatUnit;
+  const lastEighth = meter.beats * subdivision - 1;
   function hit(eighth: number, velocity: number): DrumEvent {
     const beat = Math.floor(eighth / subdivision);
     return { position: { bar: 0, beat, part: eighth % subdivision }, velocity };
@@ -39,7 +38,7 @@ export function metronomeGroove(signature: TimeSignature): DrumPattern {
     name: groove.name,
     description: `${groove.name} en ${signature}`,
     style: signature === "12/8" ? "blues" : "rock",
-    meter: { beats: meter.steps, beatUnit: quarterNotes ? 4 : 8, pulseBeats: meter.subdivisions },
+    meter,
     bars: 1,
     subdivision,
     tracks: [

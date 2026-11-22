@@ -1,14 +1,14 @@
-import type { DrumInstrument } from "../../../domain/rhythm/drums";
+import { DRUM_INSTRUMENTS, type DrumInstrument } from "../../../domain/rhythm/drums.ts";
 import { BasicDrumKit } from "./BasicDrumKit.ts";
 import type { DrumSoundProvider } from "./DrumSoundProvider";
 
 // Peaks are normalized in the recordings; these gains set the kit balance.
-const SAMPLES = [
-  { instrument: "kick", level: 0.72 },
-  { instrument: "snare", level: 0.62 },
-  { instrument: "closed-hat", level: 0.30 },
-  { instrument: "open-hat", level: 0.32 },
-] as const;
+const LEVELS: Record<DrumInstrument, number> = {
+  kick: 0.72, snare: 0.62,
+  "closed-hat": 0.30, "open-hat": 0.32,
+  "tom-low": 0.55, "tom-mid": 0.47, "tom-high": 0.54,
+  ride: 0.36, crash: 0.41,
+};
 type Voice = { source: AudioBufferSourceNode; gain: GainNode };
 
 export class AcousticDrumKit implements DrumSoundProvider {
@@ -21,9 +21,27 @@ export class AcousticDrumKit implements DrumSoundProvider {
 
   private context: AudioContext;
   private output: AudioNode;
-  constructor(context: AudioContext, output: AudioNode) {
+  private limiter: DynamicsCompressorNode | null = null;
+  private trim: GainNode | null = null;
+  private instruments: readonly DrumInstrument[];
+  constructor(context: AudioContext, output: AudioNode, instruments: readonly DrumInstrument[] = DRUM_INSTRUMENTS) {
     this.context = context;
-    this.output = output;
+    this.instruments = instruments;
+    // An editor step can stack all nine accented sounds on one transient.
+    if (instruments.length === DRUM_INSTRUMENTS.length) {
+      this.limiter = context.createDynamicsCompressor();
+      this.limiter.threshold.value = -3;
+      this.limiter.knee.value = 1;
+      this.limiter.ratio.value = 20;
+      this.limiter.attack.value = 0;
+      this.limiter.release.value = 0.1;
+      // Leave 3 dB of output headroom after the compressor's automatic makeup gain.
+      this.trim = context.createGain();
+      this.trim.gain.value = 0.708;
+      this.limiter.connect(this.trim);
+      this.trim.connect(output);
+    }
+    this.output = this.limiter ?? output;
   }
 
   prepare() {
@@ -34,11 +52,11 @@ export class AcousticDrumKit implements DrumSoundProvider {
   private async load() {
     const signal = this.abort.signal;
     try {
-      const samples = await Promise.all(SAMPLES.map(async ({ instrument, level }) => {
+      const samples = await Promise.all(this.instruments.map(async (instrument) => {
         const response = await fetch(`/audio/metronome-kit/${instrument}.wav`, { signal });
         if (!response.ok) throw new Error("Échantillon de batterie indisponible.");
         const buffer = await this.context.decodeAudioData(await response.arrayBuffer());
-        return { instrument, buffer, level };
+        return { instrument, buffer, level: LEVELS[instrument] };
       }));
       if (!signal.aborted) {
         for (const sample of samples) this.samples.set(sample.instrument, sample);
@@ -106,5 +124,7 @@ export class AcousticDrumKit implements DrumSoundProvider {
     this.stop();
     this.samples.clear();
     this.fallback = null;
+    this.limiter?.disconnect();
+    this.trim?.disconnect();
   }
 }

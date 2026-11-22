@@ -3,8 +3,11 @@ import assert from "node:assert/strict";
 import { createGroovePlayer } from "./GroovePlayer.ts";
 import { AUDIO_START_DELAY } from "../audio/AudioScheduler.ts";
 import { BasicDrumKit } from "../drums/audio/BasicDrumKit.ts";
+import { DrumPlayer } from "../drums/audio/DrumPlayer.ts";
+import { DRUM_INSTRUMENTS } from "../../domain/rhythm/drums.ts";
+import { metronomeGroove } from "./groove.ts";
 
-function setup(t, bpm, fetchRecording = (path) => Promise.resolve(new Response(path))) {
+function setup(t, bpm, fetchRecording = (path) => Promise.resolve(new Response(path)), makePlayer = createGroovePlayer) {
   const requests = [], sources = [], gains = [], contexts = [], timers = new Map();
   let nextId = 0, interruptions = 0;
   t.mock.method(globalThis, "fetch", (path, { signal }) => {
@@ -23,6 +26,9 @@ function setup(t, bpm, fetchRecording = (path) => Promise.resolve(new Response(p
     async close() { this.state = "closed"; }
     async decodeAudioData(data) { return { path: new TextDecoder().decode(data) }; }
     createBuffer(_channels, length) { return { getChannelData: () => new Float32Array(length) }; }
+    createDynamicsCompressor() {
+      return { threshold: {}, knee: {}, ratio: {}, attack: {}, release: {}, connect() {}, disconnect() {} };
+    }
     createGain() {
       const node = {
         gain: { setValueAtTime(value) { this.value = value; }, setTargetAtTime() {} },
@@ -41,7 +47,7 @@ function setup(t, bpm, fetchRecording = (path) => Promise.resolve(new Response(p
       return node;
     }
   };
-  const engine = createGroovePlayer({ bpm, volume: 0.76, signature: "6/8" }, () => interruptions++);
+  const engine = makePlayer({ bpm, volume: 0.76, signature: "6/8" }, () => interruptions++);
   t.after(() => { engine.dispose(); delete globalThis.AudioContext; });
   function advance(time) {
     contexts[0].currentTime = time;
@@ -51,6 +57,39 @@ function setup(t, bpm, fetchRecording = (path) => Promise.resolve(new Response(p
   }
   return { engine, requests, sources, gains, contexts, timers, advance, interruptions: () => interruptions };
 }
+
+function makeEditorPlayer({ bpm, volume, signature }, onInterrupted) {
+  return new DrumPlayer({ bpm, volume, pattern: metronomeGroove(signature), countIn: 0 }, null, onInterrupted);
+}
+
+test("the editor previews nine distinct recordings at rest without starting the loop", async (t) => {
+  const s = setup(t, 120, undefined, makeEditorPlayer);
+  for (const instrument of DRUM_INSTRUMENTS) await s.engine.preview(instrument, 0.75);
+  assert.deepEqual(s.sources.map(source => source.buffer.path), DRUM_INSTRUMENTS.map(name => `/audio/metronome-kit/${name}.wav`));
+  assert.equal(s.requests.length, 9);
+  assert.equal(s.contexts.length, 1);
+  assert.equal(s.timers.size, 0);
+  assert.equal(s.gains[0].gain.value, 0.76);
+  assert.equal(await s.engine.start(), true);
+  assert.ok(s.sources.slice(0, 9).every(source => source.disconnected));
+  const scheduled = s.sources.length;
+  await s.engine.preview("snare", 1);
+  assert.equal(s.sources.length, scheduled);
+  s.engine.stop();
+  assert.equal(s.timers.size, 0);
+});
+
+test("an interrupted preview cannot sound when sample loading finishes", async (t) => {
+  const loading = Promise.withResolvers();
+  const s = setup(t, 100, path => loading.promise.then(() => new Response(path)), makeEditorPlayer);
+  const preview = s.engine.preview("tom-mid", 1);
+  await Promise.resolve();
+  assert.equal(s.requests.length, 9);
+  s.engine.stop();
+  loading.resolve();
+  await preview;
+  assert.equal(s.sources.length, 0);
+});
 
 for (const bpm of [30, 300]) {
   test(`sampled groove loops and chokes the open hat at the next downbeat at ${bpm} BPM`, async (t) => {
