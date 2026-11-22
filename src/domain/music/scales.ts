@@ -54,11 +54,41 @@ export const SCALE_DEFINITIONS = [
     { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 9, label: "6" },
     { degree: 7, semitones: 10, label: "b7" },
   ] },
+  { id: "phrygian", name: "Phrygien", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 1, label: "b2" },
+    { degree: 3, semitones: 3, label: "b3" }, { degree: 4, semitones: 5, label: "4" },
+    { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 8, label: "b6" },
+    { degree: 7, semitones: 10, label: "b7" },
+  ] },
+  { id: "lydian", name: "Lydien", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 2, label: "2" },
+    { degree: 3, semitones: 4, label: "3" }, { degree: 4, semitones: 6, label: "#4" },
+    { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 9, label: "6" },
+    { degree: 7, semitones: 11, label: "7" },
+  ] },
   { id: "mixolydian", name: "Mixolydien", intervals: [
     { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 2, label: "2" },
     { degree: 3, semitones: 4, label: "3" }, { degree: 4, semitones: 5, label: "4" },
     { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 9, label: "6" },
     { degree: 7, semitones: 10, label: "b7" },
+  ] },
+  { id: "locrian", name: "Locrien", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 1, label: "b2" },
+    { degree: 3, semitones: 3, label: "b3" }, { degree: 4, semitones: 5, label: "4" },
+    { degree: 5, semitones: 6, label: "b5" }, { degree: 6, semitones: 8, label: "b6" },
+    { degree: 7, semitones: 10, label: "b7" },
+  ] },
+  { id: "diminished-whole-half", name: "Diminuée (ton–demi-ton)", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 2, label: "2" },
+    { degree: 3, semitones: 3, label: "b3" }, { degree: 4, semitones: 5, label: "4" },
+    { degree: 5, semitones: 6, label: "b5" }, { degree: 6, semitones: 8, label: "b6" },
+    { degree: 6, semitones: 9, label: "6" }, { degree: 7, semitones: 11, label: "7" },
+  ] },
+  { id: "diminished-half-whole", name: "Diminuée (demi-ton–ton)", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 1, label: "b2" },
+    { degree: 3, semitones: 3, label: "b3" }, { degree: 3, semitones: 4, label: "3" },
+    { degree: 5, semitones: 6, label: "b5" }, { degree: 5, semitones: 7, label: "5" },
+    { degree: 6, semitones: 9, label: "6" }, { degree: 7, semitones: 10, label: "b7" },
   ] },
 ] as const satisfies readonly ScaleDefinition[];
 
@@ -94,18 +124,20 @@ export function generateScale(rootName: string, id: ScaleId, notation: ScaleNota
   if (notation === "auto" && spellings.some((spelling) => spelling === null)) {
     const candidates = [FLAT_NOTES[root.pitchClass], SHARP_NOTES[root.pitchClass]];
     const alternative = candidates.find((name) => definition.intervals.every((interval) => spellInterval(parseNote(name)!, interval)));
-    if (!alternative) throw new RangeError("Orthographe de gamme non prise en charge.");
-    displayedRoot = alternative;
-    spellings = definition.intervals.map((interval) => spellInterval(parseNote(alternative)!, interval));
+    if (alternative) {
+      displayedRoot = alternative;
+      spellings = definition.intervals.map((interval) => spellInterval(parseNote(alternative)!, interval));
+    }
   } else if (notation !== "auto") {
     displayedRoot = noteName(root.pitchClass, notation);
   }
+  const preference = notation === "auto" ? (root.spelling.accidental < 0 ? "flats" : "sharps") : notation;
   const notes = definition.intervals.map((interval, index): ScaleNote => {
     const notePitch = pitchClass(root.pitchClass + interval.semitones);
-    const spelling = notation === "auto"
-      ? spellings[index]!
-      : { name: noteName(notePitch, notation), spelling: parseNote(noteName(notePitch, notation))!.spelling };
-    return { ...spelling, pitchClass: notePitch, interval, isRoot: interval.semitones === 0 };
+    // Some octatonic scales require a double accidental with either spelling of the root.
+    const automaticName = notation === "auto" ? spellings[index]?.name : undefined;
+    const name = automaticName ?? noteName(notePitch, preference);
+    return { name, spelling: parseNote(name)!.spelling, pitchClass: notePitch, interval, isRoot: interval.semitones === 0 };
   });
   return { definition, requestedRoot: rootName, root: { ...parseNote(displayedRoot)!, name: displayedRoot }, notation, notes };
 }

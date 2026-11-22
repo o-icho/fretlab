@@ -8,7 +8,7 @@ Les sélections et calculs fonctionnent localement, sans requête réseau.
 - `src/domain/music/intervals.ts` : un intervalle possède un degré diatonique,
   une distance en demi-tons et un label (par exemple b3). Ces informations
   restent distinctes pour orthographier correctement une gamme.
-- `scales.ts` : neuf définitions par intervalles et `generateScale(root, id, notation)`.
+- `scales.ts` : les définitions par intervalles et `generateScale(root, id, notation)`.
   Le résultat contient sa définition, sa fondamentale, ses notes, pitch classes,
   orthographes et intervalles. Il peut être consommé sans React par une future
   progression, une analyse harmonique ou un service explicite de coaching.
@@ -30,7 +30,9 @@ Définitions vérifiables : majeure 0/2/4/5/7/9/11 ; mineure naturelle
 0/2/3/5/7/8/10 ; mineure harmonique 0/2/3/5/7/8/11 ; mineure mélodique ascendante
 0/2/3/5/7/9/11 ; pentatonique majeure 0/2/4/7/9 ; pentatonique mineure
 0/3/5/7/10 ; blues mineure 0/3/5/6/7/10 ; dorien 0/2/3/5/7/9/10 ;
-mixolydien 0/2/4/5/7/9/10.
+phrygien 0/1/3/5/7/8/10 ; lydien 0/2/4/6/7/9/11 ; mixolydien 0/2/4/5/7/9/10 ;
+locrien 0/1/3/5/6/8/10 ; diminuée ton–demi-ton 0/2/3/5/6/8/9/11 ;
+diminuée demi-ton–ton 0/1/3/4/6/7/9/10.
 Références pédagogiques : [gammes mineures](https://2012.musictheory.net/lessons/22),
 [modes](https://online.berklee.edu/takenote/music-modes-major-and-minor/),
 [pentatonique et blues](https://pulse.berklee.edu/?id=4&lesson=7).
@@ -68,7 +70,7 @@ de box pentatonique, backend ou bibliothèque musicale supplémentaire n’est c
 
 ## Validation
 
-`scales.test.mjs` couvre les neuf gammes, toutes les fondamentales proposées,
+`scales.test.mjs` couvre toutes les gammes et fondamentales proposées,
 les transpositions, l’orthographe, les accordages et le mapping des frettes.
 `settings.test.mjs` vérifie les URL, valeurs invalides et zones ciblées.
 Les tests existants continuent à couvrir accords, transposition, rythme et

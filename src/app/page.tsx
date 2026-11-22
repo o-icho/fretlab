@@ -3,16 +3,17 @@ import Link from "next/link";
 import { ArticleCards } from "@/components/ArticleCards";
 import { Container } from "@/components/Container";
 import { Icon } from "@/components/Icon";
+import { getFeatureDefinition, isFeatureEnabled, type FeatureId } from "@/config/features";
 import { tools } from "@/lib/content";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, pageMetadata } from "@/lib/metadata";
 import styles from "./home.module.css";
 
 export const metadata = pageMetadata(DEFAULT_TITLE, DEFAULT_DESCRIPTION, "/", true);
 
-export default function Home() {
-  const tuner = tools.find((tool) => tool.id === "tuner");
-  const directory = tuner ? [tuner, ...tools.filter((tool) => tool !== tuner)] : tools;
+const featuredIds: FeatureId[] = ["tuner", "metronome", "chordDictionary", "scales"];
+const featuredTools = featuredIds.filter(isFeatureEnabled).map(getFeatureDefinition);
 
+export default function Home() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="home-title">
@@ -22,12 +23,19 @@ export default function Home() {
         </div>
         <Container>
           <div className={styles.heroCopy}>
-            <h1 id="home-title">Prends ta<br />guitare.</h1>
-            <p>Accorde-toi, trouve un accord et travaille ton rythme.</p>
-            <Link href={tuner?.href ?? "#outils"} className={styles.action}>
-              {tuner ? "Ouvrir l’accordeur" : "Découvrir les outils"}
-              <Icon name="arrow" size={23} />
-            </Link>
+            <h1 id="home-title">L’atelier guitare</h1>
+            <p>Des outils pour l’accordage, le rythme et l’harmonie.</p>
+            <ul className={styles.featuredTools}>
+              {featuredTools.map((tool) => (
+                <li key={tool.id}>
+                  <Link href={tool.href}>
+                    <Icon name={tool.icon} size={25} />
+                    <span>{tool.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <a href="#outils" className={styles.allTools}>Tous les outils <Icon name="arrow" size={17} /></a>
           </div>
         </Container>
       </section>
@@ -35,7 +43,7 @@ export default function Home() {
         <section id="outils" className={styles.section} aria-labelledby="tools-title">
           <h2 id="tools-title">Les outils</h2>
           <ul className={styles.tools}>
-            {directory.map((tool) => (
+            {tools.map((tool) => (
               <li key={tool.id}>
                 <Link href={tool.href}>
                   <Icon name={tool.icon} size={34} />

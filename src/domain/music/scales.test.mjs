@@ -15,13 +15,27 @@ for (const [root, id, expected] of [
   ["A", "minor-pentatonic", "A C D E G"],
   ["A", "minor-blues", "A C D Eb E G"],
   ["D", "dorian", "D E F G A B C"],
+  ["C", "phrygian", "C Db Eb F G Ab Bb"],
+  ["C", "lydian", "C D E F# G A B"],
   ["G", "mixolydian", "G A B C D E F"],
+  ["C", "locrian", "C Db Eb F Gb Ab Bb"],
 ]) test(`${root} ${id} has the verified notes and root`, () => {
   const scale = generateScale(root, id);
   assert.equal(scale.notes.map((note) => note.name).join(" "), expected);
   assert.equal(scale.notes.filter((note) => note.isRoot).length, 1);
   assert.equal(scale.notes[0].pitchClass, parseNote(root).pitchClass);
   assert.equal(scale.notes[0].interval.label, "1");
+});
+
+for (const [id, offsets] of [
+  ["diminished-whole-half", [0, 2, 3, 5, 6, 8, 9, 11]],
+  ["diminished-half-whole", [0, 1, 3, 4, 6, 7, 9, 10]],
+]) test(`${id} preserves the octatonic pattern from every root`, () => {
+  for (const root of ROOTS) {
+    const { notes } = generateScale(root, id);
+    const tonic = parseNote(root).pitchClass;
+    assert.deepEqual(notes.map(note => note.pitchClass), offsets.map(offset => pitchClass(tonic + offset)), root);
+  }
 });
 
 test("auto spelling follows diatonic degrees, not a global chromatic preference", () => {
@@ -50,7 +64,9 @@ test("all roots and scales transpose canonically with valid independent spelling
     for (const root of ROOTS) {
       const scale = generateScale(root, definition.id);
       for (const [index, note] of scale.notes.entries()) {
-        assert.equal(parseNote(note.name).pitchClass, note.pitchClass, `${root} ${definition.id} ${note.name}`);
+        const parsed = parseNote(note.name);
+        assert.equal(parsed.pitchClass, note.pitchClass, `${root} ${definition.id} ${note.name}`);
+        assert.deepEqual(note.spelling, parsed.spelling);
         assert.equal(note.pitchClass, pitchClass(parseNote(root).pitchClass + definition.intervals[index].semitones));
       }
       for (const semitones of [-11, -2, 1, 2, 7, 12]) {
