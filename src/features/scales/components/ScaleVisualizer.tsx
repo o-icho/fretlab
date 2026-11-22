@@ -12,8 +12,36 @@ import { useAudioPause } from "@/features/audio/useAudioPause";
 import { Icon } from "@/components/Icon";
 import { DEFAULT_SCALE_SETTINGS, POSITION_STARTS, parseScaleSettings, scaleSearchParams, scaleFretRange, type ScaleSettings } from "../settings";
 import styles from "./scales.module.css";
+import { useFretboardFullscreen } from "./useFretboardFullscreen";
 
 export function ScaleVisualizer() {
+  const { ref: workspace, active, enter, exit } = useFretboardFullscreen();
+  const enterButton = useRef<HTMLButtonElement>(null);
+  const exitButton = useRef<HTMLButtonElement>(null);
+  const returnScroll = useRef<number | null>(null);
+  useEffect(() => {
+    if (!active) {
+      if (returnScroll.current !== null) {
+        enterButton.current?.focus({ preventScroll: true });
+        window.scrollTo({ top: returnScroll.current, behavior: "instant" });
+        returnScroll.current = null;
+      }
+      return;
+    }
+    exitButton.current?.focus({ preventScroll: true });
+    // In the in-page fallback, keep keyboard and screen-reader navigation inside the workspace.
+    const outside: HTMLElement[] = [];
+    for (let child = workspace.current; child?.parentElement && child !== document.body; child = child.parentElement) {
+      for (const sibling of child.parentElement.children) {
+        if (sibling !== child && sibling instanceof HTMLElement && !sibling.inert) {
+          sibling.setAttribute("inert", "");
+          outside.push(sibling);
+        }
+      }
+    }
+    return () => { outside.forEach((element) => element.removeAttribute("inert")); };
+  }, [active, workspace]);
+
   const searchParams = useSearchParams();
   const settings = parseScaleSettings(searchParams);
   const scale = generateScale(settings.root, settings.scale);
@@ -79,23 +107,25 @@ export function ScaleVisualizer() {
   }
 
   return (
-    <section className={styles.workspace} aria-label="Explorer une gamme de guitare">
+    <section ref={workspace} className={active ? `${styles.workspace} ${styles.immersive}` : styles.workspace}
+      role={active ? "dialog" : undefined} aria-modal={active || undefined}
+      aria-label={active ? "Manche en plein écran" : "Explorer une gamme de guitare"}>
       <div className={styles.controls}>
         <div className={styles.field}>
           <label htmlFor="scale-root">Fondamentale</label>
-          <select id="scale-root" value={settings.root} aria-describedby="scale-root-help"
+          <select id="scale-root" value={settings.root} aria-describedby={active ? undefined : "scale-root-help"}
             onChange={(event) => update({ root: event.target.value as ScaleSettings["root"], hidden: [] })}>
             {ROOTS.map((root) => <option key={root} value={root}>{root}</option>)}
           </select>
-          <p id="scale-root-help">La note de départ de votre gamme.</p>
+          {!active && <p id="scale-root-help">La note de départ de votre gamme.</p>}
         </div>
         <div className={styles.field}>
           <label htmlFor="scale-kind">Gamme</label>
-          <select id="scale-kind" value={settings.scale} aria-describedby="scale-kind-help"
+          <select id="scale-kind" value={settings.scale} aria-describedby={active ? undefined : "scale-kind-help"}
             onChange={(event) => update({ scale: event.target.value as ScaleSettings["scale"], hidden: [] })}>
             {SCALE_DEFINITIONS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
-          <p id="scale-kind-help">Choisissez les notes à explorer.</p>
+          {!active && <p id="scale-kind-help">Choisissez les notes à explorer.</p>}
         </div>
         <div className={styles.field}>
           <label htmlFor="scale-tuning">Accordage</label>
@@ -103,11 +133,13 @@ export function ScaleVisualizer() {
             onChange={(event) => update({ tuning: event.target.value as ScaleSettings["tuning"] })}>
             {TUNINGS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
-          <p>{strings.map((string) => string.note).join(" · ")} — grave → aigu</p>
+          {!active && <p>{strings.map((string) => string.note).join(" · ")} — grave → aigu</p>}
         </div>
+        {active && <button type="button" ref={exitButton} className={styles.fullscreenButton}
+          aria-label="Quitter le plein écran" onClick={exit}><Icon name="collapse" size={18} />Quitter</button>}
       </div>
 
-      <div className={styles.toolbar}>
+      {!active && <div className={styles.toolbar}>
         <fieldset className={styles.toggle}>
           <legend>Affichage</legend>
           <div>
@@ -131,14 +163,22 @@ export function ScaleVisualizer() {
             </select>
           </div>
         )}
-      </div>
+        <button type="button" ref={enterButton} className={styles.fullscreenButton} onClick={() => {
+          returnScroll.current = window.scrollY;
+          void enter();
+        }}>
+          <Icon name="expand" size={18} />Plein écran du manche
+        </button>
+      </div>}
 
       <div className={styles.panel}>
         <div className={styles.summary}>
-          <p className={styles.kicker}>VOTRE GAMME SUR LE MANCHE</p>
-          <h2>{title}</h2>
-          <p className={styles.summaryHelp}>Cases {range.start} à {range.end} · {tuning.name}</p>
-          <p className={styles.summaryHelp}>Sélectionnez les notes à afficher sur le manche.</p>
+          {!active && <>
+            <p className={styles.kicker}>VOTRE GAMME SUR LE MANCHE</p>
+            <h2>{title}</h2>
+            <p className={styles.summaryHelp}>Cases {range.start} à {range.end} · {tuning.name}</p>
+            <p className={styles.summaryHelp}>Sélectionnez les notes à afficher sur le manche.</p>
+          </>}
           <ol className={styles.notes} aria-label="Notes à afficher sur le manche">
             {scale.notes.map((note) => (
               <li key={note.interval.label}>
@@ -153,21 +193,22 @@ export function ScaleVisualizer() {
             ))}
           </ol>
         </div>
-        <div className={styles.legend}>
+        {active && <p className={styles.rotationHint}>Tournez le téléphone pour agrandir le manche.</p>}
+        {!active && <div className={styles.legend}>
           <span><i className={styles.rootDot} aria-hidden="true" />Fondamentale · double cercle</span>
           <span><i className={styles.noteDot} aria-hidden="true" />Autres notes de la gamme</span>
-        </div>
-        <p className={styles.summaryHelp}>{settings.hidden.length === scale.notes.length
+        </div>}
+        {(!active || settings.hidden.length === scale.notes.length) && <p className={styles.summaryHelp}>{settings.hidden.length === scale.notes.length
           ? "Le manche est vide. Sélectionnez une note ci-dessus pour la retrouver."
-          : "Cliquez sur une note du manche pour l’écouter."}</p>
+          : "Cliquez sur une note du manche pour l’écouter."}</p>}
         {audioError && <p role="alert">Lecture audio indisponible. Réessayez en sélectionnant une note.</p>}
-        <Fretboard title={`${title} — manche de guitare`} tuning={tuning} range={range} onPlay={playNote}
+        <Fretboard title={`${title} — manche de guitare`} tuning={tuning} range={range} onPlay={playNote} immersive={active}
           markers={positions.map((position) => ({
             stringIndex: position.stringIndex, fret: position.fret, midi: position.midi, isRoot: position.scaleNote.isRoot,
             label: settings.display === "notes" ? position.scaleNote.name : position.scaleNote.interval.label,
             description: `Corde ${strings.length - position.stringIndex}, case ${position.fret} : ${position.scaleNote.name}, intervalle ${position.scaleNote.interval.label}${position.scaleNote.isRoot ? ", fondamentale" : ""}`,
           }))} />
-        <details className={styles.positions}>
+        {!active && <details className={styles.positions}>
           <summary>Lire les notes corde par corde</summary>
           <ul>
             {strings.map((string, index) => (
@@ -179,16 +220,16 @@ export function ScaleVisualizer() {
               </li>
             ))}
           </ul>
-        </details>
+        </details>}
       </div>
 
-      <div className={styles.actions}>
+      {!active && <div className={styles.actions}>
         <div className={styles.share}>
           <button type="button" onClick={() => void copyLink()}><Icon name="transpose" size={17} />Copier le lien</button>
           <span role="status">{shareStatus === "copied" ? "Lien copié !" : shareStatus === "error" ? "Copie indisponible. Vous pouvez copier l’URL de la page." : "Retrouvez ces réglages avec le même lien."}</span>
         </div>
         <button type="button" onClick={() => update(DEFAULT_SCALE_SETTINGS)}>Réinitialiser</button>
-      </div>
+      </div>}
     </section>
   );
 }

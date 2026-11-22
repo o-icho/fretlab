@@ -14,6 +14,7 @@ export function NativeLifecycle() {
           if (!isActive) window.dispatchEvent(new Event("fretlab:pause"));
         }),
         App.addListener("backButton", ({ canGoBack }) => {
+          if (!window.dispatchEvent(new Event("fretlab:back", { cancelable: true }))) return;
           if (canGoBack) window.history.back();
           else if (window.location.pathname !== "/")
             window.location.replace("/");

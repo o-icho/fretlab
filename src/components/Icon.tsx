@@ -45,6 +45,8 @@ export function Icon({
       </>
     ),
     arrow: <path d="M4 12h16m-6-6 6 6-6 6" />,
+    expand: <path d="M9 3H3v6m12-6h6v6M3 15v6h6m6 0h6v-6" />,
+    collapse: <path d="M3 9h6V3m6 0v6h6M3 15h6v6m6 0v-6h6" />,
     chevron: <path d="m8 10 4 4 4-4" />,
     check: <path d="m5 12 4 4L19 6" />,
   };
