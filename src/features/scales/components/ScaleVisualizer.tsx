@@ -10,9 +10,11 @@ import { Fretboard } from "@/components/music/Fretboard";
 import { MidiNotePlayer } from "@/features/audio/MidiNotePlayer";
 import { useAudioPause } from "@/features/audio/useAudioPause";
 import { Icon } from "@/components/Icon";
-import { DEFAULT_SCALE_SETTINGS, POSITION_STARTS, parseScaleSettings, scaleSearchParams, scaleFretRange, type ScaleSettings } from "../settings";
+import { DEFAULT_SCALE_SETTINGS, parseScaleSettings, scaleSearchParams, type ScaleSettings } from "../settings";
 import styles from "./scales.module.css";
 import { useFretboardFullscreen } from "./useFretboardFullscreen";
+
+const range = { start: 0, end: 24 } as const;
 
 export function ScaleVisualizer() {
   const { ref: workspace, active, enter, exit } = useFretboardFullscreen();
@@ -46,7 +48,6 @@ export function ScaleVisualizer() {
   const settings = parseScaleSettings(searchParams);
   const scale = generateScale(settings.root, settings.scale);
   const tuning = TUNINGS.find((item) => item.id === settings.tuning)!;
-  const range = scaleFretRange(settings);
   const positions = mapScaleToFretboard(scale, tuning, range)
     .filter(({ scaleNote }) => !settings.hidden.includes(scaleNote.interval.semitones));
   const strings = tuningNotes(tuning);
@@ -147,22 +148,6 @@ export function ScaleVisualizer() {
             <button type="button" aria-pressed={settings.display === "intervals"} onClick={() => update({ display: "intervals" })}>Intervalles</button>
           </div>
         </fieldset>
-        <fieldset className={styles.toggle}>
-          <legend>Zone du manche</legend>
-          <div>
-            <button type="button" aria-pressed={settings.view === "full"} onClick={() => update({ view: "full" })}>Manche complet</button>
-            <button type="button" aria-pressed={settings.view === "position"} onClick={() => update({ view: "position" })}>Zone ciblée</button>
-          </div>
-        </fieldset>
-        {settings.view === "position" && (
-          <div className={styles.position}>
-            <label htmlFor="scale-position">Début de position</label>
-            <select id="scale-position" value={settings.start}
-              onChange={(event) => update({ start: Number(event.target.value) as ScaleSettings["start"] })}>
-              {POSITION_STARTS.map((fret) => <option key={fret} value={fret}>Case {fret}</option>)}
-            </select>
-          </div>
-        )}
         <button type="button" ref={enterButton} className={styles.fullscreenButton} onClick={() => {
           returnScroll.current = window.scrollY;
           void enter();

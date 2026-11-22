@@ -42,7 +42,7 @@ Références pédagogiques : [gammes mineures](https://2012.musictheory.net/less
 `components/ScaleVisualizer.tsx` orchestre les contrôles et le rendu.
 `settings.ts` valide les paramètres indépendamment de React et les sérialise
 avec `URLSearchParams`. Paramètres : `root`, `scale`, `tuning`,
-`display`, `view`, `start`, `hidden`. Le paramètre facultatif `hidden` contient
+`display`, `hidden`. Le paramètre facultatif `hidden` contient
 les écarts en demi-tons des notes masquées par rapport à la fondamentale,
 séparés par des virgules. Sans ce paramètre, toutes les notes sont visibles.
 L’URL est la source de vérité des réglages, avec `useSearchParams` et l’API
@@ -50,7 +50,7 @@ History native supportée par Next. Il n’y a ni stockage local ni état métie
 sérialisé. La boundary Suspense laisse titre, description et explication
 pré-rendus ; elle permet la lecture des paramètres dans un export statique.
 
-Exemple : `/outils/gammes/?root=A&scale=minor-pentatonic&tuning=drop-d&view=position&start=5`.
+Exemple : `/outils/gammes/?root=A&scale=minor-pentatonic&tuning=drop-d`.
 Le lien copié utilise le domaine public `https://fretlab.fr`, aussi dans l’app
 Android, avec tous les réglages affichés.
 
@@ -61,8 +61,7 @@ Les cordes graves sont en bas, la case 0 représente la corde à vide, les
 fondamentales ont un double cercle et une description textuelle. Une section
 dépliable donne les cases, notes et intervalles corde par corde.
 Le défilement est limité au manche et utilisable au clavier. Le manche complet
-va de 0 à 24 ; une zone contient cinq positions de frette, avec débuts
-0, 3, 5, 7, 9, 12, 15, 17 et 20 (la dernière va jusqu’à 24).
+va de 0 à 24.
 
 Les futurs presets de positions pourront fournir des zones au même renderer.
 Les nouveaux accordages pourront enrichir le catalogue TUNINGS. Aucun moteur
@@ -72,7 +71,7 @@ de box pentatonique, backend ou bibliothèque musicale supplémentaire n’est c
 
 `scales.test.mjs` couvre toutes les gammes et fondamentales proposées,
 les transpositions, l’orthographe, les accordages et le mapping des frettes.
-`settings.test.mjs` vérifie les URL, valeurs invalides et zones ciblées.
+`settings.test.mjs` vérifie les URL, valeurs invalides et anciens liens de zones ciblées.
 Les tests existants continuent à couvrir accords, transposition, rythme et
 accordeur après extraction des conversions MIDI.
 
