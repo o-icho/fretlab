@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { Icon } from "@/components/Icon";
+import { useWorkspaceFullscreen } from "@/components/useWorkspaceFullscreen";
 import { SIGNATURES, isTimeSignature } from "../../domain/rhythm/meter";
 import { MIN_BPM, MAX_BPM, DRUM_BPM_RANGE, parseBpm } from "../../domain/rhythm/tempo";
 import { TapTempo } from "../metronome/TapTempoControl";
@@ -11,6 +13,7 @@ import { isUserPattern } from "./editor/patternEditing";
 import styles from "./drums.module.css";
 
 export function DrumMachine() {
+  const { ref, active, enter, exit, enterButton, exitButton } = useWorkspaceFullscreen();
   const { settings, update, status, error, toggle, playback, preview } = useDrumMachine();
   const { pattern } = settings;
   const [draft, setDraft] = useState<string | null>(null);
@@ -31,7 +34,8 @@ export function DrumMachine() {
   }
 
   return (
-    <section className={styles.workspace} aria-label="Éditeur de batterie">
+    <section ref={ref} className={active ? `${styles.workspace} ${styles.immersive}` : styles.workspace}
+      role={active ? "dialog" : undefined} aria-modal={active || undefined} aria-label="Éditeur de batterie">
       <div className={styles.controls}>
         <div className={styles.transport}>
           <button type="button" className={styles.play}
@@ -78,6 +82,11 @@ export function DrumMachine() {
           </select>
         </div>
         <button type="button" className={styles.secondary} onClick={() => { editor.newPattern(); setRenameDraft(null); }}>Nouveau rythme</button>
+        <button type="button" ref={active ? exitButton : enterButton} className={styles.fullscreenButton}
+          onClick={active ? exit : enter}>
+          <Icon name={active ? "collapse" : "expand"} size={18} />
+          {active ? "Quitter le plein écran" : "Plein écran"}
+        </button>
       </div>
       {status === "starting" && <p className={styles.feedback} role="status">Activation de l’audio…</p>}
       {error && <p className={styles.feedback} role="alert">{error}</p>}

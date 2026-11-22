@@ -10,39 +10,14 @@ import { Fretboard } from "@/components/music/Fretboard";
 import { MidiNotePlayer } from "@/features/audio/MidiNotePlayer";
 import { useAudioPause } from "@/features/audio/useAudioPause";
 import { Icon } from "@/components/Icon";
+import { useWorkspaceFullscreen } from "@/components/useWorkspaceFullscreen";
 import { DEFAULT_SCALE_SETTINGS, parseScaleSettings, scaleSearchParams, type ScaleSettings } from "../settings";
 import styles from "./scales.module.css";
-import { useFretboardFullscreen } from "./useFretboardFullscreen";
 
 const range = { start: 0, end: 24 } as const;
 
 export function ScaleVisualizer() {
-  const { ref: workspace, active, enter, exit } = useFretboardFullscreen();
-  const enterButton = useRef<HTMLButtonElement>(null);
-  const exitButton = useRef<HTMLButtonElement>(null);
-  const returnScroll = useRef<number | null>(null);
-  useEffect(() => {
-    if (!active) {
-      if (returnScroll.current !== null) {
-        enterButton.current?.focus({ preventScroll: true });
-        window.scrollTo({ top: returnScroll.current, behavior: "instant" });
-        returnScroll.current = null;
-      }
-      return;
-    }
-    exitButton.current?.focus({ preventScroll: true });
-    // In the in-page fallback, keep keyboard and screen-reader navigation inside the workspace.
-    const outside: HTMLElement[] = [];
-    for (let child = workspace.current; child?.parentElement && child !== document.body; child = child.parentElement) {
-      for (const sibling of child.parentElement.children) {
-        if (sibling !== child && sibling instanceof HTMLElement && !sibling.inert) {
-          sibling.setAttribute("inert", "");
-          outside.push(sibling);
-        }
-      }
-    }
-    return () => { outside.forEach((element) => element.removeAttribute("inert")); };
-  }, [active, workspace]);
+  const { ref: workspace, active, enter, exit, enterButton, exitButton } = useWorkspaceFullscreen({ landscapeOnPhone: true });
 
   const searchParams = useSearchParams();
   const settings = parseScaleSettings(searchParams);
@@ -185,10 +160,7 @@ export function ScaleVisualizer() {
             label: settings.display === "notes" ? position.scaleNote.name : position.scaleNote.interval.label,
             description: `Corde ${strings.length - position.stringIndex}, case ${position.fret} : ${position.scaleNote.name}, intervalle ${position.scaleNote.interval.label}${position.scaleNote.isRoot ? ", fondamentale" : ""}`,
           }))} />
-        {!active && <button type="button" ref={enterButton} className={styles.fullscreenButton} onClick={() => {
-          returnScroll.current = window.scrollY;
-          void enter();
-        }}>
+        {!active && <button type="button" ref={enterButton} className={styles.fullscreenButton} onClick={enter}>
           <Icon name="expand" size={18} />Plein écran du manche
         </button>}
       </div>

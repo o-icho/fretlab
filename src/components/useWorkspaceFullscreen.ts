@@ -18,8 +18,11 @@ function exitNative(element: HTMLElement) {
   if (document.fullscreenElement === element) return document.exitFullscreen().catch(() => {});
 }
 
-export function useFretboardFullscreen() {
+export function useWorkspaceFullscreen({ landscapeOnPhone = false } = {}) {
   const ref = useRef<HTMLElement>(null);
+  const enterButton = useRef<HTMLButtonElement>(null);
+  const exitButton = useRef<HTMLButtonElement>(null);
+  const returnScroll = useRef<number | null>(null);
   const session = useRef<Session | null>(null);
   const [active, setActive] = useState(false);
 
@@ -43,8 +46,9 @@ export function useFretboardFullscreen() {
     if (!element || session.current) return;
     const current: Session = { element, native: false };
     session.current = current;
+    returnScroll.current = window.scrollY;
     setActive(true);
-    const phone = window.matchMedia("(pointer: coarse) and (max-width: 600px), (pointer: coarse) and (max-height: 600px)").matches;
+    const lockLandscape = landscapeOnPhone && window.matchMedia("(pointer: coarse) and (max-width: 600px), (pointer: coarse) and (max-height: 600px)").matches;
     try {
       // Capacitor's Android WebChromeClient immediately dismisses fullscreen custom views.
       if (Capacitor.getPlatform() !== "android") await element.requestFullscreen?.();
@@ -57,7 +61,7 @@ export function useFretboardFullscreen() {
     }
     current.native = document.fullscreenElement === element;
     const orientation: LockableOrientation | undefined = window.screen.orientation;
-    if (!phone || !orientation?.lock) return;
+    if (!lockLandscape || !orientation?.lock) return;
     current.orientation = orientation;
     try {
       await orientation.lock("landscape");
@@ -67,6 +71,29 @@ export function useFretboardFullscreen() {
       current.orientation = undefined;
     }
   }
+
+  useEffect(() => {
+    if (!active) {
+      if (returnScroll.current !== null) {
+        enterButton.current?.focus({ preventScroll: true });
+        window.scrollTo({ top: returnScroll.current, behavior: "instant" });
+        returnScroll.current = null;
+      }
+      return;
+    }
+    exitButton.current?.focus({ preventScroll: true });
+    // In the in-page fallback, keep keyboard and screen-reader navigation inside the workspace.
+    const outside: HTMLElement[] = [];
+    for (let child = ref.current; child?.parentElement && child !== document.body; child = child.parentElement) {
+      for (const sibling of child.parentElement.children) {
+        if (sibling !== child && sibling instanceof HTMLElement && !sibling.inert) {
+          sibling.inert = true;
+          outside.push(sibling);
+        }
+      }
+    }
+    return () => { outside.forEach((element) => { element.inert = false; }); };
+  }, [active]);
 
   useEffect(() => {
     function onFullscreenChange() {
@@ -94,5 +121,5 @@ export function useFretboardFullscreen() {
     };
   }, [exit, release]);
 
-  return { ref, active, enter, exit };
+  return { ref, active, enter, exit, enterButton, exitButton };
 }
