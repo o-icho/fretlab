@@ -41,12 +41,12 @@ export function Fretboard({ tuning, range, markers, title, onPlay, immersive = f
   const frets = Array.from({ length: range.end - range.start + 1 }, (_, i) => range.start + i);
   const height = immersive ? 278 : 344;
   const frame = immersive ? viewport : null;
-  // Work in SVG units so the string spacing can follow the height while 15 frets fit the width.
+  // Work in SVG units so the string spacing can follow the height independently of the fret width.
   const scale = frame ? frame.height / height : 1;
   const left = frame ? Math.min(46, frame.width * 0.09) / scale : 72;
   const right = frame ? 4 / scale : 24;
   const columnWidth = frame
-    ? (frame.width / scale - left - right) / Math.min(15, frets.length)
+    ? (frame.width / scale - left - right) / Math.min(18, frets.length)
     : 68;
   const width = left + frets.length * columnWidth + right;
   const outerRadius = Math.min(21, columnWidth / 2 - 0.75);
