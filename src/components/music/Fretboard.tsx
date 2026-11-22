@@ -39,7 +39,7 @@ export function Fretboard({ tuning, range, markers, title, onPlay, immersive = f
 
   const strings = tuningNotes(tuning);
   const frets = Array.from({ length: range.end - range.start + 1 }, (_, i) => range.start + i);
-  const height = immersive ? 278 : 344;
+  const height = immersive ? 278 : 306;
   const frame = immersive ? viewport : null;
   // Work in SVG units so the string spacing can follow the height independently of the fret width.
   const scale = frame ? frame.height / height : 1;
@@ -61,7 +61,7 @@ export function Fretboard({ tuning, range, markers, title, onPlay, immersive = f
   return (
     <div className={`${styles.wrapper} ${immersive ? styles.immersive : ""}`}>
       <div ref={scrollRef} className={styles.scroll} role="region" tabIndex={0}
-        aria-label="Manche de guitare, défilement horizontal" aria-describedby={`${id}-help`}>
+        aria-label="Manche de guitare, défilement horizontal">
         <svg className={`${styles.board} ${frets.length > 6 ? styles.full : ""}`} width={width} height={height} viewBox={`0 ${immersive ? 26 : 0} ${width} ${height}`}
           role="group" aria-labelledby={`${id}-title`} aria-describedby={`${id}-description`}>
           <title id={`${id}-title`}>{title}</title>
@@ -103,12 +103,8 @@ export function Fretboard({ tuning, range, markers, title, onPlay, immersive = f
               </foreignObject>
             </g>
           ))}
-          {!immersive && <text x={left} y={331} fill="var(--muted)" fontSize={12}>
-            {range.start === 0 ? "0 = corde à vide · " : ""}Grave en bas · Aigu en haut
-          </text>}
         </svg>
       </div>
-      <p className={immersive ? "sr-only" : styles.hint} id={`${id}-help`}>Sur petit écran, faites défiler le manche horizontalement. Au clavier : flèches gauche et droite.</p>
     </div>
   );
 }

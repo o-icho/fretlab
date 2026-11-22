@@ -195,7 +195,7 @@
   align-items: center;
   gap: 10px;
 }
-.rootDot, .noteDot {
+.rootDot {
   display: inline-block;
   width: 14px;
   height: 14px;
@@ -205,9 +205,6 @@
   background: var(--accent);
   outline: 1px solid var(--accent);
   outline-offset: 3px;
-}
-.noteDot {
-  border: 1.5px solid var(--muted);
 }
 .positions {
   padding-top: 20px;

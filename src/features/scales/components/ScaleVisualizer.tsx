@@ -176,7 +176,6 @@ export function ScaleVisualizer() {
           {!active && <>
             <p className={styles.kicker}>VOTRE GAMME SUR LE MANCHE</p>
             <h2>{title}</h2>
-            <p className={styles.summaryHelp}>Cases {range.start} à {range.end} · {tuning.name}</p>
             <p className={styles.summaryHelp}>Sélectionnez les notes à afficher sur le manche.</p>
           </>}
           <ol className={styles.notes} aria-label="Notes à afficher sur le manche">
@@ -196,7 +195,6 @@ export function ScaleVisualizer() {
         {active && <p className={styles.rotationHint}>Tournez le téléphone pour agrandir le manche.</p>}
         {!active && <div className={styles.legend}>
           <span><i className={styles.rootDot} aria-hidden="true" />Fondamentale · double cercle</span>
-          <span><i className={styles.noteDot} aria-hidden="true" />Autres notes de la gamme</span>
         </div>}
         {(!active || settings.hidden.length === scale.notes.length) && <p className={styles.summaryHelp}>{settings.hidden.length === scale.notes.length
           ? "Le manche est vide. Sélectionnez une note ci-dessus pour la retrouver."

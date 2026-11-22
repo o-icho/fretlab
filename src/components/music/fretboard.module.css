@@ -23,12 +23,6 @@
   min-width: 1650px;
   height: auto;
 }
-.hint {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-  margin-top: 14px;
-}
 .immersive {
   display: flex;
   flex-direction: column;
