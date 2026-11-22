@@ -49,8 +49,8 @@ export function Fretboard({ tuning, range, markers, title, onPlay }: {
               <text x={x(fret)} y={26} textAnchor="middle" fill="var(--muted)" fontSize={13}>{fret}</text>
               <line x1={left + (fret - range.start) * columnWidth} x2={left + (fret - range.start) * columnWidth}
                 y1={50} y2={300} stroke={fret === 1 ? "var(--text)" : "var(--control-border)"} strokeWidth={fret === 1 ? 5 : 1} />
-              {[3, 5, 7, 9, 12, 15].includes(fret) && (
-                fret === 12
+              {[3, 5, 7, 9, 12, 15, 17, 19, 21, 24].includes(fret) && (
+                fret % 12 === 0
                   ? <><circle cx={x(fret)} cy={133} r={6} fill="var(--control-border)" /><circle cx={x(fret)} cy={217} r={6} fill="var(--control-border)" /></>
                   : <circle cx={x(fret)} cy={175} r={6} fill="var(--control-border)" />
               )}

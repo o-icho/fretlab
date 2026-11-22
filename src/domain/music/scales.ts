@@ -21,6 +21,18 @@ export const SCALE_DEFINITIONS = [
     { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 8, label: "b6" },
     { degree: 7, semitones: 10, label: "b7" },
   ] },
+  { id: "harmonic-minor", name: "Mineure harmonique", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 2, label: "2" },
+    { degree: 3, semitones: 3, label: "b3" }, { degree: 4, semitones: 5, label: "4" },
+    { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 8, label: "b6" },
+    { degree: 7, semitones: 11, label: "7" },
+  ] },
+  { id: "melodic-minor", name: "Mineure mélodique (ascendante)", intervals: [
+    { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 2, label: "2" },
+    { degree: 3, semitones: 3, label: "b3" }, { degree: 4, semitones: 5, label: "4" },
+    { degree: 5, semitones: 7, label: "5" }, { degree: 6, semitones: 9, label: "6" },
+    { degree: 7, semitones: 11, label: "7" },
+  ] },
   { id: "major-pentatonic", name: "Pentatonique majeure", intervals: [
     { degree: 1, semitones: 0, label: "1" }, { degree: 2, semitones: 2, label: "2" },
     { degree: 3, semitones: 4, label: "3" }, { degree: 5, semitones: 7, label: "5" },

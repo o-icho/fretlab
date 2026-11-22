@@ -9,6 +9,8 @@ import { mapScaleToFretboard } from "./fretboard.ts";
 for (const [root, id, expected] of [
   ["C", "major", "C D E F G A B"],
   ["A", "natural-minor", "A B C D E F G"],
+  ["A", "harmonic-minor", "A B C D E F G#"],
+  ["A", "melodic-minor", "A B C D E F# G#"],
   ["C", "major-pentatonic", "C D E G A"],
   ["A", "minor-pentatonic", "A C D E G"],
   ["A", "minor-blues", "A C D Eb E G"],

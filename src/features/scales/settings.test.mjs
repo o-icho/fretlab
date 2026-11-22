@@ -13,8 +13,10 @@ test("missing and malformed URL parameters fall back independently", () => {
 });
 
 test("a shared URL round-trips every main setting, including # and targeted frets", () => {
-  const settings = { root: "C#", scale: "major", tuning: "drop-d", notation: "flats", view: "position", start: 12, display: "intervals" };
-  const params = scaleSearchParams(settings, "utm_source=practice");
+  const settings = { root: "C#", scale: "major", tuning: "drop-d", view: "position", start: 20, display: "intervals" };
+  const params = scaleSearchParams(settings, "utm_source=practice&notation=flats");
+  assert.equal(params.has("notation"), false);
+  assert.deepEqual(parseScaleSettings(new URLSearchParams("notation=flats")), DEFAULT_SCALE_SETTINGS);
   assert.ok(params.toString().includes("root=C%23"));
   assert.equal(params.get("utm_source"), "practice");
   assert.deepEqual(parseScaleSettings(new URLSearchParams(params.toString())), settings);
@@ -22,7 +24,7 @@ test("a shared URL round-trips every main setting, including # and targeted fret
 });
 
 test("full neck and targeted zones are independent of scale and tuning", () => {
-  assert.deepEqual(scaleFretRange(DEFAULT_SCALE_SETTINGS), { start: 0, end: 15 });
+  assert.deepEqual(scaleFretRange(DEFAULT_SCALE_SETTINGS), { start: 0, end: 24 });
   for (const start of POSITION_STARTS) {
     assert.deepEqual(scaleFretRange({ ...DEFAULT_SCALE_SETTINGS, view: "position", start }), { start, end: start + 4 });
   }

@@ -16,7 +16,7 @@ import styles from "./scales.module.css";
 export function ScaleVisualizer() {
   const searchParams = useSearchParams();
   const settings = parseScaleSettings(searchParams);
-  const scale = generateScale(settings.root, settings.scale, settings.notation);
+  const scale = generateScale(settings.root, settings.scale);
   const tuning = TUNINGS.find((item) => item.id === settings.tuning)!;
   const range = scaleFretRange(settings);
   const positions = mapScaleToFretboard(scale, tuning, range);
@@ -92,14 +92,6 @@ export function ScaleVisualizer() {
           </select>
           <p>{strings.map((string) => string.note).join(" · ")} — grave → aigu</p>
         </div>
-        <div className={styles.field}>
-          <label htmlFor="scale-notation">Notation</label>
-          <select id="scale-notation" value={settings.notation}
-            onChange={(event) => update({ notation: event.target.value as ScaleSettings["notation"] })}>
-            <option value="auto">Automatique</option><option value="sharps">Dièses</option><option value="flats">Bémols</option>
-          </select>
-          <p>Auto respecte les degrés de la gamme.</p>
-        </div>
       </div>
 
       <div className={styles.toolbar}>
@@ -133,9 +125,6 @@ export function ScaleVisualizer() {
           <p className={styles.kicker}>VOTRE GAMME SUR LE MANCHE</p>
           <h2>{title}</h2>
           <p className={styles.summaryHelp}>Cases {range.start} à {range.end} · {tuning.name}</p>
-          {scale.requestedRoot !== scale.root.name && settings.notation === "auto" && (
-            <p className={styles.summaryHelp}>{scale.root.name} est l’équivalent de {scale.requestedRoot}, avec une notation plus lisible.</p>
-          )}
           <ol className={styles.notes} aria-label="Notes et intervalles de la gamme">
             {scale.notes.map((note) => (
               <li key={note.interval.label} className={note.isRoot ? styles.rootNote : undefined}>
