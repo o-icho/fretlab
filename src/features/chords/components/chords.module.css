@@ -3,7 +3,7 @@
 }
 .controls {
   display: grid;
-  grid-template-columns: 1.8fr 1fr 1.3fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
   gap: 22px;
   padding: 26px;
   border: 1px solid var(--border);
@@ -19,7 +19,6 @@
 .filter {
   min-width: 0;
 }
-.controls input,
 .controls select {
   width: 100%;
   height: 48px;
@@ -29,15 +28,6 @@
   color: var(--text);
   padding: 10px 14px;
   font: inherit;
-}
-.controls input::placeholder {
-  color: var(--muted);
-}
-.search p {
-  font-size: 10px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-top: 10px;
 }
 .result {
   display: grid;
@@ -55,11 +45,6 @@
 }
 .chordHeading {
   align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 .chordHeading h2 {
@@ -74,17 +59,6 @@
   font-size: 13px;
   color: var(--muted);
   margin-top: 7px;
-}
-.positionTag {
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.5px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 7px;
-  max-width: 145px;
-  line-height: 1.7;
-  flex-shrink: 0;
 }
 .positionNav {
   display: flex;
@@ -230,9 +204,6 @@
     padding: 22px;
     gap: 20px;
   }
-  .search {
-    grid-column: 1/-1;
-  }
   .result {
     grid-template-columns: 1fr;
   }
@@ -246,7 +217,6 @@
     padding: 18px;
     gap: 14px;
   }
-  .controls input,
   .controls select {
     padding-inline: 9px;
     font-size: 12px;
@@ -254,8 +224,5 @@
   .diagramPanel,
   .guide {
     padding: 20px;
-  }
-  .positionTag {
-    max-width: 120px;
   }
 }

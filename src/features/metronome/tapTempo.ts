@@ -1,4 +1,4 @@
-import { MAX_BPM, MIN_BPM } from "./rhythm.ts";
+import { METRONOME_BPM_RANGE, type BpmRange } from "../../domain/rhythm/tempo.ts";
 
 export const TAP_RESET_MS = 2500;
 const MAX_INTERVALS = 8;
@@ -34,7 +34,7 @@ export function recordTap(sequence: TapSequence, timestamp: number): TapSequence
  * At least four inliers and 75% agreement are required, including the latest tap.
  * Never infer a doubled/halved tempo or clamp the measured value.
  */
-export function estimateTapTempo(sequence: TapSequence): TapEstimate {
+export function estimateTapTempo(sequence: TapSequence, range: BpmRange = METRONOME_BPM_RANGE): TapEstimate {
   const intervals = sequence.intervals;
   if (intervals.length < MIN_INTERVALS) return { bpm: null, stable: false, inRange: false };
   const sorted = [...intervals].sort((a, b) => a - b);
@@ -48,7 +48,7 @@ export function estimateTapTempo(sequence: TapSequence): TapEstimate {
   return {
     bpm: Math.round(measuredBpm),
     stable: inliers.length >= MIN_INTERVALS && inliers.length / intervals.length >= 0.75 && agrees(intervals[intervals.length - 1]),
-    // Tiny floating point errors at exactly 40/240 are not out-of-range taps.
-    inRange: measuredBpm >= MIN_BPM - 1e-9 && measuredBpm <= MAX_BPM + 1e-9,
+    // Tiny floating point errors at the inclusive endpoints are not out-of-range taps.
+    inRange: measuredBpm >= range.min - 1e-9 && measuredBpm <= range.max + 1e-9,
   };
 }

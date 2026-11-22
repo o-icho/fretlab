@@ -17,8 +17,8 @@ distincts. Le dataset ne se charge depuis aucun service distant à l’utilisati
 
 `components/GuitarChordDiagram.tsx` rend cinq cases en SVG avec description
 accessible, cordes ouvertes/muettes, doigts, barrés et numéro de première frette.
-`components/ChordDictionary.tsx` contient la recherche, les filtres, les raccourcis
-et la navigation entre les positions. Les styles sont isolés dans un CSS Module.
+`components/ChordDictionary.tsx` permet de choisir la fondamentale et le type
+d’accord, puis de parcourir les positions. Les styles sont isolés dans un CSS Module.
 
 La révision Git, le hash du JSON source, la liste des suffixes et les positions
 rejetées sont dans `src/data/chords/PROVENANCE.json`. La licence est conservée

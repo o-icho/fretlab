@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import { MIN_BPM, MAX_BPM } from "../../domain/rhythm/tempo";
-import { parseBpm } from "../metronome/rhythm";
+import { MIN_BPM, MAX_BPM, DRUM_BPM_RANGE, parseBpm } from "../../domain/rhythm/tempo";
 import { TapTempo } from "../metronome/TapTempoControl";
 import { DRUM_PATTERNS, DRUM_STYLES } from "./presets";
 import { PatternGrid } from "./PatternGrid";
@@ -62,7 +61,7 @@ export function DrumMachine() {
         </div>
         <p className={styles.help}>Le tempo compte les noires en 4/4 et 3/4, les noires pointées en 6/8. En lecture, le nouveau pattern commence à la prochaine mesure disponible.</p>
         <p role="status" className={styles.error}>{error}</p>
-        <TapTempo onTempo={changeBpm} />
+        <TapTempo onTempo={changeBpm} range={DRUM_BPM_RANGE} />
         <div className={styles.volume}><label htmlFor="drum-volume">Volume général · {Math.round(settings.volume * 100)} %</label><input id="drum-volume" type="range" min={0} max={100} value={Math.round(settings.volume * 100)} onChange={(event) => update({ volume: Number(event.target.value) / 100 })} /></div>
       </div>
       <section className={styles.editorTools} aria-label="Gestion du pattern">

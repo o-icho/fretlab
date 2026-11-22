@@ -12,12 +12,7 @@ import {
   type ChordRoot,
   type ChordQuality,
 } from "../lib/model";
-import {
-  searchChord,
-  findChord,
-  parseChordName,
-  chordDescription,
-} from "../lib/search";
+import { findChord, chordDescription } from "../lib/search";
 import styles from "./chords.module.css";
 
 const TYPE_GROUPS = [
@@ -26,52 +21,24 @@ const TYPE_GROUPS = [
 ];
 
 export function ChordDictionary() {
-  const [query, setQuery] = useState("Am");
   const [root, setRoot] = useState<ChordRoot>("A");
   const [quality, setQuality] = useState<ChordQuality>("minor");
   const [positionIndex, setPositionIndex] = useState(0);
   const [showFingers, setShowFingers] = useState(true);
-  const chord = searchChord(query);
-  const unavailable = chord ? null : parseChordName(query);
+  const chord = findChord(root, quality);
   const position = chord?.positions[positionIndex];
   const notes = chord && position ? playedNotes(chord, position) : [];
-  function search(value: string) {
-    setQuery(value);
-    setPositionIndex(0);
-    const next = parseChordName(value);
-    if (next) {
-      setRoot(next.root);
-      setQuality(next.quality);
-    }
-  }
   function filter(nextRoot: ChordRoot, nextQuality: ChordQuality) {
     setRoot(nextRoot);
     setQuality(nextQuality);
-    setQuery(nextRoot + QUALITY_SUFFIXES[nextQuality]);
     setPositionIndex(0);
   }
   return (
     <section
       className={styles.workspace}
-      aria-label="Rechercher un accord de guitare"
+      aria-label="Choisir un accord de guitare"
     >
       <div className={styles.controls}>
-        <div className={styles.search}>
-          <label htmlFor="chord-search">Rechercher un accord</label>
-          <input
-            id="chord-search"
-            type="search"
-            value={query}
-            onChange={(event) => search(event.target.value)}
-            placeholder="Am, Cmaj7, F#m…"
-            spellCheck={false}
-            autoCapitalize="off"
-            aria-describedby="chord-search-help"
-          />
-          <p id="chord-search-help">
-            Notation internationale · Dièses et bémols acceptés
-          </p>
-        </div>
         <div className={styles.filter}>
           <label htmlFor="chord-root">Fondamentale</label>
           <select
@@ -114,15 +81,8 @@ export function ChordDictionary() {
           <>
             <div className={styles.diagramPanel}>
               <div className={styles.chordHeading}>
-                <div>
-                  <h2>{chord.displayName}</h2>
-                  <p>{chordDescription(chord)}</p>
-                </div>
-                <span className={styles.positionTag}>
-                  {position.baseFret === 1
-                    ? "POSITION OUVERTE / BAS DU MANCHE"
-                    : `À PARTIR DE LA CASE ${position.baseFret}`}
-                </span>
+                <h2>{chord.displayName}</h2>
+                <p>{chordDescription(chord)}</p>
               </div>
               <GuitarChordDiagram
                 position={position}
@@ -203,14 +163,8 @@ export function ChordDictionary() {
           </>
         ) : (
           <div className={styles.empty}>
-            <h2>
-              {unavailable ? `Aucun doigté disponible pour ${unavailable.name}` :
-                query.trim() ? "Aucun accord trouvé" : "Quel accord souhaitez-vous jouer ?"}
-            </h2>
-            <p>
-              Essayez Am, Cmaj7 ou F#m, ou choisissez une fondamentale et un
-              type ci-dessus.
-            </p>
+            <h2>Aucun doigté disponible pour {root}{QUALITY_SUFFIXES[quality]}</h2>
+            <p>Choisissez une autre fondamentale ou un autre type d’accord.</p>
           </div>
         )}
       </div>

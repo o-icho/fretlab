@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAudioPause } from "@/features/audio/useAudioPause";
-import { MAX_BPM, MIN_BPM } from "./rhythm";
+import { METRONOME_BPM_RANGE, type BpmRange } from "@/domain/rhythm/tempo";
 import { emptyTapSequence, estimateTapTempo, recordTap, TAP_RESET_MS } from "./tapTempo";
 import styles from "./metronome.module.css";
 
-export function TapTempo({ onTempo }: { onTempo: (bpm: number) => void }) {
+export function TapTempo({ onTempo, range = METRONOME_BPM_RANGE }: { onTempo: (bpm: number) => void; range?: BpmRange }) {
   const sequence = useRef(emptyTapSequence());
   const [current, setCurrent] = useState(emptyTapSequence);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -25,12 +25,12 @@ export function TapTempo({ onTempo }: { onTempo: (bpm: number) => void }) {
     const next = recordTap(sequence.current, performance.now());
     sequence.current = next;
     setCurrent(next);
-    const estimate = estimateTapTempo(next);
+    const estimate = estimateTapTempo(next, range);
     if (estimate.stable && estimate.inRange && estimate.bpm !== null) onTempo(estimate.bpm);
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(reset, TAP_RESET_MS);
   }
-  const estimate = estimateTapTempo(current);
+  const estimate = estimateTapTempo(current, range);
   const applied = estimate.stable && estimate.inRange;
   const message = current.lastTap === null
     ? "Tapez au moins 5 pulsations régulières."
@@ -39,7 +39,7 @@ export function TapTempo({ onTempo }: { onTempo: (bpm: number) => void }) {
       : !estimate.stable
         ? "Rythme irrégulier : continuez à taper pour stabiliser le tempo."
         : !estimate.inRange
-          ? `Tempo mesuré hors de la plage ${MIN_BPM}–${MAX_BPM} BPM. Le tempo actuel est conservé.`
+          ? `Tempo mesuré hors de la plage ${range.min}–${range.max} BPM. Le tempo actuel est conservé.`
           : "Tempo appliqué automatiquement.";
 
   return (

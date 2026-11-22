@@ -1,5 +1,7 @@
-import { clampBpm, DEFAULT_BPM } from "../../domain/rhythm/tempo.ts";
-export { MIN_BPM, MAX_BPM, clampBpm } from "../../domain/rhythm/tempo.ts";
+import { clampBpm as clampTempo, parseBpm as parseTempo, DEFAULT_BPM, METRONOME_BPM_RANGE } from "../../domain/rhythm/tempo.ts";
+export const { min: MIN_BPM, max: MAX_BPM } = METRONOME_BPM_RANGE;
+export const clampBpm = (value: number) => clampTempo(value, METRONOME_BPM_RANGE);
+export const parseBpm = (value: string) => parseTempo(value, METRONOME_BPM_RANGE);
 export const SIGNATURES = ["2/4", "3/4", "4/4", "7/4", "5/8", "6/8", "7/8", "9/8", "12/8"] as const;
 export type TimeSignature = (typeof SIGNATURES)[number];
 export type BeatSound = "accent" | "normal" | "silent";
@@ -28,11 +30,6 @@ export const DEFAULT_SETTINGS: MetronomeSettings = {
   volume: 1,
 };
 
-export function parseBpm(value: string): number | null {
-  if (!value.trim()) return null;
-  const number = Number(value);
-  return Number.isFinite(number) ? clampBpm(number) : null;
-}
 export function isTimeSignature(value: string): value is TimeSignature {
   return SIGNATURES.some((signature) => signature === value);
 }

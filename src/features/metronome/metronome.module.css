@@ -11,31 +11,10 @@
   border-radius: 16px;
   padding: 30px;
 }
-.topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--muted);
-}
-.topline > span:last-child {
-  letter-spacing: 0;
-  padding: 7px 12px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  white-space: nowrap;
-}
-.topline .playing {
-  color: var(--accent);
-  border-color: var(--accent);
-}
 .tempo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 28px;
 }
 .tempo strong {
   font-family: var(--font-display);
@@ -319,10 +298,6 @@
 @media (max-width: 400px) {
   .panel {
     padding: 20px 16px;
-  }
-  .topline {
-    font-size: 7px;
-    gap: 8px;
   }
   .beats {
     gap: 6px;

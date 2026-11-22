@@ -10,16 +10,16 @@ import {
   planBeats,
 } from "./rhythm.ts";
 
-test("BPM validation: finite integers clamped to 40–240", () => {
+test("BPM validation: finite integers clamped to 30–300", () => {
   for (const [value, expected] of [
-    [0, 40],
-    [-12, 40],
-    [39, 40],
-    [40, 40],
+    [0, 30],
+    [-12, 30],
+    [29, 30],
+    [30, 30],
     [120, 120],
-    [240, 240],
-    [241, 240],
-    [999, 240],
+    [300, 300],
+    [301, 300],
+    [999, 300],
     [120.6, 121],
     [NaN, 120],
     [Infinity, 120],
@@ -30,8 +30,8 @@ test("BPM validation: finite integers clamped to 40–240", () => {
     ["  ", null],
     ["abc", null],
     ["120", 120],
-    ["39", 40],
-    ["999", 240],
+    ["29", 30],
+    ["999", 300],
     ["119.7", 120],
   ])
     assert.equal(parseBpm(value), expected);
@@ -55,6 +55,8 @@ test("signatures and measure wrap", () => {
   assert.equal(isTimeSignature("5/4"), false);
 });
 test("quarter-note and compound meter intervals", () => {
+  assert.equal(beatInterval(30, "4/4"), 2);
+  assert.equal(beatInterval(300, "4/4"), 0.2);
   assert.equal(beatInterval(120, "4/4"), 0.5);
   assert.equal(beatInterval(60, "3/4"), 1);
   assert.equal(beatInterval(240, "2/4"), 0.25);
@@ -219,7 +221,7 @@ test("tempo, volume and same-signature updates preserve custom beat sounds", () 
     assert.deepEqual(updated.beatSounds, sounds);
     assert.notEqual(updated.beatSounds, sounds);
   }
-  assert.equal(updateMetronomeSettings(current, { bpm: 300 }).bpm, 240);
+  assert.equal(updateMetronomeSettings(current, { bpm: 301 }).bpm, 300);
   assert.equal(updateMetronomeSettings(current, { volume: -1 }).volume, 0);
   assert.equal(updateMetronomeSettings(current, { volume: 2 }).volume, 1);
   assert.equal(updateMetronomeSettings(current, { volume: NaN }).volume, current.volume);

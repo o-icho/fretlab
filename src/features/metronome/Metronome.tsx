@@ -39,16 +39,6 @@ export function Metronome() {
 
   return (
     <section className={styles.panel} aria-label="Métronome">
-      <div className={styles.topline}>
-        <span>VOTRE TEMPO, VOTRE PROGRESSION</span>
-        <span className={playing ? styles.playing : ""}>
-          {playing
-            ? "En lecture"
-            : status === "starting"
-              ? "Démarrage…"
-              : "À l’arrêt"}
-        </span>
-      </div>
       <div
         className={styles.tempo}
         aria-label={`${settings.bpm} battements par minute`}

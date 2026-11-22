@@ -1,4 +1,5 @@
 import test from "node:test";
+import { DRUM_BPM_RANGE } from "../../domain/rhythm/tempo.ts";
 import assert from "node:assert/strict";
 import { emptyTapSequence, estimateTapTempo, recordTap, TAP_RESET_MS } from "./tapTempo.ts";
 
@@ -12,7 +13,7 @@ function taps(intervals) {
   return sequence;
 }
 
-for (const [interval, bpm] of [[500, 120], [1000, 60], [400, 150], [1500, 40], [250, 240], [60000 / 65, 65]]) {
+for (const [interval, bpm] of [[500, 120], [1000, 60], [400, 150], [1500, 40], [250, 240], [2000, 30], [200, 300], [60000 / 65, 65]]) {
   test(`regular taps ${interval} ms measure ${bpm} BPM without octave conversion`, () => {
     assert.deepEqual(estimateTapTempo(taps(Array(6).fill(interval))), { bpm, stable: true, inRange: true });
   });
@@ -51,9 +52,12 @@ test("recent taps replace an old tempo instead of carrying history indefinitely"
   assert.deepEqual(estimateTapTempo(sequence), { bpm: 60, stable: true, inRange: true });
 });
 test("out-of-range measurements are reported honestly, never clamped or doubled", () => {
-  for (const [interval, bpm] of [[200, 300], [2000, 30]]) {
+  for (const [interval, bpm] of [[60000 / 301, 301], [60000 / 29, 29]]) {
     assert.deepEqual(estimateTapTempo(taps(Array(6).fill(interval))), { bpm, stable: true, inRange: false });
   }
+});
+test("drum tap tempo keeps its own supported range", () => {
+  for (const interval of [200, 2000]) assert.equal(estimateTapTempo(taps(Array(6).fill(interval)), DRUM_BPM_RANGE).inRange, false);
 });
 test("invalid, duplicate or out-of-order timestamps do not mutate a sequence", () => {
   const sequence = taps([500, 500]);

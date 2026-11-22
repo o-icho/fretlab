@@ -66,10 +66,9 @@ réexporte les conversions pour préserver ses consommateurs. Les fonctions de t
 résident dans `features/metronome/rhythm.ts` ; même règle de réutilisation.
 Le 6/8 actuel compte les BPM à la noire pointée avec trois subdivisions :
 préserver cette convention et représenter explicitement l’unité de pulsation
-si de nouvelles fonctionnalités l’exigent. Les limites 40–240 sont celles
-du métronome actuel, pas une règle universelle de la musique.
+si de nouvelles fonctionnalités l’exigent. Le métronome accepte de 30 à 300 BPM et la boîte à rythmes de 40 à 240 BPM.
 
-`domain/rhythm/tempo.ts` partage désormais ces limites entre lecteurs ;
+`domain/rhythm/tempo.ts` définit les plages des deux lecteurs et leur validation commune ;
 `features/metronome/rhythm.ts` conserve ses exports compatibles. Le modèle
 `domain/rhythm/drums.ts` représente mesures, unités écrites, pulsations,
 subdivisions, événements et vélocités. `features/audio/AudioScheduler.ts` est

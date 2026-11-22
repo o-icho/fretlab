@@ -17,8 +17,8 @@ au store, actualisé au changement de pas, pas à chaque frame.
 `domain/rhythm/drums.ts` planifie les pas et les coups sans navigateur. Une
 frappe passée après un retard du scheduler est ignorée, jamais rattrapée en
 rafale. Les cycles anciens peuvent être sautés sans boucle proportionnelle
-à la durée du retard. Les limites 40–240 et le clamp sont partagés dans
-`domain/rhythm/tempo.ts`, réexportés par l’ancien module du métronome.
+à la durée du retard. La boîte à rythmes accepte de 40 à 240 BPM.
+Les plages de tempo de chaque outil sont définies dans `domain/rhythm/tempo.ts`.
 
 Lecture démarre au premier pas, 40 ms dans le futur. Stop annule timers,
 animation, voix déjà programmées, décompte et changement en attente. Le BPM

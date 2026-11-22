@@ -71,7 +71,7 @@ permet de retrouver un nouveau tempo après plusieurs frappes régulières.
 
 Une pause de 2,5 secondes efface la séquence, sans changer le BPM du métronome.
 Le tempo mesuré n’est jamais doublé, divisé ou limité artificiellement : hors
-de 40–240 BPM, il est affiché avec une indication et n’est pas appliqué.
+de 30–300 BPM, il est affiché avec une indication et n’est pas appliqué.
 
 `TapTempoControl.tsx` fournit `performance.now()`, l’affichage et le callback de BPM vers
 le réglage existant. Un seul événement `click` natif gère souris, tactile et
