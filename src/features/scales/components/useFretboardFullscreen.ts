@@ -15,7 +15,7 @@ function unlock(orientation?: LockableOrientation) {
 }
 
 function exitNative(element: HTMLElement) {
-  if (document.fullscreenElement === element) void document.exitFullscreen().catch(() => {});
+  if (document.fullscreenElement === element) return document.exitFullscreen().catch(() => {});
 }
 
 export function useFretboardFullscreen() {
@@ -28,11 +28,13 @@ export function useFretboardFullscreen() {
     if (!current) return;
     session.current = null;
     unlock(current.orientation);
-    exitNative(current.element);
+    return exitNative(current.element);
   }, []);
 
-  const exit = useCallback(() => {
-    release();
+  const exit = useCallback(async () => {
+    if (!session.current) return;
+    // Restore the normal layout and its scroll position once the native viewport is back.
+    await release();
     setActive(false);
   }, [release]);
 

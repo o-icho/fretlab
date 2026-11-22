@@ -58,8 +58,8 @@ Android, avec tous les réglages affichés.
 déjà calculés. Le SVG horizontal est réutilisable, sans parsing ni règles
 harmoniques. Le diagramme vertical d’accords conserve son rendu propre.
 Les cordes graves sont en bas, la case 0 représente la corde à vide, les
-fondamentales ont un double cercle et une description textuelle. Une section
-dépliable donne les cases, notes et intervalles corde par corde.
+fondamentales ont un double cercle et une description textuelle. Sur téléphone,
+le bouton « Plein écran du manche » se trouve juste sous le manche.
 Le défilement est limité au manche et utilisable au clavier. Le manche complet
 va de 0 à 24.
 

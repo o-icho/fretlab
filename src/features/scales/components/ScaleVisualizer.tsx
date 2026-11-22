@@ -148,12 +148,6 @@ export function ScaleVisualizer() {
             <button type="button" aria-pressed={settings.display === "intervals"} onClick={() => update({ display: "intervals" })}>Intervalles</button>
           </div>
         </fieldset>
-        <button type="button" ref={enterButton} className={styles.fullscreenButton} onClick={() => {
-          returnScroll.current = window.scrollY;
-          void enter();
-        }}>
-          <Icon name="expand" size={18} />Plein écran du manche
-        </button>
       </div>}
 
       <div className={styles.panel}>
@@ -191,19 +185,12 @@ export function ScaleVisualizer() {
             label: settings.display === "notes" ? position.scaleNote.name : position.scaleNote.interval.label,
             description: `Corde ${strings.length - position.stringIndex}, case ${position.fret} : ${position.scaleNote.name}, intervalle ${position.scaleNote.interval.label}${position.scaleNote.isRoot ? ", fondamentale" : ""}`,
           }))} />
-        {!active && <details className={styles.positions}>
-          <summary>Lire les notes corde par corde</summary>
-          <ul>
-            {strings.map((string, index) => (
-              <li key={index}>
-                <strong>Corde {strings.length - index} · {string.note}{string.octave}</strong>
-                <p>{positions.filter((position) => position.stringIndex === index).map((position) =>
-                  `case ${position.fret} : ${position.scaleNote.name} (${position.scaleNote.interval.label}${position.scaleNote.isRoot ? ", fondamentale" : ""})`,
-                ).join(" ; ") || "Aucune note affichée dans cette zone."}</p>
-              </li>
-            ))}
-          </ul>
-        </details>}
+        {!active && <button type="button" ref={enterButton} className={styles.fullscreenButton} onClick={() => {
+          returnScroll.current = window.scrollY;
+          void enter();
+        }}>
+          <Icon name="expand" size={18} />Plein écran du manche
+        </button>}
       </div>
 
       {!active && <div className={styles.actions}>
