@@ -6,7 +6,11 @@ type Voice = { source: AudioScheduledSourceNode; gain: GainNode; nodes: AudioNod
 export class BasicDrumKit implements DrumSoundProvider {
   private voices = new Set<Voice>();
   private noise: AudioBuffer;
-  constructor(private context: AudioContext, private output: AudioNode) {
+  private context: AudioContext;
+  private output: AudioNode;
+  constructor(context: AudioContext, output: AudioNode) {
+    this.context = context;
+    this.output = output;
     this.noise = context.createBuffer(1, Math.ceil(context.sampleRate * 1.5), context.sampleRate);
     const data = this.noise.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;

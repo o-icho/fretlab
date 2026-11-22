@@ -1,9 +1,8 @@
 import type { DrumInstrument } from "../../../domain/rhythm/drums";
 
-/** Implementations schedule their own voices at absolute AudioContext times.
- * A future sample kit can implement this contract without changing transport.
- */
+/** Implementations schedule their own voices at absolute AudioContext times. */
 export interface DrumSoundProvider {
+  prepare?(): Promise<void>;
   trigger(instrument: DrumInstrument, time: number, velocity: number): void;
   click(time: number, accent: boolean): void;
   stop(): void;

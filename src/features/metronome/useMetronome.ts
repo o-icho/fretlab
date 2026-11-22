@@ -86,6 +86,8 @@ export function useMetronome() {
       const target = event.target;
       if (
         event.code !== "Space" ||
+        event.defaultPrevented ||
+        document.querySelector("dialog[open]") ||
         event.repeat ||
         event.altKey ||
         event.ctrlKey ||
@@ -109,5 +111,5 @@ export function useMetronome() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  return { settings, update, cycleBeat, status, beat, error, toggle };
+  return { settings, update, cycleBeat, status, beat, error, toggle, stop };
 }

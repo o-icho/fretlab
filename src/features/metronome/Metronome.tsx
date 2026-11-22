@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMetronome } from "./useMetronome";
 import { TapTempo } from "./TapTempoControl";
+import { GrooveControl } from "./GrooveControl";
 import {
   MAX_BPM,
   MIN_BPM,
@@ -22,7 +23,7 @@ const SOUND_LABELS = {
 } as const;
 
 export function Metronome() {
-  const { settings, update, cycleBeat, status, beat, error, toggle } = useMetronome();
+  const { settings, update, cycleBeat, status, beat, error, toggle, stop } = useMetronome();
   const [draft, setDraft] = useState<string | null>(null);
   const playing = status === "playing";
   const count = beatsPerBar(settings.signature);
@@ -88,6 +89,8 @@ export function Metronome() {
           <span aria-hidden="true">{status === "stopped" ? "▶" : "■"}</span>
           {status === "stopped" ? "Démarrer" : "Arrêter"}
         </button>
+        <GrooveControl bpm={settings.bpm} signature={settings.signature}
+          volume={settings.volume} onOpen={stop} />
       </div>
       <div role="status" className={styles.status}>
         {error ||
@@ -213,9 +216,6 @@ export function Metronome() {
           />
         </div>
       </div>
-      <p className={styles.note}>
-        Clics générés dans votre navigateur · Aucun fichier audio à charger
-      </p>
       <p className={styles.note}>
         Données de tempo des morceaux :{" "}
         <a href="https://getsongbpm.com/">GetSongBPM</a>.

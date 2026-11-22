@@ -62,8 +62,9 @@ approximative des qualités à partir du suffixe brut.
 Les conversions MIDI/fréquence résident dans `domain/music/midi.ts` et les
 accordages explicites dans `domain/music/tuning.ts`. Ils sont partagés par
 l’accordeur et le visualiseur de gammes ; l’ancien point d’entrée de l’accordeur
-réexporte les conversions pour préserver ses consommateurs. Les fonctions de tempo et signatures
-résident dans `features/metronome/rhythm.ts` ; même règle de réutilisation.
+réexporte les conversions pour préserver ses consommateurs. Les signatures et leurs
+unités de pulsation résident dans `domain/rhythm/meter.ts`. Le métronome à clics
+et ses boucles de batterie utilisent ces mêmes définitions.
 Le 6/8 actuel compte les BPM à la noire pointée avec trois subdivisions :
 préserver cette convention et représenter explicitement l’unité de pulsation
 si de nouvelles fonctionnalités l’exigent. Le métronome accepte de 30 à 300 BPM et la boîte à rythmes de 40 à 240 BPM.

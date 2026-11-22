@@ -10,13 +10,13 @@ export class AudioScheduler<T extends TimedEvent> {
   private running = false;
   private context: AudioContext;
   private schedule: (now: number, horizon: number) => T[];
-  private onVisual: (event: T) => void;
+  private onVisual: ((event: T) => void) | null;
   private onError: () => void;
 
   constructor(
     context: AudioContext,
     schedule: (now: number, horizon: number) => T[],
-    onVisual: (event: T) => void,
+    onVisual: ((event: T) => void) | null,
     onError: () => void,
   ) {
     this.context = context;
@@ -43,7 +43,8 @@ export class AudioScheduler<T extends TimedEvent> {
   private tick = () => {
     if (!this.running) return;
     try {
-      this.visuals.push(...this.schedule(this.context.currentTime, AUDIO_LOOKAHEAD));
+      const events = this.schedule(this.context.currentTime, AUDIO_LOOKAHEAD);
+      if (this.onVisual) this.visuals.push(...events);
       this.timer = setTimeout(this.tick, 25);
     } catch {
       this.stop();
@@ -51,7 +52,7 @@ export class AudioScheduler<T extends TimedEvent> {
     }
   };
   private animate = () => {
-    if (!this.running) return;
+    if (!this.running || !this.onVisual) return;
     const timestamp = this.context.getOutputTimestamp?.();
     const audibleTime = timestamp && typeof timestamp.performanceTime === "number" && timestamp.performanceTime > 0 && typeof timestamp.contextTime === "number"
       ? timestamp.contextTime + Math.max(0, performance.now() - timestamp.performanceTime) / 1000

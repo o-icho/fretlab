@@ -19,6 +19,34 @@ La boucle de réveil et la synchronisation visuelle résident maintenant dans
 planification du clic, la signature et les voix du métronome restent ici.
 Les limites de tempo sont réexportées depuis `domain/rhythm/tempo.ts`.
 
+## Boucle de batterie
+
+« Lancer la batterie » arrête le clic et joue en boucle une mesure au tempo et
+au volume du métronome. Chaque signature a un motif défini dans `groove.ts`.
+Le 5/8 marque les groupes 3 + 2, le 7/8 les groupes 2 + 2 + 3 et le 7/4 les
+groupes 4 + 3. Les mesures composées conservent la pulsation à la noire pointée.
+La pause, la fermeture de la fenêtre et le passage en arrière-plan arrêtent le son.
+
+Les quatre frappes acoustiques proviennent de [Virtuosity Drums, Versilian Studios](https://versilian-studios.com/virtuosity-drums/),
+distribué sous [CC0 1.0](https://github.com/sfzinstruments/virtuosity_drums/blob/9f04cf9a734527edfbb0a4eee1f674e45bbf71bc/LICENSE).
+Les prises sont issues du [répertoire Samples](https://github.com/sfzinstruments/virtuosity_drums/tree/9f04cf9a734527edfbb0a4eee1f674e45bbf71bc/Samples).
+
+| Fichier dans `public/audio/metronome-kit` | Prise d’origine |
+| --- | --- |
+| `kick.wav` | `kickmic/kick/kickmic_kick_snon_vl3_rr1.flac` |
+| `snare.wav` | `mid/snare/mid_snare_center_vl15.flac` |
+| `closed-hat.wav` | `mid/hh/mid_hh_closed_vl3_rr1.flac` |
+| `open-hat.wav` | `mid/hh/mid_hh_open_vl3_rr1.flac` |
+
+Les WAV mono 16 bits à 44,1 kHz conservent l’attaque, avec une crête à −1 dBFS
+et un fondu de fin. Ils sont livrés avec les exports Web et Android.
+
+MANUAL TEST REQUIRED sur téléphone Android réel : écouter les accents au
+haut-parleur ou au casque et vérifier la lecture en mode avion ainsi que
+l’arrêt lors d’un passage en arrière-plan.
+
+## Métronome à clics
+
 `useMetronome.ts` : état, réglages, cycle de vie audio, erreurs et raccourci espace.
 Les champs éditables et contrôles natifs conservent leur comportement clavier.
 

@@ -1,4 +1,5 @@
-import { clampBpm } from "./tempo.ts";
+import { SIGNATURE_INFO, isTimeSignature } from "./meter.ts";
+import { clampBpm, DRUM_BPM_RANGE, type BpmRange } from "./tempo.ts";
 
 export type DrumInstrument = "kick" | "snare" | "closed-hat" | "open-hat" | "crash" | "ride" | "tom-low" | "tom-high";
 export type DrumStyle = "rock" | "blues" | "funk" | "metal" | "pop";
@@ -12,8 +13,8 @@ export type DrumPattern = {
 export type DrumHit = { instrument: DrumInstrument; velocity: number };
 export const DRUM_INSTRUMENTS: DrumInstrument[] = ["kick", "snare", "closed-hat", "open-hat", "crash", "ride", "tom-low", "tom-high"];
 export function stepsPerBar(pattern: DrumPattern): number { return pattern.meter.beats * pattern.subdivision; }
-export function stepSeconds(pattern: DrumPattern, bpm: number): number {
-  return 60 / clampBpm(bpm) / pattern.meter.pulseBeats / pattern.subdivision;
+export function stepSeconds(pattern: DrumPattern, bpm: number, range: BpmRange = DRUM_BPM_RANGE): number {
+  return 60 / clampBpm(bpm, range) / pattern.meter.pulseBeats / pattern.subdivision;
 }
 export function hitsAt(pattern: DrumPattern, bar: number, step: number): DrumHit[] {
   return pattern.tracks.filter((track) => !track.muted).flatMap((track) => track.events
@@ -23,7 +24,8 @@ export function hitsAt(pattern: DrumPattern, bar: number, step: number): DrumHit
 export function validatePattern(pattern: DrumPattern): void {
   const m = pattern.meter;
   if (!pattern.id || !pattern.name || !pattern.description || !["rock", "blues", "funk", "metal", "pop"].includes(pattern.style)) throw new RangeError("Pattern incomplet.");
-  if (!((m.beatUnit === 4 && [3, 4].includes(m.beats) && m.pulseBeats === 1) || (m.beatUnit === 8 && m.beats === 6 && m.pulseBeats === 3))) throw new RangeError("Signature non prise en charge.");
+  const signature = `${m.beats}/${m.beatUnit}`;
+  if (!Number.isInteger(m.beats) || !Number.isInteger(m.beatUnit) || !isTimeSignature(signature) || SIGNATURE_INFO[signature].subdivisions !== m.pulseBeats) throw new RangeError("Signature non prise en charge.");
   if (!Number.isInteger(pattern.bars) || pattern.bars < 1 || pattern.bars > 32 || ![1, 2, 3, 4].includes(pattern.subdivision)) throw new RangeError("Mesures ou subdivision invalides.");
   const instruments = new Set<DrumInstrument>();
   for (const track of pattern.tracks) {
@@ -53,8 +55,8 @@ export function queuePattern(cursor: DrumCursor, pattern: DrumPattern): DrumCurs
   if (cursor.step === 0) return { ...cursor, pattern, bar: 0, pending: null };
   return { ...cursor, pending: pattern === cursor.pattern ? null : pattern };
 }
-function advance(cursor: DrumCursor, bpm: number): DrumCursor {
-  const next = { ...cursor, time: cursor.time + stepSeconds(cursor.pattern, bpm), step: cursor.step + 1 };
+function advance(cursor: DrumCursor, bpm: number, range: BpmRange): DrumCursor {
+  const next = { ...cursor, time: cursor.time + stepSeconds(cursor.pattern, bpm, range), step: cursor.step + 1 };
   if (next.step < stepsPerBar(next.pattern)) return next;
   next.step = 0;
   next.bar = next.countIn > 0 ? 0 : (next.bar + 1) % next.pattern.bars;
@@ -63,13 +65,13 @@ function advance(cursor: DrumCursor, bpm: number): DrumCursor {
   return next;
 }
 /** One shared audio horizon; old steps are skipped, never replayed in a burst. */
-export function planDrumSteps(cursor: DrumCursor, now: number, horizon: number, bpm: number): { events: DrumStep[]; next: DrumCursor } {
+export function planDrumSteps(cursor: DrumCursor, now: number, horizon: number, bpm: number, range: BpmRange = DRUM_BPM_RANGE): { events: DrumStep[]; next: DrumCursor } {
   if (!Number.isFinite(now) || !Number.isFinite(horizon) || horizon < 0) throw new RangeError("Horloge invalide.");
   let next = cursor;
   // Resolve a queued change/count-in at its boundary before skipping whole cycles.
-  while (next.time < now && (next.pending || next.countIn > 0)) next = advance(next, bpm);
+  while (next.time < now && (next.pending || next.countIn > 0)) next = advance(next, bpm, range);
   const cycleSteps = stepsPerBar(next.pattern) * next.pattern.bars;
-  const cycleSeconds = cycleSteps * stepSeconds(next.pattern, bpm);
+  const cycleSeconds = cycleSteps * stepSeconds(next.pattern, bpm, range);
   if (next.time < now) {
     const cycles = Math.floor((now - next.time) / cycleSeconds);
     if (cycles > 0) next = { ...next, time: next.time + cycles * cycleSeconds };
@@ -82,7 +84,7 @@ export function planDrumSteps(cursor: DrumCursor, now: number, horizon: number, 
         hits: next.countIn ? [] : hitsAt(next.pattern, next.bar, next.step),
         click: next.countIn && pulse ? (next.step === 0 ? "accent" : "beat") : null });
     }
-    next = advance(next, bpm);
+    next = advance(next, bpm, range);
   }
   return { events, next };
 }

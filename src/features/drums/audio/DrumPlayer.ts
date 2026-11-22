@@ -1,7 +1,7 @@
-import { planDrumSteps, queuePattern, startDrumCursor, type DrumCursor, type DrumPattern, type DrumStep } from "../../../domain/rhythm/drums";
-import { clampBpm } from "../../../domain/rhythm/tempo";
-import { AudioScheduler, AUDIO_START_DELAY } from "../../audio/AudioScheduler";
-import { BasicDrumKit } from "./BasicDrumKit";
+import { planDrumSteps, queuePattern, startDrumCursor, type DrumCursor, type DrumPattern, type DrumStep } from "../../../domain/rhythm/drums.ts";
+import { clampBpm, DRUM_BPM_RANGE, type BpmRange } from "../../../domain/rhythm/tempo.ts";
+import { AudioScheduler, AUDIO_START_DELAY } from "../../audio/AudioScheduler.ts";
+import { BasicDrumKit } from "./BasicDrumKit.ts";
 import type { DrumKitFactory, DrumSoundProvider } from "./DrumSoundProvider";
 
 export type DrumSettings = { bpm: number; volume: number; pattern: DrumPattern; countIn: 0 | 1 | 2 };
@@ -14,15 +14,27 @@ export class DrumPlayer {
   private running = false;
   private disposed = false;
   private generation = 0;
+  private settings: DrumSettings;
+  private onStep: ((step: DrumStep) => void) | null;
+  private onInterrupted: () => void;
+  private createKit: DrumKitFactory;
+  private bpmRange: BpmRange;
   constructor(
-    private settings: DrumSettings,
-    private onStep: (step: DrumStep) => void,
-    private onInterrupted: () => void,
-    private createKit: DrumKitFactory = (context, output) => new BasicDrumKit(context, output),
-  ) {}
+    settings: DrumSettings,
+    onStep: ((step: DrumStep) => void) | null,
+    onInterrupted: () => void,
+    createKit: DrumKitFactory = (context, output) => new BasicDrumKit(context, output),
+    bpmRange: BpmRange = DRUM_BPM_RANGE,
+  ) {
+    this.settings = settings;
+    this.onStep = onStep;
+    this.onInterrupted = onInterrupted;
+    this.createKit = createKit;
+    this.bpmRange = bpmRange;
+  }
   configure(settings: DrumSettings) {
     if (this.cursor && this.running && settings.pattern !== this.settings.pattern) this.cursor = queuePattern(this.cursor, settings.pattern);
-    this.settings = { ...settings, bpm: clampBpm(settings.bpm), volume: Math.max(0, Math.min(1, settings.volume)) };
+    this.settings = { ...settings, bpm: clampBpm(settings.bpm, this.bpmRange), volume: Math.max(0, Math.min(1, settings.volume)) };
     if (this.master && this.context) this.master.gain.setTargetAtTime(this.settings.volume, this.context.currentTime, 0.015);
   }
   async start(): Promise<boolean> {
@@ -37,9 +49,12 @@ export class DrumPlayer {
       this.scheduler = new AudioScheduler(this.context, this.schedule, this.onStep, this.interrupted);
       this.context.onstatechange = () => { if (this.running && this.context?.state !== "running") this.interrupted(); };
     }
-    if (this.context.state === "suspended") await this.context.resume();
+    const context = this.context;
+    if (context.state === "suspended") await context.resume();
     if (this.disposed || generation !== this.generation) return false;
-    if (this.context.state !== "running") throw new Error("Audio indisponible.");
+    if (this.kit?.prepare) await this.kit.prepare();
+    if (this.disposed || generation !== this.generation) return false;
+    if (context.state !== "running") throw new Error("Audio indisponible.");
     this.master!.gain.setValueAtTime(this.settings.volume, this.context.currentTime);
     this.cursor = startDrumCursor(this.settings.pattern, this.context.currentTime + AUDIO_START_DELAY, this.settings.countIn);
     this.running = true;
@@ -48,7 +63,7 @@ export class DrumPlayer {
   }
   private schedule = (now: number, horizon: number): DrumStep[] => {
     if (!this.running || !this.cursor) return [];
-    const plan = planDrumSteps(this.cursor, now, horizon, this.settings.bpm);
+    const plan = planDrumSteps(this.cursor, now, horizon, this.settings.bpm, this.bpmRange);
     this.cursor = plan.next;
     for (const event of plan.events) {
       if (event.click) this.kit!.click(event.time, event.click === "accent");
