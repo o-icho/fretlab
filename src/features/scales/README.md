@@ -40,7 +40,9 @@ Références pédagogiques : [gammes mineures](https://2012.musictheory.net/less
 `components/ScaleVisualizer.tsx` orchestre les contrôles et le rendu.
 `settings.ts` valide les paramètres indépendamment de React et les sérialise
 avec `URLSearchParams`. Paramètres : `root`, `scale`, `tuning`,
-`display`, `view`, `start`. Les valeurs inconnues ont des fallbacks individuels.
+`display`, `view`, `start`, `hidden`. Le paramètre facultatif `hidden` contient
+les écarts en demi-tons des notes masquées par rapport à la fondamentale,
+séparés par des virgules. Sans ce paramètre, toutes les notes sont visibles.
 L’URL est la source de vérité des réglages, avec `useSearchParams` et l’API
 History native supportée par Next. Il n’y a ni stockage local ni état métier
 sérialisé. La boundary Suspense laisse titre, description et explication

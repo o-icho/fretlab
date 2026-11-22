@@ -19,11 +19,13 @@ export function ScaleVisualizer() {
   const scale = generateScale(settings.root, settings.scale);
   const tuning = TUNINGS.find((item) => item.id === settings.tuning)!;
   const range = scaleFretRange(settings);
-  const positions = mapScaleToFretboard(scale, tuning, range);
+  const positions = mapScaleToFretboard(scale, tuning, range)
+    .filter(({ scaleNote }) => !settings.hidden.includes(scaleNote.interval.semitones));
   const strings = tuningNotes(tuning);
   const title = `${scale.root.name} · ${scale.definition.name.toLocaleLowerCase("fr")}`;
   const [shareStatus, setShareStatus] = useState<"idle" | "copied" | "error">("idle");
   const player = useRef<MidiNotePlayer | null>(null);
+  const playingMidi = useRef<number | null>(null);
   const [audioError, setAudioError] = useState(false);
   useAudioPause(useCallback(() => player.current?.stop(), []));
   useEffect(() => () => {
@@ -35,7 +37,8 @@ export function ScaleVisualizer() {
     const audio = player.current ??= new MidiNotePlayer(() => [0]);
     setAudioError(false);
     try {
-      await audio.play([midi], false, 0.8, () => {});
+      playingMidi.current = midi;
+      await audio.play([midi], false, 0.8, () => { playingMidi.current = null; });
     } catch {
       if (player.current === audio) setAudioError(true);
     }
@@ -52,6 +55,16 @@ export function ScaleVisualizer() {
     // Next's native History API integration updates useSearchParams without fetching a route.
     window.history.replaceState(null, "", `${window.location.pathname}?${params}${window.location.hash}`);
     setShareStatus("idle");
+  }
+
+  function toggleNote(semitones: number, pitchClass: number) {
+    const { hidden } = parseScaleSettings(new URLSearchParams(window.location.search));
+    const show = hidden.includes(semitones);
+    if (!show && playingMidi.current !== null && playingMidi.current % 12 === pitchClass) {
+      player.current?.stop();
+      playingMidi.current = null;
+    }
+    update({ hidden: show ? hidden.filter((offset) => offset !== semitones) : [...hidden, semitones] });
   }
 
   async function copyLink() {
@@ -71,7 +84,7 @@ export function ScaleVisualizer() {
         <div className={styles.field}>
           <label htmlFor="scale-root">Fondamentale</label>
           <select id="scale-root" value={settings.root} aria-describedby="scale-root-help"
-            onChange={(event) => update({ root: event.target.value as ScaleSettings["root"] })}>
+            onChange={(event) => update({ root: event.target.value as ScaleSettings["root"], hidden: [] })}>
             {ROOTS.map((root) => <option key={root} value={root}>{root}</option>)}
           </select>
           <p id="scale-root-help">La note de départ de votre gamme.</p>
@@ -79,7 +92,7 @@ export function ScaleVisualizer() {
         <div className={styles.field}>
           <label htmlFor="scale-kind">Gamme</label>
           <select id="scale-kind" value={settings.scale} aria-describedby="scale-kind-help"
-            onChange={(event) => update({ scale: event.target.value as ScaleSettings["scale"] })}>
+            onChange={(event) => update({ scale: event.target.value as ScaleSettings["scale"], hidden: [] })}>
             {SCALE_DEFINITIONS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
           <p id="scale-kind-help">Choisissez les notes à explorer.</p>
@@ -121,16 +134,21 @@ export function ScaleVisualizer() {
       </div>
 
       <div className={styles.panel}>
-        <div className={styles.summary} aria-live="polite" aria-atomic="true">
+        <div className={styles.summary}>
           <p className={styles.kicker}>VOTRE GAMME SUR LE MANCHE</p>
           <h2>{title}</h2>
           <p className={styles.summaryHelp}>Cases {range.start} à {range.end} · {tuning.name}</p>
-          <ol className={styles.notes} aria-label="Notes et intervalles de la gamme">
+          <p className={styles.summaryHelp}>Sélectionnez les notes à afficher sur le manche.</p>
+          <ol className={styles.notes} aria-label="Notes à afficher sur le manche">
             {scale.notes.map((note) => (
-              <li key={note.interval.label} className={note.isRoot ? styles.rootNote : undefined}>
-                <strong>{settings.display === "notes" ? note.name : note.interval.label}</strong>
-                <span>{settings.display === "notes" ? note.interval.label : note.name}</span>
-                {note.isRoot && <span className="sr-only">Fondamentale</span>}
+              <li key={note.interval.label}>
+                <button type="button" className={`${styles.noteToggle} ${note.isRoot ? styles.rootNote : ""}`}
+                  aria-pressed={!settings.hidden.includes(note.interval.semitones)}
+                  aria-label={`${note.name}, intervalle ${note.interval.label}${note.isRoot ? ", fondamentale" : ""}`}
+                  onClick={() => toggleNote(note.interval.semitones, note.pitchClass)}>
+                  <strong>{settings.display === "notes" ? note.name : note.interval.label}</strong>
+                  <span>{settings.display === "notes" ? note.interval.label : note.name}</span>
+                </button>
               </li>
             ))}
           </ol>
@@ -139,7 +157,9 @@ export function ScaleVisualizer() {
           <span><i className={styles.rootDot} aria-hidden="true" />Fondamentale · double cercle</span>
           <span><i className={styles.noteDot} aria-hidden="true" />Autres notes de la gamme</span>
         </div>
-        <p className={styles.summaryHelp}>Cliquez sur une note du manche pour l’écouter.</p>
+        <p className={styles.summaryHelp}>{settings.hidden.length === scale.notes.length
+          ? "Le manche est vide. Sélectionnez une note ci-dessus pour la retrouver."
+          : "Cliquez sur une note du manche pour l’écouter."}</p>
         {audioError && <p role="alert">Lecture audio indisponible. Réessayez en sélectionnant une note.</p>}
         <Fretboard title={`${title} — manche de guitare`} tuning={tuning} range={range} onPlay={playNote}
           markers={positions.map((position) => ({
@@ -155,7 +175,7 @@ export function ScaleVisualizer() {
                 <strong>Corde {strings.length - index} · {string.note}{string.octave}</strong>
                 <p>{positions.filter((position) => position.stringIndex === index).map((position) =>
                   `case ${position.fret} : ${position.scaleNote.name} (${position.scaleNote.interval.label}${position.scaleNote.isRoot ? ", fondamentale" : ""})`,
-                ).join(" ; ") || "Aucune note de la gamme dans cette zone."}</p>
+                ).join(" ; ") || "Aucune note affichée dans cette zone."}</p>
               </li>
             ))}
           </ul>

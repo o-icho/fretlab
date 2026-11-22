@@ -116,15 +116,43 @@
   padding: 0;
   margin: 24px 0 0;
 }
-.notes li {
-  display: flex;
+.noteToggle {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-height: 42px;
+  gap: 8px;
+  min-height: 44px;
   padding: 8px 14px;
-  border: 1px solid var(--border);
+  border: 1px dashed var(--control-border);
   border-radius: 7px;
   background: var(--bg);
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+.noteToggle::before {
+  content: "";
+  box-sizing: border-box;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.noteToggle[aria-pressed="true"] {
+  border-style: solid;
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.noteToggle[aria-pressed="true"]::before {
+  height: 0.32rem;
+  border: solid var(--accent);
+  border-width: 0 0 2px 2px;
+  border-radius: 0;
+  transform: rotate(-45deg);
+}
+@media (hover: hover) {
+  .noteToggle:hover {
+    border-color: var(--accent-hover);
+  }
 }
 .notes strong {
   font-size: 16px;
@@ -133,7 +161,7 @@
   font-size: 11px;
   color: var(--muted);
 }
-.notes .rootNote {
+.rootNote[aria-pressed="true"] {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -268,7 +296,7 @@
   .notes {
     gap: 8px;
   }
-  .notes li {
+  .noteToggle {
     padding: 8px 12px;
   }
 }
