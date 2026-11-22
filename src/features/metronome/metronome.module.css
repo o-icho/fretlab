@@ -130,16 +130,6 @@
   box-shadow: 0 0 18px var(--beat-glow);
   transform: scale(1.12);
 }
-.beatHelp {
-  margin: 12px 0 0;
-  text-align: center;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.8;
-}
-.beatHelp span {
-  white-space: nowrap;
-}
 .transport {
   text-align: center;
   margin-top: 26px;
@@ -164,11 +154,6 @@
 }
 .start > span {
   font-size: 15px;
-}
-.transport p {
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 12px;
 }
 .status {
   text-align: center;

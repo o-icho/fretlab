@@ -20,7 +20,6 @@ import {
 } from "../lib/search";
 import styles from "./chords.module.css";
 
-const POPULAR = ["C", "G", "Am", "F", "D", "Em", "E", "A"];
 const TYPE_GROUPS = [
   { label: "Types d’accords", types: QUALITIES.filter((q) => !/\/[A-G]/.test(QUALITY_SUFFIXES[q])) },
   { label: "Accords avec basse indiquée", types: QUALITIES.filter((q) => /\/[A-G]/.test(QUALITY_SUFFIXES[q])) },
@@ -108,21 +107,6 @@ export function ChordDictionary() {
               </optgroup>
             ))}
           </select>
-        </div>
-      </div>
-      <div className={styles.popular}>
-        <h2>Accords populaires</h2>
-        <div>
-          {POPULAR.map((name) => (
-            <button
-              key={name}
-              type="button"
-              aria-pressed={chord?.displayName === name}
-              onClick={() => search(name)}
-            >
-              {name}
-            </button>
-          ))}
         </div>
       </div>
       <div className={styles.result} aria-live="polite" aria-atomic="true">

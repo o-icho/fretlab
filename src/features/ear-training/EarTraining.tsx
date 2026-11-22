@@ -53,9 +53,8 @@ export function EarTraining() {
       </select></label> : <label className={styles.field}>Sens des intervalles<select aria-label="Sens des intervalles" value={direction} onChange={e => { reset(); setDirection(e.target.value as EarIntervalDirection); }}>
         <option value="mixed">Ascendants et descendants</option><option value="ascending">Ascendants</option><option value="descending">Descendants</option>
       </select></label>}
-      <p className={styles.hint}>{kind === "chord" ? `La note choisie est la fondamentale. ${pool.length} accords sans renversement dans cette sélection, chacun avec la même chance d’apparaître.` : `La note choisie est la première note. ${pool.length} intervalles jusqu’à l’octave dans cette sélection. L’unisson est proposé uniquement lorsque les deux sens sont mélangés.`}</p>
+      {kind !== "chord" && <p className={styles.hint}>La note choisie est la première note. {pool.length} intervalles jusqu’à l’octave dans cette sélection. L’unisson est proposé uniquement lorsque les deux sens sont mélangés.</p>}
       <label className={styles.field}>Volume · {Math.round(volume * 100)} %<input aria-label="Volume" aria-valuetext={`${Math.round(volume * 100)} %`} type="range" min="0" max="1" step="0.05" value={volume} onChange={e => setVolume(Number(e.target.value))} /></label>
-      <p className={styles.hint}>Le volume s’applique à la prochaine écoute. Aucun microphone nécessaire.</p>
     </section>
     <section className={styles.exercise} aria-labelledby="ear-exercise">
       <p className="eyebrow">ÉCOUTEZ · IMAGINEZ · VÉRIFIEZ</p>
@@ -69,7 +68,7 @@ export function EarTraining() {
         {exercise && <button className="button button-secondary" onClick={() => void listen(exercise, true)}>Écouter les notes ensemble</button>}
         {exercise && <button className="button button-secondary" disabled={!playing} onClick={stop}>Arrêter le son</button>}
       </div>
-      <p className={styles.status} role="status">{playing ? "Lecture en cours…" : exercise ? "Prêt pour une nouvelle écoute." : "Le son démarre uniquement à votre demande."}</p>
+      <p className={styles.status} role="status">{playing ? "Lecture en cours…" : exercise ? "Prêt pour une nouvelle écoute." : null}</p>
       <div className={styles.actions}>
         <button className="button button-secondary" disabled={!exercise || revealed} onClick={() => setRevealed(true)}>{revealed ? "Réponse affichée" : kind === "chord" ? "Afficher l’accord" : "Afficher l’intervalle"}</button>
         <button className="button button-secondary" disabled={!exercise} onClick={nextExercise}>Exercice suivant →</button>

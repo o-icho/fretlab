@@ -63,7 +63,6 @@ export function Metronome() {
         className={styles.beats}
         role="group"
         aria-label={`Sons des ${count} ${beatUnit === "Croche" ? "croches" : "temps"} de la mesure`}
-        aria-describedby="beat-sounds-help"
       >
         {settings.beatSounds.map((sound, index) => {
           const current = index === beat && playing;
@@ -85,9 +84,6 @@ export function Metronome() {
           );
         })}
       </div>
-      <p id="beat-sounds-help" className={styles.beatHelp}>
-        Cliquez sur un rond : <span>&gt; Accentué</span> → <span>• Normal</span> → <span>○ Silence</span> → accentué.
-      </p>
       <div className={styles.transport}>
         <button
           type="button"
@@ -102,7 +98,6 @@ export function Metronome() {
           <span aria-hidden="true">{status === "stopped" ? "▶" : "■"}</span>
           {status === "stopped" ? "Démarrer" : "Arrêter"}
         </button>
-        <p>Espace hors des contrôles : démarrer ou arrêter</p>
       </div>
       <div role="status" className={styles.status}>
         {error ||
@@ -110,7 +105,7 @@ export function Metronome() {
             ? "Métronome en lecture"
             : status === "starting"
               ? "Activation de l’audio…"
-              : "Prêt à jouer")}
+              : null)}
       </div>
       <TapTempo onTempo={changeBpm} />
       <div className={styles.controls}>

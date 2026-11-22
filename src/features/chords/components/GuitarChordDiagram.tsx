@@ -22,9 +22,9 @@ export function GuitarChordDiagram({
     .join(" ; ");
   return (
     <svg
-      viewBox="0 0 280 292"
+      viewBox="0 0 280 272"
       width="280"
-      height="292"
+      height="272"
       style={{ width: "100%", height: "auto", maxWidth: 340 }}
       role="img"
       aria-labelledby={`${titleId} ${descriptionId}`}
@@ -119,9 +119,6 @@ export function GuitarChordDiagram({
           </text>
         ))}
       </g>
-      <text x={135} y={286} textAnchor="middle" fill="var(--muted)" fontSize="10">
-        Grave ← cordes → aigu
-      </text>
     </svg>
   );
 }
