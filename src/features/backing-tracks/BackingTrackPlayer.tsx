@@ -12,7 +12,7 @@ export function BackingTrackPlayer({ track }: { track: BackingTrack }) {
   const backing = useRef<HTMLAudioElement>(null), example = useRef<HTMLAudioElement>(null);
   const transport = useRef<TrackTransport | null>(null);
   const [state, setState] = useState({ time: 0, logicalTime: 0, playing: false, mode: "BACKING", ready: false, example: false, message: "" });
-  const [volume, setVolume] = useState(0.7);
+  const [volume, setVolume] = useState(1);
   const refresh = useCallback(() => {
     const player = transport.current;
     if (!player) return;

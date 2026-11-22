@@ -15,7 +15,7 @@ export function EarTraining() {
   const [exercise, setExercise] = useState<EarExercise | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(1);
   const [error, setError] = useState("");
   const audio = useRef<EarAudio | null>(null);
   const request = useRef(0);

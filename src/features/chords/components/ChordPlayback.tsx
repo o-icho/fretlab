@@ -51,7 +51,7 @@ function PlayButton({ notes, mode }: { notes: readonly number[]; mode: PlaybackM
     setPlaying(true);
     try {
       audio.current ??= new ChordAudio();
-      await audio.current.play(notes, mode === "together", 0.85, () => {
+      await audio.current.play(notes, mode === "together", 1, () => {
         if (token === request.current) setPlaying(false);
       });
     } catch {

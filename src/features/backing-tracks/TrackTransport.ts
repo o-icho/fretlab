@@ -14,7 +14,7 @@ export class TrackTransport {
   private disposed = false;
   private track: BackingTrack;
   private sources: Record<TrackMode, MediaPort>;
-  constructor(track: BackingTrack, backing: MediaPort, example: MediaPort) { this.track = track; this.sources = { BACKING: backing, EXAMPLE: example }; this.volume(0.7); }
+  constructor(track: BackingTrack, backing: MediaPort, example: MediaPort) { this.track = track; this.sources = { BACKING: backing, EXAMPLE: example }; this.volume(backing.volume); }
   get active() { return this.sources[this.mode]; }
   get logicalTimeMs() { return getBackingLogicalTimeMs(this.active.currentTime, this.mode, this.track.audio.exampleOffsetMs); }
   get timeMs() { return Math.max(0, Math.min(this.track.durationMs, this.logicalTimeMs)); }

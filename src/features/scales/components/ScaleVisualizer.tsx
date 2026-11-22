@@ -66,7 +66,7 @@ export function ScaleVisualizer() {
     setAudioError(false);
     try {
       playingMidi.current = midi;
-      await audio.play([midi], false, 0.8, () => { playingMidi.current = null; });
+      await audio.play([midi], false, 1, () => { playingMidi.current = null; });
     } catch {
       if (player.current === audio) setAudioError(true);
     }

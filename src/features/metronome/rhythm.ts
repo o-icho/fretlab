@@ -25,7 +25,7 @@ export const DEFAULT_SETTINGS: MetronomeSettings = {
   bpm: DEFAULT_BPM,
   signature: "4/4",
   beatSounds: defaultBeatSounds("4/4"),
-  volume: 0.5,
+  volume: 1,
 };
 
 export function parseBpm(value: string): number | null {

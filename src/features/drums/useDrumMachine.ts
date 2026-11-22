@@ -7,7 +7,7 @@ import { DRUM_PATTERNS } from "./presets";
 import { createPlaybackStore } from "./playbackStore";
 
 export function useDrumMachine() {
-  const [settings, setSettings] = useState<DrumSettings>({ bpm: 120, volume: 0.5, pattern: DRUM_PATTERNS[0], countIn: 0 });
+  const [settings, setSettings] = useState<DrumSettings>({ bpm: 120, volume: 1, pattern: DRUM_PATTERNS[0], countIn: 0 });
   const [status, setStatus] = useState<"stopped" | "starting" | "playing">("stopped");
   const [error, setError] = useState("");
   const [playback] = useState(createPlaybackStore);
