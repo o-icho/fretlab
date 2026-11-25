@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useCallback, useReducer } from "react";
+import { useCallback, useReducer, type CSSProperties } from "react";
 import { isFeatureHrefEnabled } from "@/config/features";
-import { STANDARD_TUNING, TUNINGS, tuningNotes } from "@/domain/music/tuning";
+import { tuningNotes } from "@/domain/music/tuning";
+import { InstrumentField, TuningField } from "@/features/strings/StringControls";
+import { useStringWorkspace } from "@/features/strings/useStringWorkspace";
 import { useTuner } from "../audio/useTuner";
 import { centsDifference, midiToNote } from "../music/notes";
 import {
@@ -19,10 +20,11 @@ function formatCents(value: number) {
 }
 
 export function IntonationCheck() {
-  const query = useSearchParams();
-  const preset = TUNINGS.find((item) => item.id === query.get("tuning")) ?? STANDARD_TUNING;
-  const [session, dispatch] = useReducer(intonationReducer, preset, createIntonationSession);
-  if (session.tuning.id !== preset.id) dispatch({ type: "tuning", tuning: preset });
+  const { instrument, tuning: preset, hrefs, changeInstrument, updateQuery } = useStringWorkspace("justesse");
+  const [session, dispatch] = useReducer(intonationReducer, { preset, instrument },
+    ({ preset, instrument }) => createIntonationSession(preset, instrument));
+  if (session.tuning.id !== preset.id || session.instrument !== instrument)
+    dispatch({ type: "tuning", tuning: preset, instrument });
   const recordSample = useCallback((frequency: number | null) => dispatch({ type: "sample", frequency }), []);
   const { status, frequency, error, toggle } = useTuner(recordSample);
   const { tuning, index, readings } = session;
@@ -42,18 +44,13 @@ export function IntonationCheck() {
   return (
     <section className={styles.workspace} aria-label="Contrôle de justesse">
       <div className={styles.setup}>
-        <label className={styles.tuning}>Accordage
-          <select value={tuning.id} onChange={(event) => {
-            const url = new URL(window.location.href);
-            url.searchParams.set("tuning", event.target.value);
-            window.history.replaceState(null, "", url);
-          }}>
-            {TUNINGS.map((preset) => <option key={preset.id} value={preset.id}>{preset.name}</option>)}
-          </select>
-        </label>
+        <div className={styles.instrumentControls}>
+          <InstrumentField instrument={instrument} onChange={changeInstrument} />
+          <TuningField instrument={instrument} value={tuning.id} onChange={value => updateQuery({ tuning: value })} />
+        </div>
         <fieldset className={styles.strings}>
           <legend>Corde à vérifier</legend>
-          <div>{strings.map((string, i) => {
+          <div style={{ "--string-count": strings.length } as CSSProperties}>{strings.map((string, i) => {
             const number = strings.length - i;
             const saved = readings[i];
             const result = saved?.fretted === undefined ? null : intonationCents(saved.open, saved.fretted);
@@ -104,7 +101,7 @@ export function IntonationCheck() {
             {status === "stopped" ? "Activer le microphone" : "Arrêter le microphone"}
           </button>
         </div>
-        {isFeatureHrefEnabled("/outils/accordeur") && <Link className={styles.link} href={`/outils/accordeur/?tuning=${tuning.id}`}>Ouvrir l’accordeur en {tuning.name}</Link>}
+        {isFeatureHrefEnabled("/outils/accordeur") && <Link className={styles.link} href={hrefs.accordeur}>Ouvrir l’accordeur en {tuning.name}</Link>}
       </div>
     </section>
   );

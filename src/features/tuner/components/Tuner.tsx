@@ -12,37 +12,42 @@ import {
   clampCents,
   tuningStatus,
 } from "../music/notes";
-import {
-  STANDARD_TUNING,
-  BASS_4_TUNING,
-  BASS_5_TUNING,
-  TUNINGS,
-  type TuningId,
-  tuningNotes,
-} from "@/domain/music/tuning";
+import { tuningNotes } from "@/domain/music/tuning";
+import { getStringTunings, resolveStringInstrument, resolveStringTuning, type StringInstrument } from "@/domain/music/stringTunings";
 import styles from "./tuner.module.css";
 
-const INSTRUMENT_TUNINGS = {
-  guitar: STANDARD_TUNING,
-  "bass-4": BASS_4_TUNING,
-  "bass-5": BASS_5_TUNING,
-} as const;
-type TunerMode = "chromatic" | keyof typeof INSTRUMENT_TUNINGS;
+type InstrumentMode = "guitar" | "bass-4" | "bass-5";
+type TunerMode = "chromatic" | InstrumentMode;
 
 export function TunerFromQuery() {
-  const requested = useSearchParams().get("tuning");
-  const preset = TUNINGS.find((item) => item.id === requested);
-  return <Tuner key={preset?.id ?? "chromatic"} initialGuitarTuning={preset?.id} />;
+  const query = useSearchParams();
+  const instrument = resolveStringInstrument(query.get("instrument"), query.get("tuning"));
+  const preset = resolveStringTuning(instrument, query.get("tuning"));
+  const hasPreset = query.get("instrument") === instrument || query.get("tuning") === preset.id;
+  return <Tuner key={hasPreset ? `${instrument}/${preset.id}` : "chromatic"}
+    initialInstrument={hasPreset ? instrument : undefined} initialTuning={preset.id} initialQuery={query.toString()} />;
 }
 
-export function Tuner({ initialGuitarTuning }: { initialGuitarTuning?: TuningId }) {
+export function Tuner({ initialInstrument, initialTuning, initialQuery }: {
+  initialInstrument?: StringInstrument;
+  initialTuning?: string;
+  initialQuery?: string;
+}) {
   const { status, frequency, error, toggle } = useTuner();
-  const [mode, setMode] = useState<TunerMode>(initialGuitarTuning ? "guitar" : "chromatic");
-  const [guitarTuning, setGuitarTuning] = useState<TuningId>(initialGuitarTuning ?? "standard");
+  const initialMode = initialInstrument === "bass-4" || initialInstrument === "bass-5" ? initialInstrument : "guitar";
+  const [mode, setMode] = useState<TunerMode>(initialInstrument ? initialMode : "chromatic");
+  const [selectedTunings, setSelectedTunings] = useState<Partial<Record<InstrumentMode, string>>>({
+    [initialMode]: initialTuning,
+  });
   const [selected, setSelected] = useState<number | null>(null);
-  const tuning = mode === "guitar"
-    ? TUNINGS.find((item) => item.id === guitarTuning) ?? STANDARD_TUNING
-    : mode === "chromatic" ? null : INSTRUMENT_TUNINGS[mode];
+  const isBass = mode === "bass-4" || mode === "bass-5";
+  const instrument = isBass ? mode : initialMode === "guitar" ? initialInstrument ?? "electric" : "electric";
+  const presets = getStringTunings(instrument);
+  const preset = resolveStringTuning(instrument, selectedTunings[mode === "chromatic" ? "guitar" : mode]);
+  const tuning = mode === "chromatic" ? null : preset;
+  const checkParams = new URLSearchParams(instrument === initialInstrument ? initialQuery : undefined);
+  checkParams.set("instrument", instrument);
+  checkParams.set("tuning", preset.id);
   const strings = tuning ? tuningNotes(tuning) : [];
   const detected = frequency === null ? null : frequencyToNote(frequency);
   const note = detected && tuning ? midiToNote(detected.midi, tuning.notation) : detected;
@@ -93,14 +98,15 @@ export function Tuner({ initialGuitarTuning }: { initialGuitarTuning?: TuningId 
           </label>
         ))}
       </fieldset>
-      {mode === "guitar" && (
+      {mode !== "chromatic" && (
         <label className={styles.tuningPicker}>
-          Accordage de la guitare
-          <select value={guitarTuning} onChange={(event) => {
-            const preset = TUNINGS.find((item) => item.id === event.target.value);
-            if (preset) { setGuitarTuning(preset.id); setSelected(null); }
+          {isBass ? "Accordage de la basse" : "Accordage de la guitare"}
+          <select value={preset.id} onChange={(event) => {
+            const id = event.target.value;
+            setSelectedTunings(previous => ({ ...previous, [mode]: id }));
+            setSelected(null);
           }}>
-            {TUNINGS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+            {presets.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
           </select>
         </label>
       )}
@@ -233,19 +239,16 @@ export function Tuner({ initialGuitarTuning }: { initialGuitarTuning?: TuningId 
         Jouez une seule note et laissez-la résonner. La jauge est limitée à ±50
         cents ; la valeur affichée conserve l’écart réel.
       </p>
-      {(mode === "bass-4" || mode === "bass-5") && (
+      {isBass && (
         <p className={styles.help}>
-          Accordage standard : {mode === "bass-5" ? "Si–Mi–La–Ré–Sol" : "Mi–La–Ré–Sol"}.
-          <br />
           Pour les notes graves, étouffez les autres cordes et laissez le son se
           stabiliser après l’attaque. Si le microphone capte mal les graves,
           utilisez une entrée audio adaptée.
         </p>
       )}
-      {(mode === "guitar" || mode === "chromatic") &&
-        isFeatureHrefEnabled("/outils/cordes-et-reglages/justesse") && (
+      {isFeatureHrefEnabled("/outils/cordes-et-reglages/justesse") && (
           <Link className={styles.intonationLink}
-            href={`/outils/cordes-et-reglages/justesse/?tuning=${guitarTuning}`}>
+            href={`/outils/cordes-et-reglages/justesse/?${checkParams}`}>
             Vérifier la justesse à la 12ᵉ case →
           </Link>
       )}

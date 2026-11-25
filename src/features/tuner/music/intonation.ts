@@ -1,5 +1,6 @@
 import { targetFrequency } from "../../../domain/music/midi.ts";
 import type { Tuning } from "../../../domain/music/tuning.ts";
+import type { StringInstrument } from "../../../domain/music/stringTunings.ts";
 import { centsDifference } from "./notes.ts";
 
 const STABLE_FRAMES = 5;
@@ -9,6 +10,7 @@ export const FRETTED_WINDOW_CENTS = 75;
 type Reading = { open: number; fretted?: number };
 type Session = {
   tuning: Tuning;
+  instrument?: StringInstrument;
   index: number;
   readings: Partial<Record<number, Reading>>;
   measuringFret: boolean;
@@ -17,11 +19,11 @@ type Session = {
 type Action =
   | { type: "sample"; frequency: number | null }
   | { type: "string"; index: number }
-  | { type: "tuning"; tuning: Tuning }
+  | { type: "tuning"; tuning: Tuning; instrument?: StringInstrument }
   | { type: "arm-fret" | "repeat" };
 
-export function createIntonationSession(tuning: Tuning): Session {
-  return { tuning, index: 0, readings: {}, measuringFret: false, samples: [] };
+export function createIntonationSession(tuning: Tuning, instrument?: StringInstrument): Session {
+  return { tuning, instrument, index: 0, readings: {}, measuringFret: false, samples: [] };
 }
 
 export function measurementStage(session: Session) {
@@ -41,7 +43,7 @@ export function verdict(cents: number) {
 }
 
 export function intonationReducer(session: Session, action: Action): Session {
-  if (action.type === "tuning") return createIntonationSession(action.tuning);
+  if (action.type === "tuning") return createIntonationSession(action.tuning, action.instrument);
   if (action.type === "string") {
     if (action.index === session.index || !Number.isInteger(action.index) ||
         action.index < 0 || action.index >= session.tuning.strings.length) return session;

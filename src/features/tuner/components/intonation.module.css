@@ -8,11 +8,7 @@
 }
 .setup, .measure { min-width: 0; padding: clamp(20px, 3vw, 36px); }
 .setup { background: color-mix(in srgb, var(--surface), var(--bg) 32%); border-right: 1px solid var(--border); }
-.tuning { display: grid; gap: 8px; font-size: 14px; font-weight: 700; }
-.tuning select {
-  min-height: 46px; padding: 8px 12px; width: 100%; font: inherit;
-  color: var(--text); background: var(--bg); border: 1px solid var(--control-border); border-radius: 8px;
-}
+.instrumentControls { display: grid; gap: 12px; }
 .strings { border: 0; margin: 22px 0 0; padding: 0; min-width: 0; }
 .strings legend { font-weight: 700; margin-bottom: 9px; }
 .strings > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
@@ -41,7 +37,7 @@
 @media (max-width: 700px) {
   .workspace { grid-template-columns: 1fr; }
   .setup { border-right: 0; border-bottom: 1px solid var(--border); }
-  .strings > div { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .strings > div { grid-template-columns: repeat(var(--string-count), minmax(0, 1fr)); }
   .strings small { font-size: 9px; }
 }
 @media (max-width: 420px) {

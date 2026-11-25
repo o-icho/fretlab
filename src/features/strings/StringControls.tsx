@@ -1,7 +1,7 @@
 "use client";
 
 import { getStringSets, STRING_INSTRUMENTS, type StringInstrument } from "@/domain/music/stringGauges";
-import { TUNINGS } from "@/domain/music/tuning";
+import { getStringTunings } from "@/domain/music/stringTunings";
 import styles from "./strings.module.css";
 
 export function SelectField({ label, value, options, onChange }: {
@@ -27,8 +27,8 @@ export function InstrumentField({ instrument, onChange }: {
   return <SelectField label="Instrument" value={instrument} options={STRING_INSTRUMENTS} onChange={onChange} />;
 }
 
-export function TuningField({ value, onChange }: { value: string; onChange: (value: string) => void }) {
-  const options = TUNINGS.map(tuning => ({ id: tuning.id, label: tuning.name }));
+export function TuningField({ instrument, value, onChange }: { instrument: StringInstrument; value: string; onChange: (value: string) => void }) {
+  const options = getStringTunings(instrument).map(tuning => ({ id: tuning.id, label: tuning.name }));
   return <SelectField label="Accordage" value={value} options={options} onChange={onChange} />;
 }
 

@@ -9,19 +9,17 @@ import { useStringWorkspace } from "./useStringWorkspace";
 import styles from "./strings.module.css";
 
 export function StringChooser() {
-  const { instrument, tuning, current, goals, goal, recommended, hrefs, updateQuery } = useStringWorkspace("choisir");
+  const { instrument, tuning, current, goals, goal, recommended, hrefs, changeInstrument, updateQuery } = useStringWorkspace("choisir");
   const { set, explanation } = recommended;
   const notes = tuningNotes(tuning);
 
   return (
     <div className={styles.chooser}>
       <section className={styles.panel} aria-labelledby="string-choice-settings">
-        <h2 id="string-choice-settings" className={styles.heading}>Votre guitare</h2>
+        <h2 id="string-choice-settings" className={styles.heading}>Votre instrument</h2>
         <div className={styles.fields}>
-          <InstrumentField instrument={instrument} onChange={value =>
-            updateQuery({ instrument: value, current: null, goal: goal === "bends" && value === "classical" ? null : goal })
-          } />
-          <TuningField value={tuning.id} onChange={value => updateQuery({ tuning: value })} />
+          <InstrumentField instrument={instrument} onChange={changeInstrument} />
+          <TuningField instrument={instrument} value={tuning.id} onChange={value => updateQuery({ tuning: value })} />
         </div>
         <SetField instrument={instrument} value={current?.id ?? ""} allowUnknown
           onChange={value => updateQuery({ current: value || null })} />
@@ -44,10 +42,12 @@ export function StringChooser() {
           <h2 id="recommended-set" className={styles.resultLabel}>Jeu conseillé</h2>
           <p className={styles.recommendedSet}>{set.label}</p>
           <p className={styles.explanation}>{explanation}</p>
+          {(instrument === "bass-4" || instrument === "bass-5") &&
+            <p className={styles.help}>Ces jeux sont au format Long Scale. Vérifiez la longueur de cordes prévue pour votre basse.</p>}
         </div>
         <div className={styles.gaugeDetail}>
           <p>Diamètres en millièmes de pouce, du grave à l’aigu</p>
-          <ol className={styles.strings} aria-label="Tirant par corde, de la 6e à la 1re">
+          <ol className={styles.strings} aria-label={`Tirant par corde, de la ${notes.length}e à la 1re`}>
             {notes.map((note, index) => (
               <li key={index}>
                 <span className={styles.note}>{note.note}<sub>{note.octave}</sub></span>
@@ -60,7 +60,7 @@ export function StringChooser() {
           <Button href={hrefs.comparer}>
             {current ? "Comparer avec mon jeu actuel" : "Comparer deux jeux"} <Icon name="arrow" size={16} />
           </Button>
-          <Button secondary href={`/outils/accordeur/?tuning=${tuning.id}`}>
+          <Button secondary href={hrefs.accordeur}>
             Accordeur · {tuning.name}
           </Button>
           <Link className={styles.actionLink} href={hrefs.justesse}>

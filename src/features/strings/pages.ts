@@ -6,7 +6,7 @@ export const stringTools = {
   choisir: {
     title: "Choisir mes cordes",
     navLabel: "Choisir",
-    description: "Quel tirant pour votre guitare, votre accordage et votre toucher ?",
+    description: "Quel tirant pour votre guitare ou votre basse, selon votre accordage et votre toucher ?",
     href: stringsHub.href + "/choisir",
     icon: "strings",
   },

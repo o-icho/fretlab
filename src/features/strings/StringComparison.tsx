@@ -21,7 +21,7 @@ function SetupFields({ title, instrument, set, tuning, changeSet, changeTuning }
       <legend>{title}</legend>
       <div className={styles.fields}>
         <SetField instrument={instrument} value={set.id} onChange={changeSet} />
-        <TuningField value={tuning.id} onChange={changeTuning} />
+        <TuningField instrument={instrument} value={tuning.id} onChange={changeTuning} />
       </div>
     </fieldset>
   );
@@ -41,15 +41,14 @@ const feel = { same: "Identique", softer: "Plus souple", firmer: "Plus ferme" } 
 const percent = new Intl.NumberFormat("fr-FR", { signDisplay: "exceptZero" });
 
 export function StringComparison() {
-  const { instrument, first, second, firstTuning, secondTuning, hrefs, updateQuery } = useStringWorkspace("comparer");
+  const { instrument, first, second, firstTuning, secondTuning, hrefs, changeInstrument, updateQuery } = useStringWorkspace("comparer");
   const comparison = compareStringSets(first, firstTuning, second, secondTuning);
 
   return (
     <div className={styles.comparison}>
       <div className={styles.panel}>
         <div className={styles.instrument}>
-          <InstrumentField instrument={instrument} onChange={value =>
-            updateQuery({ instrument: value, first: null, second: null })} />
+          <InstrumentField instrument={instrument} onChange={changeInstrument} />
         </div>
         <div className={styles.setups}>
           <SetupFields title="Jeu de référence" instrument={instrument} set={first} tuning={firstTuning}
@@ -60,7 +59,7 @@ export function StringComparison() {
       </div>
       <section className={styles.panel} aria-labelledby="tension-heading">
         <h2 className={styles.heading} id="tension-heading">Tension corde par corde</h2>
-        <p className={styles.help} id="tension-units">Chaque colonne indique la note et le diamètre en millièmes de pouce. L’écart de tension est estimé pour les deux jeux montés sur la même guitare.</p>
+        <p className={styles.help} id="tension-units">Chaque colonne indique la note et le diamètre en millièmes de pouce. L’écart de tension est estimé pour les deux jeux montés sur le même instrument.</p>
         <table className={styles.table} aria-labelledby="tension-heading" aria-describedby="tension-units">
           <thead>
             <tr>
@@ -84,7 +83,7 @@ export function StringComparison() {
           {second.id !== first.id && <> · <a href={second.sourceUrl}>{second.model}</a></>}
         </p>
         <div className={styles.actions}>
-          <Button secondary href={`/outils/accordeur/?tuning=${secondTuning.id}`}>Accordeur · {secondTuning.name}</Button>
+          <Button secondary href={hrefs.accordeur}>Accordeur · {secondTuning.name}</Button>
           <Button secondary href={hrefs.justesse}>Vérifier la justesse</Button>
         </div>
       </section>

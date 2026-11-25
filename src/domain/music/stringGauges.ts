@@ -1,12 +1,7 @@
 import { targetFrequency } from "./midi.ts";
-import { STANDARD_TUNING, type Tuning } from "./tuning.ts";
-
-export const STRING_INSTRUMENTS = [
-  { id: "electric", label: "Guitare électrique" },
-  { id: "folk", label: "Guitare folk (acier)" },
-  { id: "classical", label: "Guitare classique (nylon)" },
-] as const;
-export type StringInstrument = (typeof STRING_INSTRUMENTS)[number]["id"];
+import type { Tuning } from "./tuning.ts";
+import type { StringInstrument } from "./stringTunings.ts";
+export { STRING_INSTRUMENTS, type StringInstrument } from "./stringTunings.ts";
 
 export const STRING_GOALS = [
   { id: "balanced", label: "Un jeu polyvalent" },
@@ -16,23 +11,37 @@ export const STRING_GOALS = [
 ] as const;
 export type StringGoal = (typeof STRING_GOALS)[number]["id"];
 
-type SixStrings = readonly [number, number, number, number, number, number];
+export function getStringGoals(instrument: StringInstrument): readonly { id: StringGoal; label: string }[] {
+  if (instrument === "bass-4" || instrument === "bass-5") {
+    return [STRING_GOALS[0], { id: "softer", label: "Un toucher plus souple" }, STRING_GOALS[3]];
+  }
+  return instrument === "classical" ? STRING_GOALS.filter(goal => goal.id !== "bends") : STRING_GOALS;
+}
+
+type FourStrings = readonly [number, number, number, number];
+type FiveStrings = readonly [...FourStrings, number];
+type SixStrings = readonly [...FiveStrings, number];
+type StringValues = FourStrings | FiveStrings | SixStrings;
+
 export type StringSet = {
   id: string;
   instrument: StringInstrument;
   label: string;
   model: string;
   sourceUrl: string;
-  /** Diameters in thousandths of an inch, low E to high E, as listed by the manufacturer. */
-  gauges: SixStrings;
-  /** Manufacturer's published tensions (lbf) at E standard, same string order. */
-  referenceLbs: SixStrings;
+  /** Diameters in thousandths of an inch, from lowest to highest string. */
+  gauges: StringValues;
+  /** Published tensions (lbf) in the instrument's standard tuning, in the same order. */
+  referenceLbs: StringValues;
 };
 
 // D’Addario product specifications. Within each instrument all sets belong to
 // the same series and use the same reference scale. No steel/nylon conversion.
-function set(instrument: StringInstrument, id: string, label: string, product: string, gauges: SixStrings, referenceLbs: SixStrings): StringSet {
-  const series = { electric: "XL Nickel", folk: "Phosphor Bronze", classical: "Pro-Arté Nylon" };
+function set(instrument: StringInstrument, id: string, label: string, product: string, gauges: StringValues, referenceLbs: StringValues): StringSet {
+  const series = {
+    electric: "XL Nickel", folk: "Phosphor Bronze", classical: "Pro-Arté Nylon",
+    "bass-4": "XL Nickel Bass Long Scale", "bass-5": "XL Nickel Bass Long Scale",
+  };
   return {
     instrument, id, label, gauges, referenceLbs,
     model: `D’Addario ${series[instrument]} ${id.toUpperCase()}`,
@@ -73,13 +82,29 @@ const catalogue = {
     set("classical", "ej46", "Tension forte", "ej46-pro-arte-nylon-classical-guitar-strings-hard-tension",
       [44, 36, 30, 41, 32.7, 28.5], [15.2, 17, 16.2, 12.3, 12.4, 16.8]),
   ],
+  "bass-4": [
+    set("bass-4", "exl220", "40–95", "exl220-xl-nickel-wound-bass-guitar-strings-super-light-40-95-long-scale",
+      [95, 75, 60, 40], [31.7, 35.4, 40.9, 32.4]),
+    set("bass-4", "exl170", "45–100", "exl170-xl-nickel-wound-bass-guitar-strings-light-45-100-long-scale",
+      [100, 80, 65, 45], [34.7, 40.1, 48.4, 42.5]),
+    set("bass-4", "exl165", "45–105", "exl165-xl-nickel-wound-bass-guitar-strings-custom-light-45-105-long-scale",
+      [105, 85, 65, 45], [38.1, 45.3, 48.4, 42.5]),
+  ],
+  "bass-5": [
+    set("bass-5", "exl220-5", "40–125", "exl220-5-xl-nickel-wound-5-string-bass-guitar-strings-super-light-40-125-long-scale",
+      [125, 95, 75, 60, 40], [30.3, 31.7, 35.4, 40.9, 32.4]),
+    set("bass-5", "exl170-5", "45–130", "exl170-5-xl-nickel-wound-5-string-bass-guitar-strings-light-45-130-long-scale",
+      [130, 100, 80, 65, 45], [32.1, 34.7, 40.1, 48.4, 42.5]),
+    set("bass-5", "exl165-5", "45–135", "exl165-5-xl-nickel-wound-5-string-bass-guitar-strings-custom-light-45-135-long-scale",
+      [135, 105, 85, 65, 45], [35, 38.1, 45.3, 48.4, 42.5]),
+  ],
 } satisfies Record<StringInstrument, StringSet[]>;
 
 export function getStringSets(instrument: StringInstrument): readonly StringSet[] {
   return catalogue[instrument];
 }
 
-const defaults = { electric: "exl110", folk: "ej16", classical: "ej45" };
+const defaults = { electric: "exl110", folk: "ej16", classical: "ej45", "bass-4": "exl170", "bass-5": "exl170-5" };
 export function getDefaultStringSet(instrument: StringInstrument): StringSet {
   return catalogue[instrument].find(candidate => candidate.id === defaults[instrument])!;
 }
@@ -99,7 +124,20 @@ const alternatives: Record<string, { softer: string; bends: string; "firmer-bass
   ej43: { softer: "ej43", bends: "ej43", "firmer-bass": "ej45" },
   ej45: { softer: "ej43", bends: "ej43", "firmer-bass": "ej46" },
   ej46: { softer: "ej45", bends: "ej45", "firmer-bass": "ej46" },
+  exl220: { softer: "exl220", bends: "exl220", "firmer-bass": "exl170" },
+  exl170: { softer: "exl220", bends: "exl220", "firmer-bass": "exl165" },
+  exl165: { softer: "exl170", bends: "exl170", "firmer-bass": "exl165" },
+  "exl220-5": { softer: "exl220-5", bends: "exl220-5", "firmer-bass": "exl170-5" },
+  "exl170-5": { softer: "exl220-5", bends: "exl220-5", "firmer-bass": "exl165-5" },
+  "exl165-5": { softer: "exl170-5", bends: "exl170-5", "firmer-bass": "exl165-5" },
 };
+
+function checkTuning(set: StringSet, tuning: Tuning) {
+  if (tuning.strings.length !== set.gauges.length ||
+      tuning.strings.some(note => !Number.isInteger(note) || note < 0 || note > 127)) {
+    throw new RangeError(`Un accordage pour un instrument à ${set.gauges.length} cordes est requis.`);
+  }
+}
 
 export function recommendStringSet(instrument: StringInstrument, tuning: Tuning, goal: StringGoal, currentSetId?: string) {
   const sets = getStringSets(instrument);
@@ -108,14 +146,22 @@ export function recommendStringSet(instrument: StringInstrument, tuning: Tuning,
   const defaultSet = inStandardD
     ? sets.find(candidate => candidate.id === "exl115")!
     : getDefaultStringSet(instrument);
+  checkTuning(defaultSet, tuning);
   if (goal === "balanced") {
     if (current) return { set: current, explanation: "Si le toucher vous convient dans cet accordage, reprendre le même jeu conserve vos repères." };
+    if (tuning.id === "bass-4-drop-d" || tuning.id === "bass-5-drop-a") {
+      const set = sets.find(candidate => candidate.id === alternatives[defaultSet.id]["firmer-bass"])!;
+      const note = instrument === "bass-5" ? "la" : "ré";
+      return { set, explanation: `Accordée en ${note}, la corde grave se détend. Le ${set.label} lui redonne de la tenue tout en gardant les deux cordes aiguës du ${defaultSet.label}.` };
+    }
     const explanations = {
       electric: inStandardD
         ? "En ré standard, les six cordes descendent d’un ton. Le 11–49 redonne de la tenue aux accords."
         : "Le 10–46 donne de la tenue aux accords et garde des aigus assez souples pour les solos.",
       folk: "Le 12–53 offre de la résistance au médiator et convient aussi aux arpèges sur une folk à cordes acier.",
       classical: "La tension normale est un point de départ pour trouver vos repères sur des cordes en nylon.",
+      "bass-4": "Le 45–100 donne un appui régulier sous les doigts et convient aussi au jeu au médiator.",
+      "bass-5": "Le 45–130 offre un toucher polyvalent aux doigts comme au médiator, avec une cinquième corde de 130 pour les notes graves.",
     };
     return { set: defaultSet, explanation: explanations[instrument] };
   }
@@ -127,6 +173,12 @@ export function recommendStringSet(instrument: StringInstrument, tuning: Tuning,
     const explanation = goal === "firmer-bass"
       ? "Votre jeu a déjà les graves les plus fermes de cette sélection pour cet instrument."
       : "Votre jeu est déjà parmi les plus souples de cette sélection pour ce geste.";
+    return { set: next, explanation };
+  }
+  if (instrument === "bass-4" || instrument === "bass-5") {
+    const explanation = goal === "firmer-bass"
+      ? `La corde la plus grave passe de ${reference.gauges[0]} à ${next.gauges[0]} millièmes de pouce. Elle offre plus de résistance sous les doigts dans cet accordage.`
+      : "Ce jeu allège la tension dans le grave et demande moins de pression pour fretter les notes.";
     return { set: next, explanation };
   }
   if (instrument === "electric" && goal === "firmer-bass" && next.id === "exl140" && reference.id === "exl110") {
@@ -147,21 +199,18 @@ export function recommendStringSet(instrument: StringInstrument, tuning: Tuning,
 
 export function compareStringSets(firstSet: StringSet, firstTuning: Tuning, secondSet: StringSet, secondTuning: Tuning) {
   if (firstSet.instrument !== secondSet.instrument) throw new RangeError("Choisissez deux jeux pour le même instrument.");
-  for (const tuning of [firstTuning, secondTuning]) {
-    if (tuning.strings.length !== 6 || tuning.strings.some(note => !Number.isInteger(note) || note < 0 || note > 127)) {
-      throw new RangeError("Un accordage de guitare à six cordes est requis.");
-    }
-  }
+  checkTuning(firstSet, firstTuning);
+  checkTuning(secondSet, secondTuning);
   return firstTuning.strings.map((firstMidi, index) => {
     const secondMidi = secondTuning.strings[index];
-    // Same guitar: scale length cancels. Tension ∝ linear mass × frequency².
+    // Same instrument: scale length cancels. Tension ∝ linear mass × frequency².
     // At the same standard pitch the reference tension ratio is the mass ratio.
     const referenceRatio = secondSet.referenceLbs[index] / firstSet.referenceLbs[index];
     const pitchRatio = targetFrequency(secondMidi) / targetFrequency(firstMidi);
     const changePercent = Math.round(100 * (referenceRatio * pitchRatio ** 2 - 1)) || 0;
     const direction: "same" | "softer" | "firmer" = changePercent === 0 ? "same" : changePercent < 0 ? "softer" : "firmer";
     return {
-      stringNumber: STANDARD_TUNING.strings.length - index,
+      stringNumber: firstTuning.strings.length - index,
       firstMidi, secondMidi,
       firstGauge: firstSet.gauges[index], secondGauge: secondSet.gauges[index],
       changePercent, direction,

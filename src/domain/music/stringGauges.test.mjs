@@ -1,8 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { STANDARD_TUNING, BASS_4_TUNING, TUNINGS } from "./tuning.ts";
+import { STANDARD_TUNING, BASS_4_TUNING, BASS_5_TUNING, TUNINGS } from "./tuning.ts";
+import { getStringTunings } from "./stringTunings.ts";
 import {
-  STRING_GOALS, STRING_INSTRUMENTS, getStringSets, getDefaultStringSet,
+  STRING_INSTRUMENTS, getStringGoals, getStringSets, getDefaultStringSet,
   recommendStringSet, compareStringSets,
 } from "./stringGauges.ts";
 
@@ -22,8 +23,9 @@ test("un jeu pour chaque souhait et accordage, même sans connaître le tirant p
   for (const { id: instrument } of STRING_INSTRUMENTS) {
     const sets = getStringSets(instrument);
     const inputs = [...sets.map(set => set.id), "jeu-inconnu", undefined];
-    for (const tuning of TUNINGS) {
-      for (const { id: goal } of STRING_GOALS) {
+    const tunings = getStringTunings(instrument);
+    for (const tuning of tunings) {
+      for (const { id: goal } of getStringGoals(instrument)) {
         for (const previous of inputs) {
           const { set, explanation } = recommendStringSet(instrument, tuning, goal, previous);
           assert.ok(sets.includes(set));
@@ -33,8 +35,8 @@ test("un jeu pour chaque souhait et accordage, même sans connaître le tirant p
       }
     }
     for (const set of sets) {
-      assert.equal(set.gauges.length, 6);
-      assert.equal(set.referenceLbs.length, 6);
+      assert.equal(set.gauges.length, tunings[0].strings.length);
+      assert.equal(set.referenceLbs.length, set.gauges.length);
       assert.ok(set.referenceLbs.every(tension => tension > 0));
       assert.match(set.sourceUrl, /^https:\/\/www\.daddario\.com\/products\//);
     }
@@ -46,6 +48,42 @@ test("un jeu pour chaque souhait et accordage, même sans connaître le tirant p
   assert.equal(recommendStringSet("electric", standard, "balanced", heavyBottom.id).set, heavyBottom);
   const standardD = TUNINGS.find(tuning => tuning.id === "d-standard");
   assert.equal(recommendStringSet("electric", standardD, "balanced").set.id, "exl115");
+});
+
+test("jeux de basse long scale, de la corde grave à la corde de sol", () => {
+  for (const [instrument, tuning, split, lighter, hybrid, percentages] of [
+    ["bass-4", BASS_4_TUNING, [100, 80, 65, 45], "40–95", "45–105", [10, 13, 0, 0]],
+    ["bass-5", BASS_5_TUNING, [130, 100, 80, 65, 45], "40–125", "45–135", [9, 10, 13, 0, 0]],
+  ]) {
+    const regular = getDefaultStringSet(instrument);
+    assert.deepEqual(regular.gauges, split);
+    assert.equal(recommendStringSet(instrument, tuning, "balanced", "exl110").set, regular);
+    assert.equal(recommendStringSet(instrument, tuning, "softer", regular.id).set.label, lighter);
+    const { set: heavier } = recommendStringSet(instrument, tuning, "firmer-bass", regular.id);
+    assert.equal(heavier.label, hybrid);
+    const result = compareStringSets(regular, tuning, heavier, tuning);
+    assert.deepEqual(result.map(row => row.stringNumber), split.map((_, index) => split.length - index));
+    assert.deepEqual(result.map(row => row.firstMidi), tuning.strings);
+    assert.deepEqual(result.map(row => row.changePercent), percentages);
+    assert.deepEqual(getStringGoals(instrument).map(goal => goal.id), ["balanced", "softer", "firmer-bass"]);
+  }
+});
+
+test("l’accordage abaissé d’une basse modifie uniquement sa corde grave", () => {
+  for (const [instrument, standard, dropId, lowest, hybrid] of [
+    ["bass-4", BASS_4_TUNING, "bass-4-drop-d", 26, "45–105"],
+    ["bass-5", BASS_5_TUNING, "bass-5-drop-a", 21, "45–135"],
+  ]) {
+    const strings = getDefaultStringSet(instrument);
+    const drop = getStringTunings(instrument).find(tuning => tuning.id === dropId);
+    const [low, ...upper] = compareStringSets(strings, standard, strings, drop);
+    assert.equal(low.firstMidi, lowest + 2);
+    assert.equal(low.secondMidi, lowest);
+    assert.equal(low.changePercent, -21);
+    assert.ok(upper.every(row => row.direction === "same" && row.changePercent === 0));
+    assert.equal(recommendStringSet(instrument, drop, "balanced").set.label, hybrid);
+    assert.equal(recommendStringSet(instrument, drop, "balanced", strings.id).set, strings);
+  }
 });
 
 test("en Drop D le même jeu perd environ 21 % de tension sur la seule corde grave", () => {
@@ -79,4 +117,9 @@ test("exclure les comparaisons entre instruments et les accordages incompatibles
     assert.throws(() => compareStringSets(electric, tuning, electric, standard), RangeError);
     assert.throws(() => compareStringSets(electric, standard, electric, tuning), RangeError);
   }
+  const bass4 = getDefaultStringSet("bass-4");
+  const bass5 = getDefaultStringSet("bass-5");
+  assert.throws(() => compareStringSets(bass4, BASS_4_TUNING, bass5, BASS_5_TUNING), RangeError);
+  assert.throws(() => compareStringSets(bass5, BASS_4_TUNING, bass5, BASS_5_TUNING), RangeError);
+  assert.throws(() => recommendStringSet("bass-4", STANDARD_TUNING, "balanced"), RangeError);
 });

@@ -84,7 +84,7 @@ const definitions = [
   {
     id: "strings", href: "/outils/cordes-et-reglages", slug: "cordes-et-reglages",
     name: "Cordes et réglages", short: "Choix du tirant et justesse.",
-    description: "Choisissez un jeu de cordes, comparez les tirants et vérifiez la justesse de votre guitare.",
+    description: "Choisissez vos cordes, comparez les tirants et vérifiez la justesse de votre guitare ou de votre basse 4 ou 5 cordes.",
     icon: "strings", color: "purple", number: "10",
   },
 ] as const;
