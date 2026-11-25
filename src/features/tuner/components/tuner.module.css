@@ -259,6 +259,33 @@
   line-height: 1.9;
   margin-top: 14px;
 }
+.tuningPicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 18px auto 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.tuningPicker select {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--control-border);
+  padding: 8px 12px;
+  border-radius: 7px;
+  min-height: 44px;
+}
+.intonationLink {
+  display: block;
+  width: fit-content;
+  margin: 12px auto 0;
+  padding-block: 12px;
+  font-weight: 650;
+  color: var(--accent);
+}
 @media (max-width: 520px) {
   .panel {
     padding: 24px 18px;

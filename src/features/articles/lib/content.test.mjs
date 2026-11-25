@@ -16,8 +16,20 @@ import { getSiteUrl, absoluteUrl } from "../../../lib/site.ts";
 const articles = loadArticles();
 const fixture = (body = "## Un conseil\n\nUne phrase utile.", extra = "") =>
   `---\ntitle: Exemple\ndescription: Un guide\nslug: exemple\ndate: "2026-10-03"\nauthor: FretLab\ncategory: Accords\ntags: [guitare]\ntool: accords\n${extra}---\n${body}`;
-test("les cinq articles ont les métadonnées, positions de lecture et liens requis", () => {
-  assert.equal(articles.length, 5);
+test("le catalogue contient les guides publiés", () => {
+  for (const slug of [
+    "accords-guitare-debutant",
+    "choisir-le-tirant-de-ses-cordes",
+    "comment-accorder-une-guitare",
+    "comment-lire-un-diagramme-accord-guitare",
+    "comment-transposer-des-accords",
+    "comment-travailler-au-metronome",
+  ]) {
+    assert.ok(getArticleBySlug(slug), slug);
+  }
+  assert.equal(getArticleBySlug("choisir-le-tirant-de-ses-cordes").readingMinutes, 2);
+});
+test("les articles ont les métadonnées, positions de lecture et liens requis", () => {
   for (const article of articles) {
     assert.ok(article.readingMinutes >= 1);
     assert.ok(article.headings.length > 1);

@@ -10,7 +10,7 @@ function deferred() {
 
 // Only the browser boundary is faked; session/generation/cleanup run unchanged.
 function setup(t, sampleRate = 48000, frequency = 30.8677) {
-  const requests = [], contexts = [], frames = new Map(), logs = [], analysers = [], readings = [];
+  const requests = [], contexts = [], frames = new Map(), logs = [], analysers = [], readings = [], freshReadings = [];
   let engine;
   t.after(() => engine?.stop("component-unmount"));
   let frameId = 0;
@@ -51,14 +51,35 @@ function setup(t, sampleRate = 48000, frequency = 30.8677) {
     }
   });
   const interruptions = [];
-  engine = new MicrophoneTuner((reading) => readings.push(reading), (message) => interruptions.push(message));
+  engine = new MicrophoneTuner((reading, fresh) => {
+    readings.push(reading);
+    freshReadings.push(fresh);
+  }, (message) => interruptions.push(message));
   const stream = () => {
     const track = { readyState: "live", enabled: true, muted: false, stops: 0,
       stop() { this.stops++; this.readyState = "ended"; } };
     return { active: true, getTracks: () => [track], getAudioTracks: () => [track], track };
   };
-  return { engine, requests, contexts, frames, stream, interruptions, logs, analysers, readings };
+  return { engine, requests, contexts, frames, stream, interruptions, logs, analysers, readings, freshReadings };
 }
+
+test("l’accordeur garde l’affichage pendant un silence, le contrôle de justesse attend un signal neuf", async (t) => {
+  const s = setup(t, 48000, 110);
+  const start = s.engine.start();
+  s.requests[0].resolve(s.stream());
+  await start;
+  function analyse(now) {
+    const [id, callback] = s.frames.entries().next().value;
+    s.frames.delete(id);
+    callback(now);
+  }
+  for (const now of [60, 120, 180, 240]) analyse(now);
+  assert.ok(Math.abs(s.freshReadings.at(-1) - 110) < 0.5);
+  s.analysers[0].getFloatTimeDomainData = (buffer) => buffer.fill(0);
+  analyse(300);
+  assert.ok(Math.abs(s.readings.at(-1) - 110) < 0.5);
+  assert.equal(s.freshReadings.at(-1), null);
+});
 
 for (const rate of [44100, 48000, 96000])
   test(`microphone capture at ${rate} detects low B with its actual analysis buffer`, async (t) => {

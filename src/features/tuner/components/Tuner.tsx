@@ -1,5 +1,8 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { isFeatureHrefEnabled } from "@/config/features";
 import { useTuner } from "../audio/useTuner";
 import {
   frequencyToNote,
@@ -13,6 +16,8 @@ import {
   STANDARD_TUNING,
   BASS_4_TUNING,
   BASS_5_TUNING,
+  TUNINGS,
+  type TuningId,
   tuningNotes,
 } from "@/domain/music/tuning";
 import styles from "./tuner.module.css";
@@ -24,13 +29,23 @@ const INSTRUMENT_TUNINGS = {
 } as const;
 type TunerMode = "chromatic" | keyof typeof INSTRUMENT_TUNINGS;
 
-export function Tuner() {
+export function TunerFromQuery() {
+  const requested = useSearchParams().get("tuning");
+  const preset = TUNINGS.find((item) => item.id === requested);
+  return <Tuner key={preset?.id ?? "chromatic"} initialGuitarTuning={preset?.id} />;
+}
+
+export function Tuner({ initialGuitarTuning }: { initialGuitarTuning?: TuningId }) {
   const { status, frequency, error, toggle } = useTuner();
-  const [mode, setMode] = useState<TunerMode>("chromatic");
+  const [mode, setMode] = useState<TunerMode>(initialGuitarTuning ? "guitar" : "chromatic");
+  const [guitarTuning, setGuitarTuning] = useState<TuningId>(initialGuitarTuning ?? "standard");
   const [selected, setSelected] = useState<number | null>(null);
-  const tuning = mode === "chromatic" ? null : INSTRUMENT_TUNINGS[mode];
+  const tuning = mode === "guitar"
+    ? TUNINGS.find((item) => item.id === guitarTuning) ?? STANDARD_TUNING
+    : mode === "chromatic" ? null : INSTRUMENT_TUNINGS[mode];
   const strings = tuning ? tuningNotes(tuning) : [];
-  const note = frequency === null ? null : frequencyToNote(frequency);
+  const detected = frequency === null ? null : frequencyToNote(frequency);
+  const note = detected && tuning ? midiToNote(detected.midi, tuning.notation) : detected;
   const target =
     tuning === null
       ? note
@@ -38,7 +53,7 @@ export function Tuner() {
         ? frequency === null
           ? null
           : nearestString(frequency, tuning)
-        : midiToNote(selected);
+        : midiToNote(selected, tuning.notation);
   const cents =
     frequency !== null && target
       ? centsDifference(frequency, target.frequency)
@@ -78,6 +93,17 @@ export function Tuner() {
           </label>
         ))}
       </fieldset>
+      {mode === "guitar" && (
+        <label className={styles.tuningPicker}>
+          Accordage de la guitare
+          <select value={guitarTuning} onChange={(event) => {
+            const preset = TUNINGS.find((item) => item.id === event.target.value);
+            if (preset) { setGuitarTuning(preset.id); setSelected(null); }
+          }}>
+            {TUNINGS.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+          </select>
+        </label>
+      )}
       <div className={styles.reading}>
         <p className={styles.detected}>NOTE DÉTECTÉE</p>
         <div className={styles.note}>
@@ -215,6 +241,13 @@ export function Tuner() {
           stabiliser après l’attaque. Si le microphone capte mal les graves,
           utilisez une entrée audio adaptée.
         </p>
+      )}
+      {(mode === "guitar" || mode === "chromatic") &&
+        isFeatureHrefEnabled("/outils/cordes-et-reglages/justesse") && (
+          <Link className={styles.intonationLink}
+            href={`/outils/cordes-et-reglages/justesse/?tuning=${guitarTuning}`}>
+            Vérifier la justesse à la 12ᵉ case →
+          </Link>
       )}
     </section>
   );

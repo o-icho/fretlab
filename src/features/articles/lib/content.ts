@@ -14,7 +14,7 @@ export type ArticleMetadata = {
   author: string;
   category: string;
   tags: string[];
-  tool: "accords" | "metronome" | "accordeur" | "transposeur";
+  tool: "accords" | "metronome" | "accordeur" | "transposeur" | "cordes-et-reglages";
   art: "chord" | "rhythm" | "strings";
   image?: { src: string; alt: string; width: number; height: number };
 };
@@ -101,7 +101,7 @@ export function parseArticle(source: string, filename: string): Article {
     data.tags.some((tag: unknown) => typeof tag !== "string" || !tag.trim())
   )
     fail("tags invalides");
-  if (!["accords", "metronome", "accordeur", "transposeur"].includes(data.tool))
+  if (!["accords", "metronome", "accordeur", "transposeur", "cordes-et-reglages"].includes(data.tool))
     fail("outil inconnu");
   if (
     data.art !== undefined &&

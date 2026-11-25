@@ -29,10 +29,10 @@ export class MicrophoneTuner {
   private debug = false;
   private lastDebug = 0;
   private stabilizer = new PitchStabilizer();
-  private onReading: (frequency: number | null) => void;
+  private onReading: (displayHz: number | null, freshHz: number | null) => void;
   private onInterrupted: (message: string) => void;
   constructor(
-    onReading: (frequency: number | null) => void,
+    onReading: (displayHz: number | null, freshHz: number | null) => void,
     onInterrupted: (message: string) => void,
   ) {
     this.onReading = onReading;
@@ -109,7 +109,7 @@ export class MicrophoneTuner {
         track.onmute = () => {
           logTrack("track mute", track);
           this.stabilizer.reset();
-          this.onReading(null);
+          this.onReading(null, null);
         };
         track.onunmute = () => logTrack("track unmute", track);
       });
@@ -157,7 +157,8 @@ export class MicrophoneTuner {
           : 1 - TRACKING.acquireConfidence,
       });
       const retained = this.stabilizer.push(analysis.detection, now);
-      this.onReading(retained);
+      const freshHz = this.stabilizer.decision.accepted ? analysis.detection?.frequency ?? null : null;
+      this.onReading(retained, freshHz);
       if (this.debug && now - this.lastDebug >= 250) {
         this.lastDebug = now;
         const note = retained === null ? null : frequencyToNote(retained);

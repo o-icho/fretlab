@@ -87,6 +87,8 @@ test("tunings declare absolute pitches and retain their displayed spelling", () 
   assert.deepEqual(tuningNotes(STANDARD_TUNING).map(n => `${n.note}${n.octave}`), ["E2", "A2", "D3", "G3", "B3", "E4"]);
   assert.deepEqual(tuningNotes(TUNINGS[1]).map(n => `${n.note}${n.octave}`), ["Eb2", "Ab2", "Db3", "Gb3", "Bb3", "Eb4"]);
   assert.deepEqual(tuningNotes(TUNINGS[2]).map(n => `${n.note}${n.octave}`), ["D2", "A2", "D3", "G3", "B3", "E4"]);
+  const standardD = TUNINGS.find(tuning => tuning.id === "d-standard");
+  assert.deepEqual(tuningNotes(standardD).map(n => `${n.note}${n.octave}`), ["D2", "G2", "C3", "F3", "A3", "D4"]);
 });
 
 test("Standard E note/fret mapping preserves pitch, string order and roots", () => {

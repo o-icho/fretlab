@@ -8,6 +8,7 @@ export const featureFlags = {
   drumMachine: true,
   backingTracks: true,
   earTraining: true,
+  strings: true,
 } as const;
 export type FeatureId = keyof typeof featureFlags;
 const definitions = [
@@ -80,6 +81,12 @@ const definitions = [
   },
   { id: "backingTracks", href: "/backing-tracks", slug: "backing-tracks", name: "Backing tracks", short: "Jouez accompagné.", description: "Suivez les accords et alternez accompagnement et exemple complet.", icon: "tuner", color: "purple", number: "08" },
   { id: "earTraining", href: "/outils/oreille", slug: "oreille", name: "Test de l’oreille", short: "Affinez votre écoute.", description: "Reconnaissez les accords et les intervalles dans la tonalité de votre choix.", icon: "tuner", color: "teal", number: "09" },
+  {
+    id: "strings", href: "/outils/cordes-et-reglages", slug: "cordes-et-reglages",
+    name: "Cordes et réglages", short: "Choix du tirant et justesse.",
+    description: "Choisissez un jeu de cordes, comparez les tirants et vérifiez la justesse de votre guitare.",
+    icon: "strings", color: "purple", number: "10",
+  },
 ] as const;
 
 export type FeatureDefinition = (typeof definitions)[number];

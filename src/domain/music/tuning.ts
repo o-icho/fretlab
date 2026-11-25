@@ -21,6 +21,7 @@ export const TUNINGS = [
   STANDARD_TUNING,
   { id: "eb-standard", name: "Eb Standard", strings: [39, 44, 49, 54, 58, 63], notation: "flats" },
   { id: "drop-d", name: "Drop D", strings: [38, 45, 50, 55, 59, 64], notation: "sharps" },
+  { id: "d-standard", name: "Ré standard", strings: [38, 43, 48, 53, 57, 62], notation: "sharps" },
 ] as const satisfies readonly Tuning[];
 export type TuningId = (typeof TUNINGS)[number]["id"];
 

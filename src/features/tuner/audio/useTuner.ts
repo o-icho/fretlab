@@ -4,7 +4,7 @@ import { useAudioPause } from "@/features/audio/useAudioPause";
 import { MicrophoneTuner, microphoneError } from "./MicrophoneTuner";
 import { tunerLog, type TunerStopReason } from "./diagnostics";
 
-export function useTuner() {
+export function useTuner(onFreshSample?: (frequency: number | null) => void) {
   const [status, setStatus] = useState<"stopped" | "starting" | "listening">(
     "stopped",
   );
@@ -13,6 +13,8 @@ export function useTuner() {
   const engine = useRef<MicrophoneTuner | null>(null);
   const request = useRef(0);
   const active = useRef(false);
+  const onSample = useRef(onFreshSample);
+  useEffect(() => { onSample.current = onFreshSample; }, [onFreshSample]);
   useEffect(
     () => () => {
       request.current++;
@@ -27,6 +29,7 @@ export function useTuner() {
     request.current++;
     active.current = false;
     engine.current?.stop(reason);
+    onSample.current?.(null);
     setFrequency(null);
     setStatus("stopped");
   }, []);
@@ -42,10 +45,16 @@ export function useTuner() {
     setError("");
     setFrequency(null);
     if (!engine.current)
-      engine.current = new MicrophoneTuner(setFrequency, (message) => {
-        stop("error");
-        setError(message);
-      });
+      engine.current = new MicrophoneTuner(
+        (displayHz, freshHz) => {
+          setFrequency(displayHz);
+          onSample.current?.(freshHz);
+        },
+        (message) => {
+          stop("error");
+          setError(message);
+        },
+      );
     try {
       const started = await engine.current.start();
       if (generation !== request.current) return;

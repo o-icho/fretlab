@@ -1,7 +1,8 @@
 import { featureRouteFallback } from "@/config/requireFeature";
 import { pageMetadata } from "@/lib/metadata";
 import { Container } from "@/components/Container";
-import { Tuner } from "@/features/tuner/components/Tuner";
+import { Suspense } from "react";
+import { Tuner, TunerFromQuery } from "@/features/tuner/components/Tuner";
 export const metadata = pageMetadata(
   "Accordeur guitare et basse en ligne gratuit",
   "Accordez gratuitement votre guitare ou votre basse 4 ou 5 cordes grâce au microphone de votre ordinateur ou smartphone.",
@@ -16,7 +17,7 @@ export default function Page() {
         <h1>Accordeur chromatique</h1>
         <p>Accordez votre guitare ou votre basse 4 ou 5 cordes, une note à la fois.</p>
       </section>
-      <Tuner />
+      <Suspense fallback={<Tuner />}><TunerFromQuery /></Suspense>
     </Container>
   );
 }
