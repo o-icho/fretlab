@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "id": "virage-de-minuit",
+  "title": "Virage de minuit",
+  "style": "blues",
+  "key": "C",
+  "bpm": 95.8,
+  "durationMs": 179960,
+  "chordCoverageEndMs": 178080,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "symbol": "Cmaj9",
+      "startMs": 1697,
+      "endMs": 4182,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am9",
+      "startMs": 4182,
+      "endMs": 6672,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 6672,
+      "endMs": 9168,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7/G",
+      "startMs": 9168,
+      "endMs": 11669,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 11669,
+      "endMs": 13858,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am9",
+      "startMs": 13858,
+      "endMs": 16671,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 16671,
+      "endMs": 19177,
+      "source": "midi"
+    },
+    {
+      "symbol": "F/G",
+      "startMs": 19177,
+      "endMs": 20427,
+      "source": "midi"
+    },
+    {
+      "symbol": "G13",
+      "startMs": 20427,
+      "endMs": 21677,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 21677,
+      "endMs": 24173,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 24173,
+      "endMs": 26054,
+      "source": "midi"
+    },
+    {
+      "symbol": "Eb7#9",
+      "startMs": 26054,
+      "endMs": 26679,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 26679,
+      "endMs": 29180,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fm",
+      "startMs": 29180,
+      "endMs": 31681,
+      "source": "midi"
+    },
+    {
+      "symbol": "Em7",
+      "startMs": 31681,
+      "endMs": 34182,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 34182,
+      "endMs": 36683,
+      "source": "midi"
+    },
+    {
+      "symbol": "D7",
+      "startMs": 36683,
+      "endMs": 39183,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fmaj7/G",
+      "startMs": 39183,
+      "endMs": 39809,
+      "source": "midi"
+    },
+    {
+      "symbol": "G13",
+      "startMs": 39809,
+      "endMs": 41684,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 41684,
+      "endMs": 44185,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 44185,
+      "endMs": 46686,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 46686,
+      "endMs": 49187,
+      "source": "midi"
+    },
+    {
+      "symbol": "G13",
+      "startMs": 49187,
+      "endMs": 51688,
+      "source": "midi"
+    },
+    {
+      "symbol": "Em7",
+      "startMs": 51688,
+      "endMs": 54188,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 54188,
+      "endMs": 55752,
+      "source": "midi"
+    },
+    {
+      "symbol": "Eb7#9",
+      "startMs": 55752,
+      "endMs": 56689,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 56689,
+      "endMs": 59190,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7b5/G",
+      "startMs": 59190,
+      "endMs": 61691,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 61691,
+      "endMs": 64192,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am9",
+      "startMs": 64192,
+      "endMs": 66068,
+      "source": "midi"
+    },
+    {
+      "symbol": "Eb7b5",
+      "startMs": 66068,
+      "endMs": 66693,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 66693,
+      "endMs": 69194,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7/G",
+      "startMs": 69194,
+      "endMs": 71694,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj7",
+      "startMs": 71694,
+      "endMs": 74195,
+      "source": "midi"
+    },
+    {
+      "symbol": "F9",
+      "startMs": 74195,
+      "endMs": 76696,
+      "source": "midi"
+    },
+    {
+      "symbol": "C",
+      "startMs": 76696,
+      "endMs": 79197,
+      "source": "midi"
+    },
+    {
+      "symbol": "C13",
+      "startMs": 79197,
+      "endMs": 81698,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fmaj7",
+      "startMs": 81698,
+      "endMs": 86700,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fm6",
+      "startMs": 86700,
+      "endMs": 91701,
+      "source": "midi"
+    },
+    {
+      "symbol": "Em7",
+      "startMs": 91701,
+      "endMs": 94202,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 94202,
+      "endMs": 96703,
+      "source": "midi"
+    },
+    {
+      "symbol": "A7",
+      "startMs": 96703,
+      "endMs": 101705,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 101705,
+      "endMs": 106706,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fm7",
+      "startMs": 106706,
+      "endMs": 109207,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fm6",
+      "startMs": 109207,
+      "endMs": 111708,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 111708,
+      "endMs": 114209,
+      "source": "midi"
+    },
+    {
+      "symbol": "A7",
+      "startMs": 114209,
+      "endMs": 116710,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 116710,
+      "endMs": 119211,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fsus2",
+      "startMs": 119211,
+      "endMs": 119576,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 121758,
+      "endMs": 124259,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 124259,
+      "endMs": 126760,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 126760,
+      "endMs": 129261,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fmaj7/G",
+      "startMs": 129261,
+      "endMs": 130532,
+      "source": "midi"
+    },
+    {
+      "symbol": "G7b9",
+      "startMs": 130532,
+      "endMs": 131762,
+      "source": "midi"
+    },
+    {
+      "symbol": "Em7",
+      "startMs": 131762,
+      "endMs": 133972,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 133972,
+      "endMs": 135847,
+      "source": "midi"
+    },
+    {
+      "symbol": "Eb7#9",
+      "startMs": 135847,
+      "endMs": 136770,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 136770,
+      "endMs": 139270,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fm",
+      "startMs": 139270,
+      "endMs": 141771,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 141771,
+      "endMs": 144272,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 144272,
+      "endMs": 146773,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 146773,
+      "endMs": 149274,
+      "source": "midi"
+    },
+    {
+      "symbol": "F/G",
+      "startMs": 149274,
+      "endMs": 151775,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj7",
+      "startMs": 151775,
+      "endMs": 154276,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am7",
+      "startMs": 154276,
+      "endMs": 156776,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 156776,
+      "endMs": 159277,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fmadd9",
+      "startMs": 159277,
+      "endMs": 161793,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj7",
+      "startMs": 161793,
+      "endMs": 164305,
+      "source": "midi"
+    },
+    {
+      "symbol": "Am9",
+      "startMs": 164305,
+      "endMs": 166837,
+      "source": "midi"
+    },
+    {
+      "symbol": "Dm7",
+      "startMs": 166837,
+      "endMs": 169494,
+      "source": "midi"
+    },
+    {
+      "symbol": "Fm/G",
+      "startMs": 169494,
+      "endMs": 171109,
+      "source": "midi"
+    },
+    {
+      "symbol": "G7sus4",
+      "startMs": 171109,
+      "endMs": 172927,
+      "source": "midi"
+    },
+    {
+      "symbol": "Cmaj9",
+      "startMs": 172927,
+      "endMs": 178080,
+      "source": "midi"
+    }
+  ]
+}
