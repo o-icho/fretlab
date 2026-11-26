@@ -1,8 +1,15 @@
 [
   { "id": "blues", "label": "Blues" },
-  { "id": "rock", "label": "Rock" },
-  { "id": "hard-rock", "label": "Hard Rock" },
-  { "id": "funk", "label": "Funk" },
+  { "id": "rock", "label": "Rock", "substyles": ["Rock progressif", "Ballade rock", "Latin rock"] },
+  { "id": "hard-rock", "label": "Hard Rock", "substyles": ["Hard rock des années 70"] },
+  { "id": "funk", "label": "Funk", "substyles": ["Funk de La Nouvelle-Orléans"] },
   { "id": "pop", "label": "Pop" },
-  { "id": "country", "label": "Country" }
+  { "id": "country", "label": "Country" },
+  { "id": "soul", "label": "Soul", "substyles": ["Soul de Memphis en 6/8", "Néo-soul"] },
+  { "id": "bossa-nova", "label": "Bossa nova" },
+  { "id": "reggae", "label": "Reggae", "substyles": ["Reggae roots"] },
+  { "id": "afrobeat", "label": "Afrobeat" },
+  { "id": "jazz-modal", "label": "Jazz modal" },
+  { "id": "synthwave", "label": "Synthwave" },
+  { "id": "trip-hop", "label": "Trip-hop", "substyles": ["Trip-hop cinématique"] }
 ]

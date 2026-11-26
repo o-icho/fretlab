@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { chordsAt, validAudioUrl, type BackingTrack } from "@/domain/music/backingTracks";
 import { useAudioPause } from "@/features/audio/useAudioPause";
 import { TrackTransport } from "./TrackTransport";
+import { formatTrackTempo } from "./formatTempo";
 import styles from "./backingTracks.module.css";
 
 const timeLabel = (ms: number) => `${Math.floor(ms / 60000)}:${String(Math.floor(ms / 1000) % 60).padStart(2, "0")}`;
@@ -56,7 +57,7 @@ export function BackingTrackPlayer({ track }: { track: BackingTrack }) {
   return <section className={styles.player} aria-label={`Lecteur : ${track.title}`}>
     <audio ref={backing} preload="metadata" /><audio ref={example} preload="metadata" />
     <p className="eyebrow">{track.style ?? "ACCOMPAGNEMENT"}</p>
-    <h2>{track.title}</h2><p className={styles.meta}>{track.key} · {track.bpm} BPM · {state.mode === "EXAMPLE" ? "Exemple complet" : "Backing sans lead"}</p>
+    <h2>{track.title}</h2><p className={styles.meta}>{track.key} · {formatTrackTempo(track.bpm)} · {state.mode === "EXAMPLE" ? "Exemple complet" : "Backing sans lead"}</p>
     <div className={styles.chord} aria-live="polite" aria-atomic="true">{track.chordTimeline.length === 0 ? <span className={styles.noChords}>Accords non disponibles</span> : chords.current && <><span>Accord courant</span><strong>{chords.current.symbol}</strong>{chords.next && <p>Suivant : <b>{chords.next.symbol}</b></p>}</>}</div>
     <label htmlFor={`${id}-seek`}>Position dans le morceau</label>
     <input id={`${id}-seek`} type="range" min="0" max={track.durationMs} step="100" value={state.time} disabled={!state.ready} aria-valuetext={timeLabel(state.time)} onChange={e => { transport.current?.seek(Number(e.target.value)); refresh(); }} />

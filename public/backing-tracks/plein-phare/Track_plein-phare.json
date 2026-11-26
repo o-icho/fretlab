@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "id": "plein-phare",
+  "title": "Seventies Hard Rock",
+  "style": "Hard rock des années 70",
+  "bpm": 120.8,
+  "key": "Em",
+  "durationMs": 178800,
+  "chordCoverageEndMs": 178800,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "startMs": 2075,
+      "endMs": 6083,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.59
+    },
+    {
+      "startMs": 6083,
+      "endMs": 8042,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 8042,
+      "endMs": 10041,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 10041,
+      "endMs": 14031,
+      "symbol": "D/E",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 14031,
+      "endMs": 15973,
+      "symbol": "A/G",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 15973,
+      "endMs": 17974,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 17974,
+      "endMs": 19974,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 19974,
+      "endMs": 20751,
+      "symbol": "Gsus2",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 20751,
+      "endMs": 21953,
+      "symbol": "D5",
+      "source": "midi",
+      "confidence": 0.56
+    },
+    {
+      "startMs": 21953,
+      "endMs": 23932,
+      "symbol": "A/G",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 23932,
+      "endMs": 26400,
+      "symbol": "C",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 26400,
+      "endMs": 27865,
+      "symbol": "C",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 28358,
+      "endMs": 31825,
+      "symbol": "B",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 31825,
+      "endMs": 33822,
+      "symbol": "Em",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 33822,
+      "endMs": 34818,
+      "symbol": "G",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 35520,
+      "endMs": 37340,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.94
+    },
+    {
+      "startMs": 37340,
+      "endMs": 40000,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 40792,
+      "endMs": 41789,
+      "symbol": "E5",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 41789,
+      "endMs": 43783,
+      "symbol": "G",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 44480,
+      "endMs": 45321,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 45321,
+      "endMs": 46400,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.56
+    },
+    {
+      "startMs": 47680,
+      "endMs": 49804,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 49804,
+      "endMs": 50318,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 50318,
+      "endMs": 51819,
+      "symbol": "G5",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 51819,
+      "endMs": 52560,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.95
+    },
+    {
+      "startMs": 53247,
+      "endMs": 54242,
+      "symbol": "A",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 54739,
+      "endMs": 55736,
+      "symbol": "A",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 55736,
+      "endMs": 59724,
+      "symbol": "C",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 60400,
+      "endMs": 63747,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 63747,
+      "endMs": 65465,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 65465,
+      "endMs": 66400,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 68136,
+      "endMs": 69121,
+      "symbol": "D5",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 74540,
+      "endMs": 75526,
+      "symbol": "G5",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 76019,
+      "endMs": 77005,
+      "symbol": "D",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 77498,
+      "endMs": 78977,
+      "symbol": "A",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 79680,
+      "endMs": 81486,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 81486,
+      "endMs": 83459,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 83459,
+      "endMs": 84933,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 84933,
+      "endMs": 87401,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 87401,
+      "endMs": 90400,
+      "symbol": "C",
+      "source": "midi",
+      "confidence": 0.77
+    },
+    {
+      "startMs": 91680,
+      "endMs": 95268,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 95268,
+      "endMs": 96736,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 96736,
+      "endMs": 99194,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 99194,
+      "endMs": 100677,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 100677,
+      "endMs": 103137,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.73
+    },
+    {
+      "startMs": 103137,
+      "endMs": 104612,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 104612,
+      "endMs": 107066,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 107066,
+      "endMs": 108540,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 108540,
+      "endMs": 110994,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 110994,
+      "endMs": 112221,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 112221,
+      "endMs": 114922,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 114922,
+      "endMs": 116396,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 116396,
+      "endMs": 118851,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 118851,
+      "endMs": 122400,
+      "symbol": "C",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 123246,
+      "endMs": 126193,
+      "symbol": "D",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 127181,
+      "endMs": 128173,
+      "symbol": "E5",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 136616,
+      "endMs": 138112,
+      "symbol": "G",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 139680,
+      "endMs": 142405,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.62
+    },
+    {
+      "startMs": 142405,
+      "endMs": 144320,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 145680,
+      "endMs": 146553,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.6
+    },
+    {
+      "startMs": 146553,
+      "endMs": 148400,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 150500,
+      "endMs": 151491,
+      "symbol": "E",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 152483,
+      "endMs": 154464,
+      "symbol": "Gsus2",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 164457,
+      "endMs": 165986,
+      "symbol": "A",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 166240,
+      "endMs": 168320,
+      "symbol": "C5",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 169680,
+      "endMs": 171014,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 171014,
+      "endMs": 178800,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.99
+    }
+  ]
+}

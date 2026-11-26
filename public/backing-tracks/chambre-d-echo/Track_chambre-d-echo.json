@@ -1,0 +1,328 @@
+{
+  "schemaVersion": 1,
+  "id": "chambre-d-echo",
+  "title": "Cinematic Trip-Hop",
+  "style": "Trip-hop cinématique",
+  "bpm": 69.7,
+  "key": "Cm",
+  "durationMs": 179600,
+  "chordCoverageEndMs": 178797,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "startMs": 27646,
+      "endMs": 31068,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 31068,
+      "endMs": 34332,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 34332,
+      "endMs": 37923,
+      "symbol": "Fm7",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 37923,
+      "endMs": 41356,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 41356,
+      "endMs": 44788,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 44788,
+      "endMs": 48226,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 48226,
+      "endMs": 51647,
+      "symbol": "Fm7",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 51647,
+      "endMs": 52720,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 52720,
+      "endMs": 52920,
+      "symbol": "G7",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 53840,
+      "endMs": 55068,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 55068,
+      "endMs": 57280,
+      "symbol": "F7sus2/C",
+      "source": "midi",
+      "confidence": 0.59
+    },
+    {
+      "startMs": 59335,
+      "endMs": 61440,
+      "symbol": "Ab",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 61440,
+      "endMs": 65332,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 65332,
+      "endMs": 68535,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 68535,
+      "endMs": 72213,
+      "symbol": "Cm/Eb",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 72213,
+      "endMs": 75651,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 75651,
+      "endMs": 79083,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 79083,
+      "endMs": 80480,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.56
+    },
+    {
+      "startMs": 83337,
+      "endMs": 85050,
+      "symbol": "Cm",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 86240,
+      "endMs": 89475,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.96
+    },
+    {
+      "startMs": 89475,
+      "endMs": 90480,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 90480,
+      "endMs": 91520,
+      "symbol": "F5",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 91520,
+      "endMs": 92851,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 92851,
+      "endMs": 96480,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 96480,
+      "endMs": 99360,
+      "symbol": "Cm",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 99360,
+      "endMs": 102941,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 102941,
+      "endMs": 106363,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 106363,
+      "endMs": 109941,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.96
+    },
+    {
+      "startMs": 109941,
+      "endMs": 113374,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 113374,
+      "endMs": 116796,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 116796,
+      "endMs": 120202,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.94
+    },
+    {
+      "startMs": 120202,
+      "endMs": 123447,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 123447,
+      "endMs": 127057,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 127057,
+      "endMs": 130485,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 130485,
+      "endMs": 133912,
+      "symbol": "Fm",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 133912,
+      "endMs": 138000,
+      "symbol": "G7/C",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 140763,
+      "endMs": 142480,
+      "symbol": "Ab",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 147120,
+      "endMs": 151090,
+      "symbol": "G7",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 151090,
+      "endMs": 154519,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 154519,
+      "endMs": 157909,
+      "symbol": "Ab7",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 157909,
+      "endMs": 161358,
+      "symbol": "F5",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 161358,
+      "endMs": 164588,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 164588,
+      "endMs": 168286,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 168286,
+      "endMs": 171958,
+      "symbol": "Ab",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 171958,
+      "endMs": 178797,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.72
+    }
+  ]
+}

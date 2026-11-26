@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { pageMetadata } from "@/lib/metadata";
 import { getBackingTrackSummaries } from "@/features/backing-tracks/catalogue";
+import { formatTrackTempo } from "@/features/backing-tracks/formatTempo";
 import { TrackDetailPlayer } from "@/features/backing-tracks/TrackDetailPlayer";
 import styles from "@/features/backing-tracks/backingTracks.module.css";
 
@@ -20,7 +21,7 @@ async function findTrack(params: Promise<{ slug: string }>) {
 }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const track = await findTrack(params);
-  return pageMetadata(`${track.title} — Backing track guitare`, `Jouez sur ${track.title}, en ${track.key} à ${track.bpm} BPM, avec les accords synchronisés.`, `/backing-tracks/${track.slug}`);
+  return pageMetadata(`${track.title} — Backing track guitare`, `Jouez sur ${track.title}, en ${track.key} à ${formatTrackTempo(track.bpm)}, avec les accords synchronisés.`, `/backing-tracks/${track.slug}`);
 }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const fallback = featureRouteFallback("backingTracks"); if (fallback) return fallback;

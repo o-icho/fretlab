@@ -1,16 +1,17 @@
 import styles from "../../data/backing-tracks/backing-track-styles.json" with { type: "json" };
-export interface BackingTrackStyle { id: string; label: string }
+export interface BackingTrackStyle { id: string; label: string; substyles?: readonly string[] }
 export function validateStyles(values: readonly BackingTrackStyle[]): void {
   if (values.some(s => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s.id) || !s.label.trim()) || new Set(values.map(s => s.id)).size !== values.length) throw new Error("Styles de backing tracks invalides ou identifiants dupliqués.");
 }
 validateStyles(styles);
 export const BACKING_TRACK_STYLES: readonly BackingTrackStyle[] = styles;
-/** Old local imports may contain labels. New content uses the stable id in style. */
+/** Filters group editorial substyles and older display labels under a stable id. */
 export function styleId(value?: string): string | undefined {
-  return BACKING_TRACK_STYLES.find(s => s.id === value || s.label.toLowerCase() === value?.toLowerCase())?.id;
+  const name = value?.toLowerCase();
+  return BACKING_TRACK_STYLES.find(s => s.id === value || s.label.toLowerCase() === name || s.substyles?.some(substyle => substyle.toLowerCase() === name))?.id;
 }
 export function styleLabel(value?: string): string {
-  return BACKING_TRACK_STYLES.find(s => s.id === styleId(value))?.label ?? value ?? "Style non renseigné";
+  return BACKING_TRACK_STYLES.find(s => s.id === value || s.label.toLowerCase() === value?.toLowerCase())?.label ?? value ?? "Style non renseigné";
 }
 export const BACKING_TRACK_TEMPO_RANGES = [
   { id: "under-60", label: "Moins de 60 BPM", min: null, max: 60, minInclusive: false, maxInclusive: false },

@@ -3,8 +3,21 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import styles from "../../data/backing-tracks/backing-track-styles.json" with { type: "json" };
 import { filterOptions, readFilters, queryTracks, filterQuery } from "./library.ts";
-import { BACKING_TRACK_TEMPO_RANGES, matchesTempoRange, validateStyles } from "./filterConfig.ts";
+import { formatTrackTempo } from "./formatTempo.ts";
+import { BACKING_TRACK_TEMPO_RANGES, matchesTempoRange, styleLabel, validateStyles } from "./filterConfig.ts";
 const tracks = Array.from({length:30}, (_, i) => ({id:String(i),style:i%2 ? "rock":"blues",key:i%3 ? "C#":"Db",bpm:80+i}));
+test("le tempo affiché est arrondi au dixième avec une virgule française", () => {
+  assert.equal(formatTrackTempo(127.37), "127,4 BPM");
+  assert.equal(formatTrackTempo(57.62), "57,6 BPM");
+  assert.equal(formatTrackTempo(84.99), "85 BPM");
+  assert.equal(formatTrackTempo(52), "52 BPM");
+});
+test("un sous-style reste affiché sur sa fiche et rejoint son genre dans le filtre", () => {
+  const styles = ["Rock progressif", "Ballade rock", "Latin rock", "Hard rock des années 70"];
+  const selection = styles.map((style, id) => ({ id: String(id), style, key: "D", bpm: 104 }));
+  assert.deepEqual(queryTracks(selection, { genre: "rock", page: 1 }).items.map(track => styleLabel(track.style)), styles.slice(0, 3));
+  assert.deepEqual(queryTracks(selection, { genre: "hard-rock", page: 1 }).items.map(track => track.id), ["3"]);
+});
 test("sans filtres : ordre et pagination stables",()=>{
  const f=readFilters(new URLSearchParams(),tracks), r=queryTracks(tracks,f);
  assert.equal(r.total,30);assert.equal(r.items.length,12);assert.equal(r.pages,3);assert.equal(r.items[0].id,"0");assert.equal(filterQuery(f),"");
