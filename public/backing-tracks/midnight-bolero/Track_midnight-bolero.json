@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "id": "midnight-bolero",
+  "title": "Midnight Bolero",
+  "style": "Boléro cubain",
+  "bpm": 75.2,
+  "key": "Dm",
+  "durationMs": 180000,
+  "chordCoverageEndMs": 179964,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "startMs": 91,
+      "endMs": 1992,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 1992,
+      "endMs": 5107,
+      "symbol": "Em7b5",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 5107,
+      "endMs": 6670,
+      "symbol": "A7#5",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 6670,
+      "endMs": 8238,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 8238,
+      "endMs": 11447,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 11447,
+      "endMs": 14160,
+      "symbol": "F/C",
+      "source": "midi",
+      "confidence": 0.59
+    },
+    {
+      "startMs": 14160,
+      "endMs": 17702,
+      "symbol": "Bbmaj7",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 17702,
+      "endMs": 20937,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.93
+    },
+    {
+      "startMs": 20937,
+      "endMs": 24031,
+      "symbol": "G6/A",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 24031,
+      "endMs": 26960,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.77
+    },
+    {
+      "startMs": 26960,
+      "endMs": 30427,
+      "symbol": "Gm7",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 30427,
+      "endMs": 33516,
+      "symbol": "C9",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 33516,
+      "endMs": 36683,
+      "symbol": "Fmaj9",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 36683,
+      "endMs": 39912,
+      "symbol": "Bbmaj7",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 39912,
+      "endMs": 43012,
+      "symbol": "Ebmaj7",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 43012,
+      "endMs": 44590,
+      "symbol": "Bb7",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 44590,
+      "endMs": 46034,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 46034,
+      "endMs": 52586,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 52586,
+      "endMs": 55774,
+      "symbol": "Em7b5",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 55774,
+      "endMs": 58962,
+      "symbol": "A7#5",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 58962,
+      "endMs": 62134,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 62134,
+      "endMs": 65363,
+      "symbol": "Fmaj7/C",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 65363,
+      "endMs": 68478,
+      "symbol": "Gm7",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 68478,
+      "endMs": 71666,
+      "symbol": "C7",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 71666,
+      "endMs": 78042,
+      "symbol": "Fmaj7",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 78042,
+      "endMs": 81296,
+      "symbol": "Em7b5",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 81296,
+      "endMs": 84418,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.77
+    },
+    {
+      "startMs": 84418,
+      "endMs": 86011,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 86011,
+      "endMs": 87605,
+      "symbol": "Dm7/C",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 87605,
+      "endMs": 90804,
+      "symbol": "Bm7b5",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 90804,
+      "endMs": 97174,
+      "symbol": "E7b9",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 97174,
+      "endMs": 100560,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 100560,
+      "endMs": 101977,
+      "symbol": "A",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 106160,
+      "endMs": 109988,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 109988,
+      "endMs": 113186,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 113186,
+      "endMs": 116369,
+      "symbol": "Dm9/C",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 116369,
+      "endMs": 119567,
+      "symbol": "D7",
+      "source": "midi",
+      "confidence": 0.58
+    },
+    {
+      "startMs": 119567,
+      "endMs": 122765,
+      "symbol": "D7b9",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 122765,
+      "endMs": 129172,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 129172,
+      "endMs": 130640,
+      "symbol": "C7sus2",
+      "source": "midi",
+      "confidence": 0.56
+    },
+    {
+      "startMs": 131680,
+      "endMs": 135569,
+      "symbol": "Fmaj7",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 135569,
+      "endMs": 138767,
+      "symbol": "Bbmaj7",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 138767,
+      "endMs": 140341,
+      "symbol": "Em7/B",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 140341,
+      "endMs": 141975,
+      "symbol": "E7",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 141975,
+      "endMs": 144560,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.65
+    },
+    {
+      "startMs": 145176,
+      "endMs": 148000,
+      "symbol": "A",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 148000,
+      "endMs": 150835,
+      "symbol": "D5",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 150835,
+      "endMs": 152000,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 152000,
+      "endMs": 154771,
+      "symbol": "C69",
+      "source": "midi",
+      "confidence": 0.64
+    },
+    {
+      "startMs": 154771,
+      "endMs": 157993,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 157993,
+      "endMs": 161190,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.56
+    },
+    {
+      "startMs": 161190,
+      "endMs": 164391,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 164391,
+      "endMs": 167608,
+      "symbol": "Csus2",
+      "source": "midi",
+      "confidence": 0.64
+    },
+    {
+      "startMs": 167608,
+      "endMs": 170857,
+      "symbol": "Bb",
+      "source": "midi",
+      "confidence": 0.58
+    },
+    {
+      "startMs": 170857,
+      "endMs": 172538,
+      "symbol": "Em7b5",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 172538,
+      "endMs": 174610,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 174610,
+      "endMs": 176240,
+      "symbol": "E7sus4/D",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 176240,
+      "endMs": 179964,
+      "symbol": "Dm69",
+      "source": "midi",
+      "confidence": 0.94
+    }
+  ]
+}

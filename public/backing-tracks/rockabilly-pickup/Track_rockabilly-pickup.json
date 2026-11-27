@@ -1,0 +1,615 @@
+{
+  "schemaVersion": 1,
+  "id": "rockabilly-pickup",
+  "title": "Rockabilly Pickup",
+  "style": "Rockabilly",
+  "bpm": 179.1,
+  "key": "A",
+  "durationMs": 179120,
+  "chordCoverageEndMs": 177233,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "startMs": 4554,
+      "endMs": 5215,
+      "symbol": "Asus4",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 7744,
+      "endMs": 9194,
+      "symbol": "E5",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 9194,
+      "endMs": 9757,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 9757,
+      "endMs": 10758,
+      "symbol": "E5",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 10758,
+      "endMs": 14539,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 14539,
+      "endMs": 16546,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 16546,
+      "endMs": 17214,
+      "symbol": "Bm9",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 17214,
+      "endMs": 18549,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 18549,
+      "endMs": 19774,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.77
+    },
+    {
+      "startMs": 19774,
+      "endMs": 20442,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 20442,
+      "endMs": 21448,
+      "symbol": "F#7sus4",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 21448,
+      "endMs": 21949,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 21949,
+      "endMs": 22559,
+      "symbol": "C#m",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 22559,
+      "endMs": 25239,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.63
+    },
+    {
+      "startMs": 25239,
+      "endMs": 27925,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 27925,
+      "endMs": 30240,
+      "symbol": "B",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 30600,
+      "endMs": 31271,
+      "symbol": "E",
+      "source": "audio",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 33284,
+      "endMs": 34624,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 34624,
+      "endMs": 35760,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 35760,
+      "endMs": 38510,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.73
+    },
+    {
+      "startMs": 38510,
+      "endMs": 40160,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 40160,
+      "endMs": 41327,
+      "symbol": "E",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 44011,
+      "endMs": 45355,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 45355,
+      "endMs": 46698,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 46698,
+      "endMs": 47760,
+      "symbol": "D",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 47760,
+      "endMs": 49323,
+      "symbol": "Bm7",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 49323,
+      "endMs": 50160,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 52060,
+      "endMs": 53402,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 53840,
+      "endMs": 57374,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 57374,
+      "endMs": 59600,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 59840,
+      "endMs": 62160,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.73
+    },
+    {
+      "startMs": 62793,
+      "endMs": 64136,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 65478,
+      "endMs": 66818,
+      "symbol": "D",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 66818,
+      "endMs": 68157,
+      "symbol": "D",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 68157,
+      "endMs": 69496,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 69840,
+      "endMs": 71081,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 71081,
+      "endMs": 72320,
+      "symbol": "B7",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 76203,
+      "endMs": 77540,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 83840,
+      "endMs": 85120,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 85120,
+      "endMs": 86625,
+      "symbol": "F#m7",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 86625,
+      "endMs": 86964,
+      "symbol": "Asus2/C#",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 86964,
+      "endMs": 87631,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 87631,
+      "endMs": 89120,
+      "symbol": "F#m7",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 89120,
+      "endMs": 89583,
+      "symbol": "Amadd9/C#",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 89583,
+      "endMs": 91808,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 91808,
+      "endMs": 92272,
+      "symbol": "Dadd9/A#",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 92272,
+      "endMs": 92998,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 92998,
+      "endMs": 93670,
+      "symbol": "E7sus2",
+      "source": "midi",
+      "confidence": 0.64
+    },
+    {
+      "startMs": 93670,
+      "endMs": 94337,
+      "symbol": "F#7sus4",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 94337,
+      "endMs": 94676,
+      "symbol": "Csus2/F#",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 94676,
+      "endMs": 97693,
+      "symbol": "A6",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 97693,
+      "endMs": 100000,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 103019,
+      "endMs": 104359,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 105760,
+      "endMs": 108369,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 108369,
+      "endMs": 111037,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 111037,
+      "endMs": 112080,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.64
+    },
+    {
+      "startMs": 112402,
+      "endMs": 113744,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 113744,
+      "endMs": 115087,
+      "symbol": "B",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 116160,
+      "endMs": 116769,
+      "symbol": "E5",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 116769,
+      "endMs": 117436,
+      "symbol": "F#7sus2",
+      "source": "midi",
+      "confidence": 0.64
+    },
+    {
+      "startMs": 117436,
+      "endMs": 118994,
+      "symbol": "Esus2/F#",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 118994,
+      "endMs": 121782,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.63
+    },
+    {
+      "startMs": 121782,
+      "endMs": 124466,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.62
+    },
+    {
+      "startMs": 124466,
+      "endMs": 127155,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.73
+    },
+    {
+      "startMs": 127155,
+      "endMs": 129729,
+      "symbol": "F#m7",
+      "source": "midi",
+      "confidence": 0.56
+    },
+    {
+      "startMs": 129729,
+      "endMs": 132527,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.67
+    },
+    {
+      "startMs": 132527,
+      "endMs": 135216,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.65
+    },
+    {
+      "startMs": 135216,
+      "endMs": 136561,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.58
+    },
+    {
+      "startMs": 136561,
+      "endMs": 137905,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 137905,
+      "endMs": 141440,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 143040,
+      "endMs": 144240,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.96
+    },
+    {
+      "startMs": 145760,
+      "endMs": 148671,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.96
+    },
+    {
+      "startMs": 148671,
+      "endMs": 152240,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 152708,
+      "endMs": 153760,
+      "symbol": "A",
+      "confidence": 0.74,
+      "source": "audio"
+    },
+    {
+      "startMs": 153760,
+      "endMs": 156586,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.65
+    },
+    {
+      "startMs": 156586,
+      "endMs": 158145,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 158145,
+      "endMs": 159500,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 159500,
+      "endMs": 164400,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 164560,
+      "endMs": 167120,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 167280,
+      "endMs": 168864,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 168864,
+      "endMs": 170214,
+      "symbol": "E5",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 170214,
+      "endMs": 171120,
+      "symbol": "Aadd9",
+      "source": "midi",
+      "confidence": 0.58
+    },
+    {
+      "startMs": 171120,
+      "endMs": 171520,
+      "symbol": "Esus2",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 171520,
+      "endMs": 171949,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 171949,
+      "endMs": 174122,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 174122,
+      "endMs": 177233,
+      "symbol": "A5",
+      "source": "audio",
+      "confidence": 0.7
+    }
+  ]
+}

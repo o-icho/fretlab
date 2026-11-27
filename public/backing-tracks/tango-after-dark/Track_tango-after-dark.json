@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 1,
+  "id": "tango-after-dark",
+  "title": "Tango After Dark",
+  "style": "Tango argentin",
+  "bpm": 117.7,
+  "key": "Dm",
+  "durationMs": 179560,
+  "chordCoverageEndMs": 178048,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "startMs": 115,
+      "endMs": 2558,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.73
+    },
+    {
+      "startMs": 2558,
+      "endMs": 6709,
+      "symbol": "Dm/A",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 6709,
+      "endMs": 8767,
+      "symbol": "D7",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 8767,
+      "endMs": 12840,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 12840,
+      "endMs": 15866,
+      "symbol": "A7/E",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 15866,
+      "endMs": 16887,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.94
+    },
+    {
+      "startMs": 16887,
+      "endMs": 18989,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 18989,
+      "endMs": 20320,
+      "symbol": "D7b9",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 20640,
+      "endMs": 21971,
+      "symbol": "D7b9",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 21971,
+      "endMs": 25015,
+      "symbol": "D7",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 25015,
+      "endMs": 29149,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 29149,
+      "endMs": 34233,
+      "symbol": "Bb5",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 34233,
+      "endMs": 34960,
+      "symbol": "G7sus2",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 34960,
+      "endMs": 37920,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 38960,
+      "endMs": 42474,
+      "symbol": "Dm/A",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 42474,
+      "endMs": 43385,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 43385,
+      "endMs": 46036,
+      "symbol": "A7b9",
+      "source": "midi",
+      "confidence": 0.62
+    },
+    {
+      "startMs": 46036,
+      "endMs": 51541,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 51541,
+      "endMs": 52800,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 52800,
+      "endMs": 53687,
+      "symbol": "Asus4",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 53687,
+      "endMs": 59702,
+      "symbol": "D7",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 59702,
+      "endMs": 63783,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 63783,
+      "endMs": 65851,
+      "symbol": "Bb7",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 65851,
+      "endMs": 67882,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 67882,
+      "endMs": 70409,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 70409,
+      "endMs": 71480,
+      "symbol": "D/C",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 71480,
+      "endMs": 72720,
+      "symbol": "D7b9",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 72720,
+      "endMs": 76019,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.62
+    },
+    {
+      "startMs": 76019,
+      "endMs": 76738,
+      "symbol": "D7sus4",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 76738,
+      "endMs": 80068,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 80068,
+      "endMs": 84133,
+      "symbol": "Cm",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 84133,
+      "endMs": 86176,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 86176,
+      "endMs": 88188,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.62
+    },
+    {
+      "startMs": 88188,
+      "endMs": 92276,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 92276,
+      "endMs": 96344,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.73
+    },
+    {
+      "startMs": 96344,
+      "endMs": 98381,
+      "symbol": "Ddim",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 98381,
+      "endMs": 100412,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 100412,
+      "endMs": 101680,
+      "symbol": "D5",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 104000,
+      "endMs": 105054,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 105054,
+      "endMs": 108538,
+      "symbol": "Dm/A",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 108538,
+      "endMs": 116673,
+      "symbol": "A7",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 116673,
+      "endMs": 118706,
+      "symbol": "Dm/A",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 118706,
+      "endMs": 124837,
+      "symbol": "D/A",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 124837,
+      "endMs": 128915,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 128915,
+      "endMs": 132989,
+      "symbol": "Bb7",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 132989,
+      "endMs": 137057,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 137057,
+      "endMs": 141151,
+      "symbol": "Dm/A",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 141151,
+      "endMs": 149313,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.6
+    },
+    {
+      "startMs": 149313,
+      "endMs": 153397,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 153397,
+      "endMs": 154482,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 154482,
+      "endMs": 155503,
+      "symbol": "D/A",
+      "source": "midi",
+      "confidence": 0.43
+    },
+    {
+      "startMs": 155503,
+      "endMs": 157491,
+      "symbol": "D",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 157491,
+      "endMs": 161118,
+      "symbol": "Gm",
+      "source": "midi",
+      "confidence": 0.59
+    },
+    {
+      "startMs": 161118,
+      "endMs": 162091,
+      "symbol": "Bb",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 162091,
+      "endMs": 163117,
+      "symbol": "Bb7",
+      "source": "midi",
+      "confidence": 0.96
+    },
+    {
+      "startMs": 163117,
+      "endMs": 163627,
+      "symbol": "Bb5",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 163627,
+      "endMs": 164138,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.66
+    },
+    {
+      "startMs": 164138,
+      "endMs": 165159,
+      "symbol": "A7#5",
+      "source": "midi",
+      "confidence": 0.7
+    },
+    {
+      "startMs": 165159,
+      "endMs": 165669,
+      "symbol": "Asus4",
+      "source": "midi",
+      "confidence": 0.58
+    },
+    {
+      "startMs": 165669,
+      "endMs": 168640,
+      "symbol": "D5",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 168640,
+      "endMs": 169774,
+      "symbol": "Amadd9",
+      "source": "midi",
+      "confidence": 0.75
+    },
+    {
+      "startMs": 169774,
+      "endMs": 173378,
+      "symbol": "A5",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 173378,
+      "endMs": 173894,
+      "symbol": "Dsus2",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 173894,
+      "endMs": 175280,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.77
+    },
+    {
+      "startMs": 175920,
+      "endMs": 176450,
+      "symbol": "D5/A",
+      "source": "midi",
+      "confidence": 0.61
+    },
+    {
+      "startMs": 176450,
+      "endMs": 176960,
+      "symbol": "A",
+      "source": "midi",
+      "confidence": 0.94
+    },
+    {
+      "startMs": 176960,
+      "endMs": 178048,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.96
+    }
+  ]
+}

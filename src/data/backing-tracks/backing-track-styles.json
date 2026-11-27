@@ -1,15 +1,20 @@
 [
-  { "id": "blues", "label": "Blues" },
-  { "id": "rock", "label": "Rock", "substyles": ["Rock progressif", "Ballade rock", "Latin rock"] },
-  { "id": "hard-rock", "label": "Hard Rock", "substyles": ["Hard rock des années 70"] },
+  { "id": "blues", "label": "Blues", "substyles": ["Blues texan", "Swamp blues"] },
+  { "id": "rock", "label": "Rock", "substyles": ["Rock progressif", "Ballade rock", "Latin rock", "Garage rock", "Rockabilly", "Rock psychédélique", "Heartland rock"] },
+  { "id": "hard-rock", "label": "Hard Rock", "substyles": ["Hard rock des années 70", "Hard rock des années 80"] },
   { "id": "funk", "label": "Funk", "substyles": ["Funk de La Nouvelle-Orléans"] },
-  { "id": "pop", "label": "Pop" },
-  { "id": "country", "label": "Country" },
-  { "id": "soul", "label": "Soul", "substyles": ["Soul de Memphis en 6/8", "Néo-soul"] },
+  { "id": "pop", "label": "Pop", "substyles": ["Jangle pop britannique"] },
+  { "id": "country", "label": "Country", "substyles": ["Valse country"] },
+  { "id": "soul", "label": "Soul", "substyles": ["Soul de Memphis en 6/8", "Néo-soul", "Soul gospel"] },
   { "id": "bossa-nova", "label": "Bossa nova" },
   { "id": "reggae", "label": "Reggae", "substyles": ["Reggae roots"] },
   { "id": "afrobeat", "label": "Afrobeat" },
   { "id": "jazz-modal", "label": "Jazz modal" },
   { "id": "synthwave", "label": "Synthwave" },
-  { "id": "trip-hop", "label": "Trip-hop", "substyles": ["Trip-hop cinématique"] }
+  { "id": "trip-hop", "label": "Trip-hop", "substyles": ["Trip-hop cinématique"] },
+  { "id": "musiques-latines", "label": "Musiques latines", "substyles": ["Cumbia", "Boléro cubain", "Tango argentin"] },
+  { "id": "folk-des-balkans", "label": "Folk des Balkans" },
+  { "id": "swing", "label": "Swing", "substyles": ["Swing West Coast"] },
+  { "id": "ska", "label": "Ska", "substyles": ["Ska jamaïcain"] },
+  { "id": "second-line", "label": "Second line", "substyles": ["Second line de La Nouvelle-Orléans"] }
 ]

@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 1,
+  "id": "balkan-seven-dance",
+  "title": "Balkan Seven Dance",
+  "style": "Folk des Balkans",
+  "bpm": 124.6,
+  "key": "Am",
+  "durationMs": 179960,
+  "chordCoverageEndMs": 179960,
+  "exampleOffsetMs": 0,
+  "chordTimeline": [
+    {
+      "startMs": 430,
+      "endMs": 2388,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 2388,
+      "endMs": 3373,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.72
+    },
+    {
+      "startMs": 3373,
+      "endMs": 4346,
+      "symbol": "C",
+      "source": "midi",
+      "confidence": 0.82
+    },
+    {
+      "startMs": 4346,
+      "endMs": 6267,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 6267,
+      "endMs": 8200,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 8200,
+      "endMs": 10127,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 10127,
+      "endMs": 12054,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 12054,
+      "endMs": 12929,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 12929,
+      "endMs": 14007,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 14007,
+      "endMs": 16939,
+      "symbol": "E5",
+      "source": "midi",
+      "confidence": 0.62
+    },
+    {
+      "startMs": 16939,
+      "endMs": 17429,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.65
+    },
+    {
+      "startMs": 17429,
+      "endMs": 17918,
+      "symbol": "E7sus4",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 17918,
+      "endMs": 19871,
+      "symbol": "Am/E",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 19871,
+      "endMs": 21803,
+      "symbol": "G",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 21803,
+      "endMs": 24715,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 24715,
+      "endMs": 25679,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 25679,
+      "endMs": 26689,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 26689,
+      "endMs": 27371,
+      "symbol": "F/A",
+      "source": "midi",
+      "confidence": 0.55
+    },
+    {
+      "startMs": 27371,
+      "endMs": 29548,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.69
+    },
+    {
+      "startMs": 29548,
+      "endMs": 30518,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 30518,
+      "endMs": 31033,
+      "symbol": "E/B",
+      "source": "midi",
+      "confidence": 0.91
+    },
+    {
+      "startMs": 31033,
+      "endMs": 33412,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 33412,
+      "endMs": 37287,
+      "symbol": "Am/E",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 37287,
+      "endMs": 41156,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 41156,
+      "endMs": 42127,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 42127,
+      "endMs": 43088,
+      "symbol": "F/C",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 43088,
+      "endMs": 44304,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.76
+    },
+    {
+      "startMs": 44304,
+      "endMs": 44786,
+      "symbol": "Em7",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 44786,
+      "endMs": 48773,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 48773,
+      "endMs": 52757,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 52757,
+      "endMs": 53721,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 53721,
+      "endMs": 54205,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 54205,
+      "endMs": 55659,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 55659,
+      "endMs": 56627,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 56627,
+      "endMs": 58440,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 58440,
+      "endMs": 59648,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 59648,
+      "endMs": 60497,
+      "symbol": "Dm/A",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 60497,
+      "endMs": 61510,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 61510,
+      "endMs": 61989,
+      "symbol": "E/B",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 61989,
+      "endMs": 64367,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.96
+    },
+    {
+      "startMs": 64367,
+      "endMs": 68227,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 68227,
+      "endMs": 69190,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 69190,
+      "endMs": 69675,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 69675,
+      "endMs": 71122,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 71122,
+      "endMs": 72086,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.79
+    },
+    {
+      "startMs": 72086,
+      "endMs": 74018,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 74018,
+      "endMs": 75945,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 75945,
+      "endMs": 79804,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.95
+    },
+    {
+      "startMs": 79804,
+      "endMs": 80779,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 80779,
+      "endMs": 81736,
+      "symbol": "Am/E",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 81736,
+      "endMs": 83663,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.84
+    },
+    {
+      "startMs": 83663,
+      "endMs": 84627,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 84627,
+      "endMs": 85111,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 85111,
+      "endMs": 87517,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 87517,
+      "endMs": 91371,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 91371,
+      "endMs": 95225,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 95225,
+      "endMs": 99121,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 99121,
+      "endMs": 102922,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 102922,
+      "endMs": 104844,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 104844,
+      "endMs": 106771,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.59
+    },
+    {
+      "startMs": 106771,
+      "endMs": 110619,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.95
+    },
+    {
+      "startMs": 110619,
+      "endMs": 114473,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 114473,
+      "endMs": 118317,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 118317,
+      "endMs": 120238,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.93
+    },
+    {
+      "startMs": 120238,
+      "endMs": 122160,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.71
+    },
+    {
+      "startMs": 122160,
+      "endMs": 125921,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 125921,
+      "endMs": 129837,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 129837,
+      "endMs": 133675,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.85
+    },
+    {
+      "startMs": 133675,
+      "endMs": 135591,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.93
+    },
+    {
+      "startMs": 135591,
+      "endMs": 137508,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.87
+    },
+    {
+      "startMs": 137508,
+      "endMs": 141341,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.86
+    },
+    {
+      "startMs": 141341,
+      "endMs": 145169,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.89
+    },
+    {
+      "startMs": 145169,
+      "endMs": 148997,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.63
+    },
+    {
+      "startMs": 148997,
+      "endMs": 150908,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.92
+    },
+    {
+      "startMs": 150908,
+      "endMs": 152824,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 152824,
+      "endMs": 156642,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 156642,
+      "endMs": 157613,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.88
+    },
+    {
+      "startMs": 157613,
+      "endMs": 158571,
+      "symbol": "Am/E",
+      "source": "midi",
+      "confidence": 0.81
+    },
+    {
+      "startMs": 158571,
+      "endMs": 160464,
+      "symbol": "Am",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 160464,
+      "endMs": 161423,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 161423,
+      "endMs": 162179,
+      "symbol": "Em/B",
+      "source": "midi",
+      "confidence": 0.8
+    },
+    {
+      "startMs": 162179,
+      "endMs": 164282,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 164282,
+      "endMs": 166193,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.9
+    },
+    {
+      "startMs": 166193,
+      "endMs": 168105,
+      "symbol": "Dm",
+      "source": "midi",
+      "confidence": 0.78
+    },
+    {
+      "startMs": 168105,
+      "endMs": 171917,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.83
+    },
+    {
+      "startMs": 171917,
+      "endMs": 172870,
+      "symbol": "Esus4/A",
+      "source": "midi",
+      "confidence": 0.57
+    },
+    {
+      "startMs": 172870,
+      "endMs": 173823,
+      "symbol": "G6",
+      "source": "midi",
+      "confidence": 0.65
+    },
+    {
+      "startMs": 173823,
+      "endMs": 174776,
+      "symbol": "F",
+      "source": "midi",
+      "confidence": 0.74
+    },
+    {
+      "startMs": 174776,
+      "endMs": 178800,
+      "symbol": "Em",
+      "source": "midi",
+      "confidence": 0.68
+    },
+    {
+      "startMs": 178800,
+      "endMs": 179960,
+      "symbol": "E",
+      "source": "midi",
+      "confidence": 0.82
+    }
+  ]
+}
